@@ -4,7 +4,7 @@ import {
 } from "@medusajs/framework/http"
 import {
     createCarModelWorkflow,
-} from "../../workflows/create-carmodel"
+} from "../../../workflows/create-carmodel"
 import { z } from "zod"
 import { PostAdminCreateCarModel } from "./validators"
 

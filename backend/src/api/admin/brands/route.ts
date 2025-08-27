@@ -4,7 +4,7 @@ import {
 } from "@medusajs/framework/http"
 import { 
   createBrandWorkflow,
-} from "../../workflows/create-brand"
+} from "../../../workflows/create-brand"
 
 import { z } from "zod"
 import { PostAdminCreateBrand } from "./validators"

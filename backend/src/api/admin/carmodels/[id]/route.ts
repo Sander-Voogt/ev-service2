@@ -1,6 +1,6 @@
 import { container, MedusaRequest, MedusaResponse } from "@medusajs/framework"
-import CarModelModuleService from "../../../modules/carmodel/service"
-import { CARMODEL_MODULE } from "../../../modules/carmodel/index"
+import CarModelModuleService from "../../../../modules/carmodel/service"
+import { CARMODEL_MODULE } from "../../../../modules/carmodel/index"
 
 export const GET = async (
   req: MedusaRequest,

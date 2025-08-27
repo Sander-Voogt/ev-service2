@@ -3,11 +3,11 @@ import {
   validateAndTransformBody,
   validateAndTransformQuery,
 } from "@medusajs/framework/http"
-import { PostAdminCreateCarBrand } from "./../admin/carbrands/validators"
-import { PostAdminCreateCarModel } from "./../admin/carmodels/validators"
+import { PostAdminCreateCarBrand } from "./admin/carbrands/validators"
+import { PostAdminCreateCarModel } from "./admin/carmodels/validators"
 import { z } from "zod"
 import { createFindParams } from "@medusajs/medusa/api/utils/validators"
-import { PostAdminCreateBrand } from "./../admin/brands/validators"
+import { PostAdminCreateBrand } from "./admin/brands/validators"
 export const GetBrandsSchema: any = createFindParams()
 
 
