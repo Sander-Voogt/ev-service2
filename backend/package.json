@@ -21,6 +21,8 @@
     "email:dev": "email dev --dir=./src/modules/email-notifications/templates --port=3002"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^44.3.0",
+    "@ckeditor/ckeditor5-react": "^11.0.0",
     "@medusajs/admin-sdk": "2.8.8",
     "@medusajs/cli": "2.8.8",
     "@medusajs/dashboard": "2.8.8",
@@ -40,6 +42,7 @@
     "@rokmohar/medusa-plugin-meilisearch": "1.2.3",
     "@tanstack/react-query": "^5.85.5",
     "awilix": "^8.0.1",
+    "ckeditor5": "^46.0.2",
     "medusajs-launch-utils": "^0.0.17",
     "minio": "^8.0.3",
     "pg": "^8.13.1",
