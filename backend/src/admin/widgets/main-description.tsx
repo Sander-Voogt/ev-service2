@@ -1,4 +1,4 @@
-import { DetailWidgetProps, AdminProduct } from "@medusajs/framework/types"
+import { DetailWidgetProps, AdminProduct } from "@medusajs/framework/types";
 import {
   Button,
   clx,
@@ -8,27 +8,28 @@ import {
   Heading,
   Input,
   Text,
-} from "@medusajs/ui"
-import { useQuery, useMutation } from "@tanstack/react-query"
-import { sdk } from "../lib/sdk"
-import { useEffect, useState } from "react"
-import Faq from "../routes/components/faq"
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
-import { defineWidgetConfig } from "@medusajs/admin-sdk"
-import MyEditor from "../components/CKEditor"
+} from "@medusajs/ui";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { sdk } from "../lib/sdk";
+import { useEffect, useState } from "react";
+import Faq from "../routes/components/faq";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { defineWidgetConfig } from "@medusajs/admin-sdk";
+import MyEditor from "../components/CKEditor";
+import TiptapEditor from "../components/CKEditor";
 
 type AdminProductBrand = AdminProduct & {
   brand?: {
-    id: string
-    name: string
-  }
-}
+    id: string;
+    name: string;
+  };
+};
 
 type CustomFields = {
-  custom_name: string
-  faq: string,
-  maindescription: string
-}
+  custom_name: string;
+  faq: string;
+  maindescription: string;
+};
 
 const MainDescription = ({
   data: product,
@@ -39,37 +40,33 @@ const MainDescription = ({
         fields: "+custom.*",
       }),
     queryKey: [["product", product.id]],
-  })
-
-
+  });
 
   const updateProductMutation = useMutation({
     mutationFn: (data: CustomFields) =>
-      sdk.admin.product.update(product.id, { additional_data: data }as any),
+      sdk.admin.product.update(product.id, { additional_data: data } as any),
     onSuccess: () => {
-      console.log("✅ Product updated")
+      console.log("✅ Product updated");
       // eventueel: refetch query of laat een toast zien
     },
     onError: (err) => {
-      console.error("❌ Failed to update product:", err)
+      console.error("❌ Failed to update product:", err);
     },
-  })
+  });
 
   // const submitForm = () => {
   //   updateProductMutation.mutate(content)
   // }
 
-  const form = useForm<CustomFields>(
-    {
-      //@ts-ignore
-      defaultValues: queryResult?.product?.custom,
-      //@ts-ignore
-      values: queryResult?.product?.custom,
-    }
-  )
+  const form = useForm<CustomFields>({
+    //@ts-ignore
+    defaultValues: queryResult?.product?.custom,
+    //@ts-ignore
+    values: queryResult?.product?.custom,
+  });
 
-
-  const onSubmit: SubmitHandler<CustomFields> = (data) => updateProductMutation.mutate(data)
+  const onSubmit: SubmitHandler<CustomFields> = (data) =>
+    updateProductMutation.mutate(data);
 
   return (
     <Container className="divide-y p-0">
@@ -83,7 +80,6 @@ const MainDescription = ({
           `text-ui-fg-subtle grid grid-cols-2 items-center px-6 py-4`
         )}
       >
-
         <FocusModal>
           <FocusModal.Trigger asChild>
             <Button>Edit Variant</Button>
@@ -97,19 +93,14 @@ const MainDescription = ({
                 <div className="flex flex-col gap-y-1">
                   <FormProvider {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
-                      <MyEditor
+                      <TiptapEditor
                         value={form.watch("maindescription") || ""}
-                        onChange={(_, editor) => {
-                          const data = editor.getData()
-                          form.setValue("maindescription", data)
+                        onChange={(e) => {
+                          form.setValue("maindescription", e);
                         }}
                       />
 
-                      <Button type="submit"
-                      >
-                        Save
-                      </Button>
-
+                      <Button type="submit">Save</Button>
                     </form>
                   </FormProvider>
                 </div>
@@ -122,11 +113,11 @@ const MainDescription = ({
         </FocusModal>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 export const config = defineWidgetConfig({
   zone: "product.details.side.before",
-})
+});
 
-export default MainDescription
+export default MainDescription;

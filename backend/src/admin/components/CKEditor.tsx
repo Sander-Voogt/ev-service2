@@ -1,62 +1,117 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { sdk } from '../lib/sdk'; // jouw MedusaJS SDK import
-import type { EventInfo, Editor, EditorConfig, EditorWatchdog, ContextWatchdog, WatchdogConfig } from 'ckeditor5';
+"use client"
 
-// Custom upload adapter
-class MedusaUploadAdapter {
-  
-  constructor(loader) {
-    this.loader = loader;
-  }
+import React, { useCallback } from "react"
+import { EditorContent, useEditor } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+import Image from "@tiptap/extension-image"
+import {Table } from "@tiptap/extension-table"
+import TableRow from "@tiptap/extension-table-row"
+import TableCell from "@tiptap/extension-table-cell"
+import TableHeader from "@tiptap/extension-table-header"
+import { sdk } from "../lib/sdk" // jouw Medusa SDK
 
-  upload() {
-    return this.loader.file.then(async (file) => {
+type Props = {
+  value?: string
+  onChange?: (html: string) => void
+}
+
+export default function TiptapEditor({ value = "", onChange }: Props) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Image,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+    ],
+    content: value,
+    onUpdate: ({ editor }) => {
+      onChange?.(editor.getHTML())
+    },
+  })
+
+  // Foto uploaden
+  const handleImageUpload = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0]
+      if (!file || !editor) return
+
       try {
-        const res = await sdk.admin.upload.create({ files: [file] });
-
-        if (res.files && res.files.length > 0) {
-          return { default: res.files[0].url };
-        } else {
-          throw new Error('No file URL returned');
+        const res = await sdk.admin.upload.create({ files: [file] })
+        if (res.files && res.files[0].url) {
+          editor.chain().focus().setImage({ src: res.files[0].url }).run()
         }
       } catch (err) {
-        console.error('Upload error:', err);
-        throw err;
+        console.error("Upload failed", err)
       }
-    });
-  }
+    },
+    [editor]
+  )
 
-  abort() {
-    // Optioneel: implement abort logica
-  }
-}
+  if (!editor) return null
 
-// Plugin om CKEditor upload adapter te registreren
-function MedusaUploadPlugin(editor) {
-  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-    return new MedusaUploadAdapter(loader);
-  };
-}
-
-export default function MyEditor({ value, onChange }: { value: string, onChange: ((event: EventInfo<string, unknown>, editor: Editor) => void) }) {
   return (
-    <div>
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          toolbar: [
-            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList',
-            '|', 'insertTable', 'imageUpload', 'blockQuote', 'undo', 'redo'
-          ],
-          table: {
-            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
-          },
-          extraPlugins: [MedusaUploadPlugin] // upload adapter registreren
-        }}
-        data={value}
-        onChange={onChange}
-      />
+    <div className="border rounded-lg p-2 space-y-2">
+      {/* Toolbar */}
+      <div className="flex gap-2 mb-2">
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className={editor.isActive("bold") ? "font-bold" : ""}
+        >
+          Bold
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          className={editor.isActive("italic") ? "italic" : ""}
+        >
+          Italic
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setParagraph().run()}
+        >
+          P
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        >
+          H2
+        </button>
+
+
+
+        {/* Tabellen */}
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().insertTable({ rows: 3, cols: 3 }).run()
+          }
+        >
+          Tabel
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addRowAfter().run()}
+        >
+          Rij +
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addColumnAfter().run()}
+        >
+          Kolom +
+        </button>
+      </div>
+
+      {/* Editor */}
+      
+      <EditorContent editor={editor} className="prose max-w-none" />
     </div>
-  );
+  )
 }
