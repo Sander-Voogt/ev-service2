@@ -51,6 +51,18 @@ const medusaConfig = {
   },
   modules: [
     {
+      resolve: "./src/modules/brand",
+    },
+    {
+      resolve: "./src/modules/carbrand",
+    },
+    {
+      resolve: "./src/modules/carmodel",
+    },
+    {
+      resolve: "./src/modules/hello",
+    },
+    {
       key: Modules.FILE,
       resolve: '@medusajs/file',
       options: {
