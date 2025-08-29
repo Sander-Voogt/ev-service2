@@ -84,6 +84,9 @@ export const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || process.en
 export const STRIPE_API_KEY = process.env.STRIPE_API_KEY;
 export const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
+export const MOLLIE_API_KEY = process.env.MOLLIE_API_KEY;
+
+
 /**
  * (optional) Meilisearch configuration
  */
