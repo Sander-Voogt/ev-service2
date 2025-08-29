@@ -129,19 +129,19 @@ const medusaConfig = {
         ]
       }
     }] : []),
-    ...(STRIPE_API_KEY && STRIPE_WEBHOOK_SECRET ? [{
+    ...(MOLLIE_API_KEY ? [{
       key: Modules.PAYMENT,
       resolve: '@medusajs/payment',
       options: {
         providers: [
-          {
-            resolve: '@medusajs/payment-stripe',
-            id: 'stripe',
-            options: {
-              apiKey: STRIPE_API_KEY,
-              webhookSecret: STRIPE_WEBHOOK_SECRET,
-            },
-          },
+          // {
+          //   resolve: '@medusajs/payment-stripe',
+          //   id: 'stripe',
+          //   options: {
+          //     apiKey: STRIPE_API_KEY,
+          //     webhookSecret: STRIPE_WEBHOOK_SECRET,
+          //   },
+          // },
            {
             resolve: "@variablevic/mollie-payments-medusa/providers/mollie",
             id: "mollie",
