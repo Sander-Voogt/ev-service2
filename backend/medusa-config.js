@@ -142,6 +142,15 @@ const medusaConfig = {
               webhookSecret: STRIPE_WEBHOOK_SECRET,
             },
           },
+           {
+            resolve: "@variablevic/mollie-payments-medusa/providers/mollie",
+            id: "mollie",
+            options: {
+              apiKey: process.env.MOLLIE_API_KEY,
+              redirectUrl: process.env.MOLLIE_REDIRECT_URL,
+              medusaUrl: process.env.MEDUSA_URL,
+            },
+          },
         ],
       },
     }] : [])

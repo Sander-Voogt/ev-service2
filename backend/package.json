@@ -48,6 +48,7 @@
     "@tiptap/extension-table-row": "^3.3.0",
     "@tiptap/react": "^3.3.0",
     "@tiptap/starter-kit": "^3.3.0",
+    "@variablevic/mollie-payments-medusa": "^0.0.13",
     "awilix": "^8.0.1",
     "ckeditor5": "^46.0.2",
     "medusajs-launch-utils": "^0.0.17",
