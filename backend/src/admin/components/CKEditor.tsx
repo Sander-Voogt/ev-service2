@@ -4,11 +4,12 @@ import React, { useCallback } from "react"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import Image from "@tiptap/extension-image"
-import {Table } from "@tiptap/extension-table"
+import { Table } from "@tiptap/extension-table"
 import TableRow from "@tiptap/extension-table-row"
 import TableCell from "@tiptap/extension-table-cell"
 import TableHeader from "@tiptap/extension-table-header"
 import { sdk } from "../lib/sdk" // jouw Medusa SDK
+import "./style.css";
 
 type Props = {
   value?: string
@@ -84,8 +85,6 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
           H2
         </button>
 
-
-
         {/* Tabellen */}
         <button
           type="button"
@@ -107,11 +106,21 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
         >
           Kolom +
         </button>
+
+        {/* Upload button */}
+        <label className="cursor-pointer bg-gray-200 px-2 py-1 rounded">
+          Upload Image
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageUpload}
+          />
+        </label>
       </div>
 
       {/* Editor */}
-      
-      <EditorContent editor={editor} className="prose max-w-none" />
+      <EditorContent editor={editor} className="my-custom-editor" />
     </div>
   )
 }
