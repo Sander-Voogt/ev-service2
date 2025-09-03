@@ -7,6 +7,7 @@ import {
   Drawer,
   Heading,
   Input,
+  Label,
   Text,
 } from "@medusajs/ui"
 import { useQuery, useMutation } from "@tanstack/react-query"
@@ -123,8 +124,17 @@ const ProductBrandWidget = ({
               <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
 
-
+                  <Label>Custom</Label>
                   <Input
+                    placeholder="Custom name"
+                    id="custom-name"
+                    value={form.watch('custom_name')}
+                    onChange={(e) =>
+                      form.setValue('custom_name', e.target.value)
+                    }
+                  />
+                  <Label>Video</Label>
+                                    <Input
                     placeholder="Custom name"
                     id="custom-name"
                     value={form.watch('custom_name')}
