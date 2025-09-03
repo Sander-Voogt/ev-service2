@@ -49,6 +49,25 @@ const Payment = ({
   const paymentReady =
     (activeSession && cart?.shipping_methods.length !== 0) || paidByGiftcard
 
+    const businesscustomers = process.env.BUSINESSCUSTOMERGROUP || ""
+
+  console.log(availablePaymentMethods)
+  const businessGroupId = businesscustomers
+
+  const newMethods = availablePaymentMethods.filter(item => {
+    const isBusinessCustomer = cart?.customer?.groups?.some(
+      group => group.id === businessGroupId
+    )
+
+    // Als het betaalmiddel 'pp_system_default' is, check dan of de klant business is
+    if (item.id === 'pp_system_default') {
+      return isBusinessCustomer
+    }
+
+    // Andere betaalmethoden altijd behouden
+    return true
+  })
+
   const useOptions: StripeCardElementOptions = useMemo(() => {
     return {
       style: {
@@ -143,13 +162,13 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
-          {!paidByGiftcard && availablePaymentMethods?.length && (
+          {!paidByGiftcard && newMethods?.length && (
             <>
               <RadioGroup
                 value={selectedPaymentMethod}
                 onChange={(value: string) => setSelectedPaymentMethod(value)}
               >
-                {availablePaymentMethods
+                {newMethods
                   .sort((a, b) => {
                     return a.provider_id > b.provider_id ? 1 : -1
                   })

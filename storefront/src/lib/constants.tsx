@@ -18,6 +18,10 @@ export const paymentInfoMap: Record<
     title: "iDeal",
     icon: <Ideal />,
   },
+    "pp_mollie-ideal_mollie": {
+    title: "iDeal",
+    icon: <Ideal />,
+  },
   "pp_stripe-bancontact_stripe": {
     title: "Bancontact",
     icon: <Bancontact />,
@@ -27,7 +31,7 @@ export const paymentInfoMap: Record<
     icon: <PayPal />,
   },
   pp_system_default: {
-    title: "Manual Payment",
+    title: "Betalen op Factuur",
     icon: <CreditCard />,
   },
   // Add more payment providers here
