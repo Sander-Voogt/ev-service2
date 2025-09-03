@@ -10,7 +10,7 @@ export default async function CarIndexPage({ searchParams }) {
     <ul>
       {data.brands.map((post) => (
         <li key={post.name}>
-          <a href={`/car/${post.name}`}>{post.name}</a>
+          <a href={`/auto/${post.name}`}>{post.name}</a>
         </li>
       ))}
     </ul>
