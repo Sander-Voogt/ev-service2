@@ -1,35 +1,135 @@
-import { Github } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+"use client";
+import { Button } from "@medusajs/ui"
+import { useState, useEffect } from "react"
+
+const carMakes = ["Abarth", "Audi", "BMW", "Tesla"] as const;
+type CarMake = typeof carMakes[number];
+const carModels: Record<CarMake, string[]> = {
+  Abarth: ["500e Hatchback", "595", "695"],
+  Audi: ["e-tron", "Q4", "A3"],
+  BMW: ["i3", "i4", "iX"],
+  Tesla: ["Model S", "Model 3", "Model X", "Model Y"],
+};
 
 const Hero = () => {
+  const [selectedMake, setSelectedMake] = useState<CarMake>(carMakes[0]);
+  const [selectedModel, setSelectedModel] = useState<string>(carModels[carMakes[0]][0]);
+
+  const carouselImages = [
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80",
+    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80",
+    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1500&q=80",
+    "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1500&q=80",
+  ];
+
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span>
-          <Heading
-            level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
-          >
-            Well done! You have successfully deployed your Medusa 2.0 store on Railway!
-          </Heading>
-          <Heading
-            level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
-          >
-            Need help customizing your store?
-          </Heading>
-        </span>
-        <a
-          href="https://funkyton.com/medusajs-2-0-is-finally-here/"
-          target="_blank"
-        >
-          <h1 style={{ textDecoration: "underline" }}>
-            Visit the tutorial
-          </h1>
-        </a>
+    <div className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
+  {/* Background image */}
+  <div
+    className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-700"
+    style={{
+      backgroundImage: `url(${carouselImages[currentImage]})`,
+    }}
+  />
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-green-900/70 via-black/70 to-green-900/70 z-0" />
+
+  {/* Content wrapper */}
+  <div className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-screen-xl px-6">
+    
+    {/* Left: Graphic */}
+    <div className="hidden md:flex flex-col items-center justify-center mr-12">
+      <div className="w-44 h-44 rounded-full bg-green-100 flex items-center justify-center shadow-md">
+        <div className="w-28 h-28 rounded-full bg-green-500 flex items-center justify-center">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="8" y="13" width="25" height="15" rx="4" fill="#E6FCE5" stroke="#22C55E" strokeWidth="2"/>
+            <rect x="34" y="18" width="2.5" height="5" rx="1.25" fill="#22C55E"/>
+            <path d="M20 16l-3.75 6.25h2.5v3.75l3.75-6.25h-2.5V16z" fill="#2DD4BF"/>
+          </svg>
+        </div>
       </div>
     </div>
-  )
-}
 
-export default Hero
+    {/* Center: Form */}
+    <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-4 min-w-[320px] max-w-[360px] border border-green-100">
+      <h2 className="text-xl font-semibold text-green-900 mb-2 text-center">
+        Find the right product for your car
+      </h2>
+      <div className="relative">
+        <select
+          className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
+          value={selectedMake}
+          onChange={e => {
+            const make = e.target.value as CarMake
+            setSelectedMake(make)
+            setSelectedModel(carModels[make][0])
+          }}
+        >
+          {carMakes.map(make => (
+            <option key={make} value={make}>
+              {make}
+            </option>
+          ))}
+        </select>
+        {/* Custom dropdown icon */}
+        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
+          </svg>
+        </span>
+      </div>
+
+      <div className="relative mt-3">
+        <select
+          className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
+          value={selectedModel}
+          onChange={e => setSelectedModel(e.target.value)}
+        >
+          {carModels[selectedMake].map((model: string) => (
+            <option key={model} value={model}>
+              {model}
+            </option>
+          ))}
+        </select>
+        {/* Custom dropdown icon */}
+        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
+          </svg>
+        </span>
+      </div>
+
+      <Button
+        className="w-full bg-green-600 text-white font-semibold rounded-lg py-2 hover:bg-green-700 transition-colors"
+        variant="secondary"
+      >
+        SHOW PRODUCTS
+      </Button>
+    </div>
+
+    {/* Right: Headline */}
+    <div className="flex flex-col items-start justify-center mt-10 md:mt-0 md:ml-12">
+      <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight drop-shadow">
+        Laadpalen
+      </h1>
+      <p className="text-green-100 text-lg max-w-md">
+        Reliable charging solutions tailored to your vehicle brand and model.
+      </p>
+    </div>
+  </div>
+</div>
+
+  );
+};
+
+export default Hero;

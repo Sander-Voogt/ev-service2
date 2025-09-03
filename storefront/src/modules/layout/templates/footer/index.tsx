@@ -1,155 +1,201 @@
-import { getCategoriesList } from "@lib/data/categories"
-import { getCollectionsList } from "@lib/data/collections"
-import { Text, clx } from "@medusajs/ui"
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
+import {
+  IconPhone,
+  IconMail,
+  Logo,
+  navLink,
+} from "@modules/common/components/reusable-nav-elements";
 
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
+const paymentIcons = [
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png",
+    alt: "Mastercard",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg",
+    alt: "PayPal",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/ad/IDEAL_%28Bezahlsystem%29_logo.svg",
+    alt: "iDEAL Logo",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bancontact_logo.svg",
+    alt: "Bancontact Logo",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Single_Euro_Payments_Area_logo.svg",
+    alt: "SEPA Logo",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png",
+    alt: "Visa",
+  },
+];
 
 export default async function Footer() {
-  const { collections } = await getCollectionsList(0, 6)
-  const { product_categories } = await getCategoriesList(0, 6)
+  // const { collections } = await (
+  //   await import("@lib/data/collections")
+  // ).listCollections({ fields: "*products" });
+  // const productCategories = await (
+  //   await import("@lib/data/categories")
+  // ).listCategories();
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Medusa Store
-            </LocalizedClientLink>
+    <footer className="w-full bg-white text-green-900 border-t border-green-100 mt-20">
+      <div className="max-w-screen-xl mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-green-100">
+          {/* Company Info / Logo */}
+          <div className="flex flex-col items-start gap-4 pr-8">
+            <Logo />
+            <p className="text-sm text-green-700 mt-2">
+              Your partner in sustainable e-mobility. We offer a comprehensive
+              range of charging solutions and expert advice for your electric
+              vehicle.
+            </p>
+            <div className="flex flex-col gap-2 mt-4">
+              <a
+                href="tel:0851304170"
+                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+              >
+                <IconPhone />
+                <span>085 130 4170</span>
+              </a>
+              <a
+                href="mailto:info@evservice.com"
+                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+              >
+                <IconMail />
+                <span>info@evservice.com</span>
+              </a>
+            </div>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {product_categories && product_categories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
-                >
-                  {product_categories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
 
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
+          {/* Customer Service */}
+          <div>
+            <span className="font-bold text-lg mb-4 block">Customer service</span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <LocalizedClientLink href="#about" className={navLink}>
+                  About EV Service
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#faq" className={navLink}>
+                  Frequently Asked Questions
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#buyback" className={navLink}>
+                  Buyback guarantee
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#returns" className={navLink}>
+                  Returns
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#blog" className={navLink}>
+                  Blog
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#contact" className={navLink}>
+                  Contact
+                </LocalizedClientLink>
+              </li>
+            </ul>
+          </div>
 
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
+          {/* Electric Driving */}
+          <div>
+            <span className="font-bold text-lg mb-4 block">Electric Driving</span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <LocalizedClientLink href="#cable-choice" className={navLink}>
+                  Which charging cable should I choose?
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#installation" className={navLink}>
+                  Charging station including installation
+                </LocalizedClientLink>
+              </li>
+              {/* Add other relevant links here */}
+            </ul>
+          </div>
+
+          {/* My Account */}
+          <div>
+            <span className="font-bold text-lg mb-4 block">My Account</span>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <LocalizedClientLink href="#account" className={navLink}>
+                  My account
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#orders" className={navLink}>
+                  Orders
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#addresses" className={navLink}>
+                  Addresses
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink href="#cart" className={navLink}>
+                  Shopping cart
+                </LocalizedClientLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom section with social media and payment icons */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8">
+          {/* Social Media */}
+          <div className="flex items-center gap-4 text-sm text-green-700">
+            <a
+              href="#facebook"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 transition-colors"
+            >
+              f
+            </a>
+            <a
+              href="#linkedin"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 transition-colors"
+            >
+              in
+            </a>
+          </div>
+
+          {/* Payment Icons */}
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {paymentIcons.map((icon) => (
+              <img key={icon.alt} src={icon.src} alt={icon.alt} className="h-6 opacity-60 hover:opacity-100 transition-opacity" />
+            ))}
+          </div>
+
+          {/* Legal Links & Copyright */}
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-xs text-green-600">
+            <div className="order-2 md:order-1">
+              Copyright © {new Date().getFullYear()} EV Service.
+            </div>
+            <div className="order-1 md:order-2 flex gap-2">
+              <LocalizedClientLink href="#terms" className="hover:text-green-900">
+                General Terms
+              </LocalizedClientLink>
+              <span className="text-green-400">|</span>
+              <LocalizedClientLink href="#privacy" className="hover:text-green-900">
+                Privacy Policy
+              </LocalizedClientLink>
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
-          </Text>
-          <MedusaCTA />
-        </div>
       </div>
     </footer>
-  )
+  );
 }
