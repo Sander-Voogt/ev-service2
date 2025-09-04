@@ -19,7 +19,7 @@ export default async function CarIndexPage({
     <ul>
       {data.carmodels.map((post) => (
         <li key={post.name}>
-          <a href={`/car/${post.name}`}>{post.name}</a>
+          <Link href={`/car/${post.name}`}>{post.name}</Link>
         </li>
       ))}
     </ul>

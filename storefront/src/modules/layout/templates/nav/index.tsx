@@ -16,88 +16,88 @@ const MainNavBar = () => (
   <nav className="hidden md:flex items-center gap-8">
     <LocalizedClientLink href="/" className={navLink}>Car Brands</LocalizedClientLink>
     <div className="relative group">
-  {/* Main Menu Item */}
-  <LocalizedClientLink
-    href="#buy-charging-station"
-    className={`${navLink} flex items-center gap-1`}
-  >
-    Charging
-    <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
-      <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
-    </svg>
-  </LocalizedClientLink>
-
-  {/* First Level Dropdown */}
-  <div className="absolute left-0 top-full mt-2 min-w-[180px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-    
-    {/* Charging Stations submenu */}
-    <div className="relative group/sub">
+      {/* Main Menu Item */}
       <LocalizedClientLink
-        href="/charging-stations"
-        className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
+        href="#buy-charging-station"
+        className={`${navLink} flex items-center gap-1`}
       >
-        Charging Stations
+        Charging
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
           <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
         </svg>
       </LocalizedClientLink>
 
-      {/* Submenu Level 2 */}
-      <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
-        <LocalizedClientLink href="/charging-stations/home" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging station at home
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-stations/business" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging station for business
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-stations/vve" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging station VvE
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-stations/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging station accessories
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-stations/installation-accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Installation accessories
-        </LocalizedClientLink>
+      {/* First Level Dropdown */}
+      <div className="absolute left-0 top-full mt-2 min-w-[180px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+        
+        {/* Charging Stations submenu */}
+        <div className="relative group/sub">
+          <LocalizedClientLink
+            href="#charging-stations"
+            className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
+          >
+            Charging Stations
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
+              <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+            </svg>
+          </LocalizedClientLink>
+
+          {/* Submenu Level 2 */}
+          <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
+            <LocalizedClientLink href="/charging-stations/home" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging station at home
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-stations/business" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging station for business
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-stations/vve" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging station VvE
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-stations/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging station accessories
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-stations/installation-accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Installation accessories
+            </LocalizedClientLink>
+          </div>
+        </div>
+
+        {/* Charging Cables submenu */}
+        <div className="relative group/sub">
+          <LocalizedClientLink
+            href="#charging-cables"
+            className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
+          >
+            Charging Cables
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
+              <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+            </svg>
+          </LocalizedClientLink>
+
+          {/* Submenu Level 2 */}
+          <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
+            <LocalizedClientLink href="/charging-cables/type-2" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging cables type 2
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-cables/type-1" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging cables type 1
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Mobile car chargers
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-cables/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Charging cable accessories
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/charging-cables/extension-cables" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+              Extension cables
+            </LocalizedClientLink>
+          </div>
+        </div>
       </div>
     </div>
-
-    {/* Charging Cables submenu */}
-    <div className="relative group/sub">
-      <LocalizedClientLink
-        href="/charging-cables"
-        className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
-      >
-        Charging Cables
-        <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
-          <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
-        </svg>
-      </LocalizedClientLink>
-
-      {/* Submenu Level 2 */}
-      <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
-        <LocalizedClientLink href="/charging-cables/type-2" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging cables type 2
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-cables/type-1" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging cables type 1
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Mobile car chargers
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-cables/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Charging cable accessories
-        </LocalizedClientLink>
-        <LocalizedClientLink href="/charging-cables/extension-cables" className="block px-4 py-2 hover:bg-green-50 text-green-900">
-          Extension cables
-        </LocalizedClientLink>
-      </div>
-    </div>
-  </div>
-</div>
 
     <LocalizedClientLink href="#charging-installation" className={navLink}>Charging station installation</LocalizedClientLink>
-    <LocalizedClientLink href="#selection-aid" className={navLink}>Blog</LocalizedClientLink>
+    <LocalizedClientLink href="/blog" className={navLink}>Blog</LocalizedClientLink>
     <LocalizedClientLink href="#selection-aid" className={navLink}>Customer Service</LocalizedClientLink>
     <div className="relative group">
       <LocalizedClientLink href="#commercial" className={`${navLink} flex items-center gap-1`}>
