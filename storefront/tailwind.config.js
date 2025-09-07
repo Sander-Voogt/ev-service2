@@ -156,7 +156,66 @@ module.exports = {
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            p: {
+              lineHeight: '1.75', 
+              marginBottom: '1.5rem', 
+              marginTop: '1.5rem',
+            },
+            h2: {
+              marginTop: '2rem',
+              marginBottom: '1rem',
+            },
+            h3: {
+              marginTop: '1.5rem',
+              marginBottom: '0.5rem',
+            },
+            a: {
+              textDecoration: 'underline',
+              fontWeight: 'bold',
+              color: theme('colors.blue.600'), 
+            },
+            hr: {
+              marginTop: '2.5rem',
+              marginBottom: '2.5rem',
+              borderColor: theme('colors.grey.20'),
+            },
+            table: {
+              marginTop: '2rem',
+              marginBottom: '2rem',
+              borderCollapse: 'collapse',
+              width: '100%',
+            },
+            th: {
+              backgroundColor: theme('colors.grey.10'),
+              fontWeight: 'bold',
+              padding: '0.75rem',
+              border: `1px solid ${theme('colors.grey.20')}`,
+            },
+            td: {
+              padding: '0.75rem',
+              border: `1px solid ${theme('colors.grey.20')}`,
+            },
+          },
+        },
+        green: {
+          css: {
+            '--tw-prose-body': theme('colors.green.800'),
+            '--tw-prose-headings': theme('colors.green.900'),
+            '--tw-prose-links': theme('colors.green.600'),
+            a: {
+              textDecoration: 'underline',
+              fontWeight: 'bold',
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [require("tailwindcss-radix")()],
+  plugins: [
+    require("tailwindcss-radix")(),
+    require('@tailwindcss/typography')(),
+  ],
 }
