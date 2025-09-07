@@ -96,7 +96,7 @@ export default async function Footer() {
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#blog" className={navLink}>
+                <LocalizedClientLink href="/blog" className={navLink}>
                   Blog
                 </LocalizedClientLink>
               </li>
