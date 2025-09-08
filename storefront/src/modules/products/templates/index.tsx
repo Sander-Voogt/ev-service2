@@ -10,6 +10,7 @@ import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-relat
 import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
+import { sendGTMEvent } from "@next/third-parties/google"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -25,6 +26,22 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   if (!product || !product.id) {
     return notFound()
   }
+
+  sendGTMEvent({
+    event: "view_item",
+    value: {
+      currency: "EUR",
+      value: product.variants[0].calculated_price,
+      items: [
+        {
+          item_id: product.variants?[0].sku,
+          item_name: product.title,
+          price: product.variants[0].calculated_price,
+          quantity: 1,
+        },
+      ],
+    },
+  })
 
   return (
     <>
