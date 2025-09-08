@@ -11,6 +11,7 @@ import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
 import { sendGTMEvent } from "@next/third-parties/google"
+import ProductViewEvent from "./product-events/ProductViewEvent"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -27,16 +28,11 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     return notFound()
   }
 
-  sendGTMEvent({
-    event: "view_item",
-    value: {
-      currency: "EUR",
-      value: 10.00
-    },
-  })
+  
 
   return (
     <>
+      <ProductViewEvent product={product} />
       <div
         className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"
