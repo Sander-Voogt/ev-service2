@@ -31,15 +31,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     event: "view_item",
     value: {
       currency: "EUR",
-      value: product.variants[0].calculated_price,
-      items: [
-        {
-          item_id: product.variants?[0].sku,
-          item_name: product.title,
-          price: product.variants[0].calculated_price,
-          quantity: 1,
-        },
-      ],
+      value: 10.00
     },
   })
 
