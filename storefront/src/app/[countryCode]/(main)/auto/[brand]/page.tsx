@@ -2,6 +2,7 @@
 import { sdk } from "@lib/config"
 import api from "@lib/ghost"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 
 export default async function CarIndexPage({
   params,
@@ -13,15 +14,13 @@ export default async function CarIndexPage({
   const page = parseInt(searchParams.page || "1", 10)
   const limit = 5
 
-  const data = await sdk.client.fetch(`/store/carbrand/${params.brand}`)
+  const data = await sdk.client.fetch(`/store/carbrand/${params.brand}`) as { carmodels: any[] }
+
+  const CarModelSearch = dynamic(() => import("./CarModelSearch"), { ssr: false })
 
   return (
-    <ul>
-      {data.carmodels.map((post) => (
-        <li key={post.name}>
-          <Link href={`/car/${post.name}`}>{post.name}</Link>
-        </li>
-      ))}
-    </ul>
+    <div className="max-w-3xl mx-auto py-10 px-4">
+      <CarModelSearch carmodels={data.carmodels} />
+    </div>
   )
 }

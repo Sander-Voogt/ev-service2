@@ -1,19 +1,52 @@
-// app/blog/[slug]/page.js
-
-import api from "@lib/ghost";
+import api from "@lib/ghost"
 
 export async function generateStaticParams() {
-  const posts = await api.posts.browse({ limit: "all" });
-  return posts.map((post) => ({ slug: post.slug }));
+  const posts = await api.posts.browse({ limit: "all" })
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
-export default async function BlogDetail({ params } : {params: any}) {
-  const post = await api.posts.read({ slug: params.slug });
+export default async function BlogDetail({ params }: { params: any }) {
+  const post = await api.posts.read({ slug: params.slug })
 
   return (
-    <article className="max-w-3xl mx-auto prose">
-      <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
-    </article>
-  );
+    <div className="bg-white min-h-screen">
+      <div className="max-w-screen-xl mx-auto px-4 py-10">
+        <article className="max-w-3xl mx-auto">
+          <h1 className="mb-4 text-green-900 font-bold text-4xl leading-tight">
+            {post.title}
+          </h1>
+
+          <div className="mb-8 text-gray-500 text-sm flex items-center gap-4 border-b-2 border-green-700 pb-4 font-semibold">
+            <span>
+              {new Date(post.published_at).toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              })}
+            </span>
+            {post.primary_author && (
+              <span className="text-green-800 font-bold">
+              By {post.primary_author.name}
+              </span>
+            )}
+            </div>
+
+          {post.feature_image && (
+            <div className="mb-8 rounded-2xl overflow-hidden shadow-md">
+              <img
+                src={post.feature_image}
+                alt={post.title}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          )}
+
+          <div
+            className="prose prose-green prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </article>
+      </div>
+    </div>
+  )
 }

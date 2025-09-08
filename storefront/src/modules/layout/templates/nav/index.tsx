@@ -14,7 +14,7 @@ import {
 // MainNavBar
 const MainNavBar = () => (
   <nav className="hidden md:flex items-center gap-8">
-    <LocalizedClientLink href="/" className={navLink}>Car Brands</LocalizedClientLink>
+    <LocalizedClientLink href="/auto" className={navLink}>Car Brands</LocalizedClientLink>
     <div className="relative group">
       {/* Main Menu Item */}
       <LocalizedClientLink
