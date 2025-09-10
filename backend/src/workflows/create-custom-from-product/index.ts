@@ -13,6 +13,22 @@ export type CreateCustomFromProductWorkflowInput = {
     faq?: Record<string, unknown>;
     maindescription?: string;
     video?: string;
+    certificering?: Record<string, unknown>;
+    stekker?: Record<string, unknown>;
+    waterbestendigheid?: Record<string, unknown>;
+    kabel_lengte?: Record<string, unknown>;
+    garantie?: Record<string, unknown>;
+    soort?: Record<string, unknown>;
+    gewicht?: Record<string, unknown>;
+    maximaal_laadvermogen?: Record<string, unknown>;
+    soort_lader?: Record<string, unknown>;
+    vermogen?: Record<string, unknown>;
+    soort_kabel?: Record<string, unknown>;
+    geadviseerd_voor?: Record<string, unknown>;
+    opties?: Record<string, unknown>;
+    lengte?: Record<string, unknown>;
+    type_Stekker?: Record<string, unknown>;
+    laadvermogen?: Record<string, unknown>;
   }
 }
 

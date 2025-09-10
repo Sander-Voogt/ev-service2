@@ -23,7 +23,24 @@ export default defineMiddlewares({
       additionalDataValidator: {
         custom_name: z.string().optional(),
         faq: z.string().optional(),
-        maindescription: z.string().optional()
+        video: z.string().optional(),
+        maindescription: z.string().optional(),
+        certificering: z.string().optional(),
+        stekker: z.string().optional(),
+        waterbestendigheid: z.string().optional(),
+        kabel_lengte: z.string().optional(),
+        garantie: z.string().optional(),
+        soort: z.string().optional(),
+        gewicht: z.string().optional(),
+        maximaal_laadvermogen: z.string().optional(),
+        soort_lader: z.string().optional(),
+        vermogen: z.string().optional(),
+        soort_kabel: z.string().optional(),
+        geadviseerd_voor: z.string().optional(),
+        opties: z.string().optional(),
+        lengte: z.string().optional(),
+        type_Stekker: z.string().optional(),
+        laadvermogen: z.string().optional()
       } as any,
     },
 

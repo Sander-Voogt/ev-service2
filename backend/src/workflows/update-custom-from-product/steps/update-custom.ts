@@ -2,11 +2,48 @@ import { createStep, StepResponse } from "@medusajs/framework/workflows-sdk"
 import { HELLO_MODULE } from "../../../modules/hello"
 import HelloModuleService from "../../../modules/hello/service"
 
-type UpdateCustomStepInput = { id?: string; custom_name?: string; faq?: Record<string, unknown>; video?: string; maindescription?: string; }
+type UpdateCustomStepInput = {
+  id?: string; 
+  custom_name?: string;
+  faq?: Record<string, unknown>;
+  maindescription?: string;
+  video?: string;
+  certificering?: Record<string, unknown>;
+  stekker?: Record<string, unknown>;
+  waterbestendigheid?: Record<string, unknown>;
+  kabel_lengte?: Record<string, unknown>;
+  garantie?: Record<string, unknown>;
+  soort?: Record<string, unknown>;
+  gewicht?: Record<string, unknown>;
+  maximaal_laadvermogen?: Record<string, unknown>;
+  soort_lader?: Record<string, unknown>;
+  vermogen?: Record<string, unknown>;
+  soort_kabel?: Record<string, unknown>;
+  geadviseerd_voor?: Record<string, unknown>;
+  opties?: Record<string, unknown>;
+  lengte?: Record<string, unknown>;
+  type_Stekker?: Record<string, unknown>;
+  laadvermogen?: Record<string, unknown>;
+}
 
 export const updateCustomStep = createStep(
   "update-custom",
-  async ({ id, custom_name, faq, maindescription, video }: UpdateCustomStepInput, { container }) => {
+  async ({ id, custom_name, faq, maindescription, video, certificering,
+    stekker,
+    waterbestendigheid,
+    kabel_lengte,
+    garantie,
+    soort,
+    gewicht,
+    maximaal_laadvermogen,
+    soort_lader,
+    vermogen,
+    soort_kabel,
+    geadviseerd_voor,
+    opties,
+    lengte,
+    type_Stekker,
+    laadvermogen }: UpdateCustomStepInput, { container }) => {
     const helloModuleService: HelloModuleService = container.resolve(
       HELLO_MODULE
     )
@@ -18,7 +55,23 @@ export const updateCustomStep = createStep(
       custom_name,
       faq,
       maindescription,
-      video
+      video,
+      certificering,
+      stekker,
+      waterbestendigheid,
+      kabel_lengte,
+      garantie,
+      soort,
+      gewicht,
+      maximaal_laadvermogen,
+      soort_lader,
+      vermogen,
+      soort_kabel,
+      geadviseerd_voor,
+      opties,
+      lengte,
+      type_Stekker,
+      laadvermogen
     })
 
     return new StepResponse(custom, prevData)
