@@ -155,7 +155,10 @@ const ProductBrandWidget = ({
             <Drawer.Body className="flex-1 overflow-y-auto p-4">
               <Text>This is where you edit the variant&apos;s details</Text>
               <FormProvider {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  id="formattributes"
+                >
                   <Label>Custom</Label>
                   <Input
                     placeholder="Custom name"
@@ -190,13 +193,19 @@ const ProductBrandWidget = ({
                   <MultiValueInput fieldName="lengte" />
                   <MultiValueInput fieldName="type_Stekker" />
                   <MultiValueInput fieldName="laadvermogen" />
-
-                  <Button type="submit">Save</Button>
+                  <hr/>
+                  <MultiValueInput fieldName="pros" />
+                  <MultiValueInput fieldName="cons" />
                 </form>
               </FormProvider>
             </Drawer.Body>
             <Drawer.Footer>
+               <Button type="submit" form="formattributes">
+                  Save
+                </Button>
               <Drawer.Close asChild>
+               
+
                 <Button variant="secondary">Cancel</Button>
               </Drawer.Close>
             </Drawer.Footer>

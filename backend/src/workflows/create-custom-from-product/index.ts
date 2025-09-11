@@ -29,10 +29,12 @@ export type CreateCustomFromProductWorkflowInput = {
     lengte?: Record<string, unknown>;
     type_Stekker?: Record<string, unknown>;
     laadvermogen?: Record<string, unknown>;
+    pros?: Record<string, unknown>;
+    cons?: Record<string, unknown>;
   }
 }
 
-export const createCustomFromProductWorkflow: any  = createWorkflow(
+export const createCustomFromProductWorkflow: any = createWorkflow(
   "create-custom-from-product",
   (input: CreateCustomFromProductWorkflowInput) => {
     const customName = transform(

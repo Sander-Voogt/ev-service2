@@ -30,6 +30,8 @@ export type UpdateCustomFromProductStepInput = {
         lengte?: Record<string, unknown>;
         type_Stekker?: Record<string, unknown>;
         laadvermogen?: Record<string, unknown>;
+        pros?: Record<string, unknown>;
+        cons?: Record<string, unknown>;
     }
 }
 
@@ -74,7 +76,10 @@ export const updateCustomFromProductWorkflow = createWorkflow(
                     opties: input.additional_data.opties,
                     lengte: input.additional_data.lengte,
                     type_Stekker: input.additional_data.type_Stekker,
-                    laadvermogen: input.additional_data.laadvermogen
+                    laadvermogen: input.additional_data.laadvermogen,
+                    pros: input.additional_data.pros,
+                    cons: input.additional_data.cons,
+
                 })
 
                 createRemoteLinkStep([{
@@ -140,7 +145,9 @@ export const updateCustomFromProductWorkflow = createWorkflow(
                     opties: input.additional_data.opties,
                     lengte: input.additional_data.lengte,
                     type_Stekker: input.additional_data.type_Stekker,
-                    laadvermogen: input.additional_data.laadvermogen
+                    laadvermogen: input.additional_data.laadvermogen,
+                    pros: input.additional_data.pros,
+                    cons: input.additional_data.cons
                 })
             })
 

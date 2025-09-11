@@ -22,4 +22,6 @@ export const Custom = model.define("custom", {
   lengte: model.json().nullable(),
   type_Stekker: model.json().nullable(),
   laadvermogen: model.json().nullable(),
+  pros: model.json().nullable(),
+  cons: model.json().nullable()
 })

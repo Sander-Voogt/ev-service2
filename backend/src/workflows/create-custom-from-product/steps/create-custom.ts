@@ -24,6 +24,8 @@ type CreateCustomStepInput = {
   lengte?: Record<string, unknown>;
   type_Stekker?: Record<string, unknown>;
   laadvermogen?: Record<string, unknown>;
+  pros?: Record<string, unknown>;
+  cons?: Record<string, unknown>;
 }
 
 

@@ -87,28 +87,24 @@ const MainDescription = ({
           <FocusModal.Content>
             <FocusModal.Header>
               <FocusModal.Title>Edit Variant</FocusModal.Title>
+              <Button type="submit" form="dddd">Save</Button>
             </FocusModal.Header>
-            <FocusModal.Body className="flex flex-col items-center py-16">
-              <div className="flex w-full max-w-lg flex-col gap-y-8">
+            <FocusModal.Body className="flex-1 overflow-auto p-4 max-h-[70vh]">
+              <div className="flex w-full max-w-4xl flex-col gap-y-8">
                 <div className="flex flex-col gap-y-1">
                   <FormProvider {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} id="dddd">
                       <TiptapEditor
                         value={form.watch("maindescription") || ""}
                         onChange={(e) => {
                           form.setValue("maindescription", e);
                         }}
                       />
-
-                      <Button type="submit">Save</Button>
                     </form>
                   </FormProvider>
                 </div>
               </div>
             </FocusModal.Body>
-            <FocusModal.Footer>
-              <Button>Save</Button>
-            </FocusModal.Footer>
           </FocusModal.Content>
         </FocusModal>
       </div>

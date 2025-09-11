@@ -3,7 +3,7 @@ import { HELLO_MODULE } from "../../../modules/hello"
 import HelloModuleService from "../../../modules/hello/service"
 
 type UpdateCustomStepInput = {
-  id?: string; 
+  id?: string;
   custom_name?: string;
   faq?: Record<string, unknown>;
   maindescription?: string;
@@ -24,6 +24,8 @@ type UpdateCustomStepInput = {
   lengte?: Record<string, unknown>;
   type_Stekker?: Record<string, unknown>;
   laadvermogen?: Record<string, unknown>;
+  pros?: Record<string, unknown>;
+  cons?: Record<string, unknown>;
 }
 
 export const updateCustomStep = createStep(
@@ -43,7 +45,9 @@ export const updateCustomStep = createStep(
     opties,
     lengte,
     type_Stekker,
-    laadvermogen }: UpdateCustomStepInput, { container }) => {
+    laadvermogen,
+    pros, 
+    cons }: UpdateCustomStepInput, { container }) => {
     const helloModuleService: HelloModuleService = container.resolve(
       HELLO_MODULE
     )
@@ -71,7 +75,9 @@ export const updateCustomStep = createStep(
       opties,
       lengte,
       type_Stekker,
-      laadvermogen
+      laadvermogen,
+      pros,
+      cons
     })
 
     return new StepResponse(custom, prevData)
