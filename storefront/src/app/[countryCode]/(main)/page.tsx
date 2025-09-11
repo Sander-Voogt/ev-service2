@@ -4,12 +4,23 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import { sdk } from "@lib/config"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
   description:
     "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
 }
+
+type Brand = {
+  name: string;
+  image?: string;
+  description?: string;
+};
+
+type ApiResponse = {
+  brands: Brand[];
+};
 
 export default async function Home({
   params: { countryCode },
@@ -19,13 +30,18 @@ export default async function Home({
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
 
+  const models: ApiResponse = await sdk.client.fetch(`/store/carbrand/models`);
+
   if (!collections || !region) {
     return null
   }
 
+  console.log(models)
+
+
   return (
     <>
-      <Hero />
+      <Hero models={models.brands}/>
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />

@@ -4,16 +4,19 @@ import { useState, useEffect } from "react"
 
 const carMakes = ["Abarth", "Audi", "BMW", "Tesla"] as const;
 type CarMake = typeof carMakes[number];
-const carModels: Record<CarMake, string[]> = {
-  Abarth: ["500e Hatchback", "595", "695"],
-  Audi: ["e-tron", "Q4", "A3"],
-  BMW: ["i3", "i4", "iX"],
-  Tesla: ["Model S", "Model 3", "Model X", "Model Y"],
-};
 
-const Hero = () => {
+
+const Hero = ({models}: {models: Record<string, string>[]}) => {
   const [selectedMake, setSelectedMake] = useState<CarMake>(carMakes[0]);
-  const [selectedModel, setSelectedModel] = useState<string>(carModels[carMakes[0]][0]);
+  const [selectedModel, setSelectedModel] = useState<string>('');
+  const [brandmodels, setBrandModels] = useState<{
+    name: string,
+    id: string,
+    created_at: string,
+    carmodels: Record<string,string>[]
+  }[]>([]);
+
+  console.log(models);
 
   const carouselImages = [
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80",
@@ -30,6 +33,13 @@ const Hero = () => {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const brand_models = models.find(brand => brand.name === selectedMake)
+    setBrandModels(brand_models.carmodels);
+    setSelectedModel(brand_models?.carmodels?.[0]?.name);
+
+  }, [selectedMake])
 
   return (
     <div className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
@@ -72,12 +82,11 @@ const Hero = () => {
           onChange={e => {
             const make = e.target.value as CarMake
             setSelectedMake(make)
-            setSelectedModel(carModels[make][0])
           }}
         >
-          {carMakes.map(make => (
-            <option key={make} value={make}>
-              {make}
+          {models.map((make, key) => (
+            <option key={key} value={make.name}>
+              {make.name}
             </option>
           ))}
         </select>
@@ -95,9 +104,9 @@ const Hero = () => {
           value={selectedModel}
           onChange={e => setSelectedModel(e.target.value)}
         >
-          {carModels[selectedMake].map((model: string) => (
-            <option key={model} value={model}>
-              {model}
+          {brandmodels.map((model: string) => (
+            <option key={model.name} value={model.name}>
+              {model.name}
             </option>
           ))}
         </select>
