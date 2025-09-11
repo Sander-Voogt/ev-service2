@@ -73,56 +73,59 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
     {/* Center: Form */}
     <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-4 min-w-[320px] max-w-[360px] border border-green-100">
       <h2 className="text-xl font-semibold text-green-900 mb-2 text-center">
-        Find the right product for your car
+      Find the right product for your car
       </h2>
       <div className="relative">
-        <select
-          className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
-          value={selectedMake}
-          onChange={e => {
-            const make = e.target.value as CarMake
-            setSelectedMake(make)
-          }}
-        >
-          {models.map((make, key) => (
-            <option key={key} value={make.name}>
-              {make.name}
-            </option>
-          ))}
-        </select>
-        {/* Custom dropdown icon */}
-        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
-          </svg>
-        </span>
+      <select
+        className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
+        value={selectedMake}
+        onChange={e => {
+        const make = e.target.value as CarMake
+        setSelectedMake(make)
+        }}
+      >
+        {models.map((make, key) => (
+        <option key={key} value={make.name}>
+          {make.name}
+        </option>
+        ))}
+      </select>
+      {/* Custom dropdown icon */}
+      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
+        </svg>
+      </span>
       </div>
 
       <div className="relative mt-3">
-        <select
-          className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
-          value={selectedModel}
-          onChange={e => setSelectedModel(e.target.value)}
-        >
-          {brandmodels.map((model: string) => (
-            <option key={model.name} value={model.name}>
-              {model.name}
-            </option>
-          ))}
-        </select>
-        {/* Custom dropdown icon */}
-        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
-          </svg>
-        </span>
+      <select
+        className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
+        value={selectedModel}
+        onChange={e => setSelectedModel(e.target.value)}
+      >
+        {brandmodels.map((model: string) => (
+        <option key={model.name} value={model.name}>
+          {model.name}
+        </option>
+        ))}
+      </select>
+      {/* Custom dropdown icon */}
+      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-green-500">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" />
+        </svg>
+      </span>
       </div>
 
       <Button
-        className="w-full bg-green-600 text-white font-semibold rounded-lg py-2 hover:bg-green-700 transition-colors"
-        variant="secondary"
+      className="w-full bg-green-600 text-white font-semibold rounded-lg py-2 hover:bg-green-700 transition-colors"
+      variant="secondary"
+      onClick={() => {
+        window.location.href = `/auto/${selectedMake}`;
+      }}
       >
-        SHOW PRODUCTS
+      SHOW PRODUCTS
       </Button>
     </div>
 

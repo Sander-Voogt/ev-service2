@@ -25,11 +25,12 @@ export const IconUser = () => (
 
 export const IconCart = () => (
   <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-    <path d="M6 6h15l-1.5 9h-13z" stroke="#22C55E" strokeWidth="2"/>
-    <circle cx="9" cy="20" r="1" fill="#22C55E"/>
-    <circle cx="18" cy="20" r="1" fill="#22C55E"/>
+    <rect x="4" y="7" width="16" height="10" rx="2" fill="#E6FCE5" stroke="#22C55E" strokeWidth="2"/>
+    <path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2" stroke="#22C55E" strokeWidth="2" fill="none"/>
+    <circle cx="8" cy="19" r="1.5" fill="#22C55E"/>
+    <circle cx="16" cy="19" r="1.5" fill="#22C55E"/>
   </svg>
-);
+)
 
 export const IconSearch = () => (
   <svg width="20" height="20" fill="none" viewBox="0 0 24 24">

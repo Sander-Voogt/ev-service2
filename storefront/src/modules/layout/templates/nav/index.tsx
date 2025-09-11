@@ -3,7 +3,7 @@
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   IconPhone,
   IconMail,
@@ -127,83 +127,92 @@ const MainNavBar = () => (
 
 // MobileNavBar - New component for the mobile menu
 const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
-  <div className="fixed inset-0 z-[100] bg-white flex flex-col items-start p-6 overflow-y-auto">
+  <div className="fixed inset-0 z-[100] bg-white flex flex-col items-start p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out">
     <div className="w-full flex justify-end">
-      <button onClick={onClose} aria-label="Close mobile menu" className="p-2">
-        <IconClose />
+      <button onClick={onClose} aria-label="Close mobile menu" className="p-2 text-green-700 hover:text-green-900 transition-colors">
+        <IconClose className="w-8 h-8" />
       </button>
     </div>
-    <nav className="flex flex-col w-full text-left mt-6">
-      <LocalizedClientLink href="/auto" className="py-3 text-lg font-medium text-green-900 hover:bg-green-50">
+    <nav className="flex flex-col w-full text-left mt-8">
+      {/* Main Nav Links */}
+      <LocalizedClientLink href="/auto" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
         Car Brands
       </LocalizedClientLink>
+
+      {/* Nested Details/Dropdowns */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50">
+          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-50 transition-colors">
             Charging
-            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
-              <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
+              <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
             </svg>
           </summary>
-          <div className="flex flex-col pl-4 mt-2">
+          <div className="flex flex-col pl-6 mt-2 pb-2 bg-gray-50 rounded-md">
+            {/* Sub-Details for Charging Stations */}
             <details className="w-full">
-              <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50">
+              <summary className="py-3 text-lg font-medium text-green-800 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-100 transition-colors">
                 Charging Stations
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
-                  <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
+                  <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
                 </svg>
               </summary>
               <div className="flex flex-col pl-4 mt-2">
-                <LocalizedClientLink href="/charging-stations/home" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging station at home</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-stations/business" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging station for business</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-stations/vve" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging station VvE</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-stations/accessories" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging station accessories</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-stations/installation-accessories" className="py-2 text-sm text-green-900 hover:bg-green-50">Installation accessories</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-stations/home" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging station at home</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-stations/business" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging station for business</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-stations/vve" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging station VvE</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-stations/accessories" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging station accessories</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-stations/installation-accessories" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Installation accessories</LocalizedClientLink>
               </div>
             </details>
+            {/* Sub-Details for Charging Cables */}
             <details className="w-full mt-2">
-              <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50">
+              <summary className="py-3 text-lg font-medium text-green-800 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-100 transition-colors">
                 Charging Cables
-                <svg width="12" height="12" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
-                  <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
+                  <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
                 </svg>
               </summary>
               <div className="flex flex-col pl-4 mt-2">
-                <LocalizedClientLink href="/charging-cables/type-2" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging cables type 2</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-cables/type-1" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging cables type 1</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="py-2 text-sm text-green-900 hover:bg-green-50">Mobile car chargers</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-cables/accessories" className="py-2 text-sm text-green-900 hover:bg-green-50">Charging cable accessories</LocalizedClientLink>
-                <LocalizedClientLink href="/charging-cables/extension-cables" className="py-2 text-sm text-green-900 hover:bg-green-50">Extension cables</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-cables/type-2" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging cables type 2</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-cables/type-1" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging cables type 1</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Mobile car chargers</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-cables/accessories" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Charging cable accessories</LocalizedClientLink>
+                <LocalizedClientLink href="/charging-cables/extension-cables" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">Extension cables</LocalizedClientLink>
               </div>
             </details>
           </div>
         </details>
       </div>
-      <LocalizedClientLink href="#charging-installation" className="py-3 text-lg font-medium text-green-900 hover:bg-green-50">
+
+      {/* Remaining Top-Level Links */}
+      <LocalizedClientLink href="#charging-installation" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
         Charging station installation
       </LocalizedClientLink>
-      <LocalizedClientLink href="/blog" className="py-3 text-lg font-medium text-green-900 hover:bg-green-50">
+      <LocalizedClientLink href="/blog" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
         Blog
       </LocalizedClientLink>
-      <LocalizedClientLink href="#selection-aid" className="py-3 text-lg font-medium text-green-900 hover:bg-green-50">
+      <LocalizedClientLink href="#selection-aid" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
         Customer Service
       </LocalizedClientLink>
+
+      {/* Commercial Dropdown */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50">
+          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-50 transition-colors">
             Commercial
-            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
-              <path d="M8 10l4 4 4-4" stroke="#22C55E" strokeWidth="2" />
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
+              <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
             </svg>
           </summary>
-          <div className="flex flex-col pl-4 mt-2">
-            <LocalizedClientLink href="/commercial/companies" className="py-2 text-sm text-green-900 hover:bg-green-50">
+          <div className="flex flex-col pl-6 mt-2 pb-2 bg-gray-50 rounded-md">
+            <LocalizedClientLink href="/commercial/companies" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
               Companies and homeowners' associations
             </LocalizedClientLink>
-            <LocalizedClientLink href="/commercial/installers" className="py-2 text-sm text-green-900 hover:bg-green-50">
+            <LocalizedClientLink href="/commercial/installers" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
               For Installers
             </LocalizedClientLink>
-            <LocalizedClientLink href="/commercial/resellers" className="py-2 text-sm text-green-900 hover:bg-green-50">
+            <LocalizedClientLink href="/commercial/resellers" className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
               For Resellers
             </LocalizedClientLink>
           </div>
@@ -216,10 +225,17 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
 
 // CartSummary
 const CartSummary = () => (
-  <div className="flex items-center gap-2 bg-green-50 px-3 py-1.5 rounded-lg">
-    <IconCart />
-    <span className="text-xs font-medium hidden md:inline">0 ITEMS</span>
-    <span className="text-sm font-bold text-green-700">€0.00</span>
+  <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
+    <div className="relative">
+      <IconCart />
+      <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 shadow">
+        0
+      </span>
+    </div>
+    <div className="flex flex-col ml-1">
+      <span className="text-xs font-semibold text-green-900">Cart</span>
+      <span className="text-xs text-green-700 font-bold">€0.00</span>
+    </div>
   </div>
 )
 
@@ -270,6 +286,32 @@ import { useEffect } from "react";
 export default function Nav() {
   const [regions, setRegions] = useState<StoreRegion[] | undefined>(undefined);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!showSearch) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        searchButtonRef.current &&
+        searchButtonRef.current.contains(event.target as Node)
+      ) {
+        return;
+      }
+      if (
+        searchInputRef.current &&
+        searchInputRef.current.contains(event.target as Node)
+      ) {
+        return;
+      }
+      setShowSearch(false);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSearch]);
 
   useEffect(() => {
     listRegions().then((regions: StoreRegion[]) => setRegions(regions));
@@ -296,12 +338,19 @@ export default function Nav() {
             </LocalizedClientLink>
           </div>
           <MainNavBar />
-          <div className="flex items-center gap-3 md:gap-5">
-            <button className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50" aria-label="Search">
-              <IconSearch />
-            </button>
-            <CartSummary />
-          </div>
+            <div className="flex items-center gap-3 md:gap-5">
+              <button
+                ref={searchButtonRef}
+                className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50"
+                aria-label="Search"
+                onClick={() => setShowSearch((prev) => !prev)}
+              >
+                <IconSearch />
+              </button>
+              <LocalizedClientLink href="/cart" className="flex items-center">
+                <CartSummary />
+              </LocalizedClientLink>
+            </div>
         </div>
       </header>
 
@@ -320,6 +369,21 @@ export default function Nav() {
         <MobileNavBar onClose={() => setIsMobileMenuOpen(false)} />
       </div>
 
+      {/* Accordion search input below navbar, above hero section with smooth transitions */}
+      <div
+        className={`w-full flex justify-center transition-all duration-300 ease-in-out ${showSearch ? 'max-h-40 opacity-100 py-6' : 'max-h-0 opacity-0 py-0'} bg-white border-b border-green-200 shadow`}
+        style={{ overflow: 'hidden' }}
+      >
+        <div className="w-full max-w-screen-xl px-4" style={{ transition: 'padding 0.3s' }}>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Search..."
+            className={`w-full px-3 py-2 border border-green-100 rounded focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-300 ${showSearch ? 'opacity-100' : 'opacity-0'}`}
+            style={{ transition: 'opacity 0.3s' }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
