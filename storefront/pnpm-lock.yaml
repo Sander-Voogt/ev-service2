@@ -19,13 +19,13 @@ importers:
         version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.54.2(react@18.3.1))(react@18.3.1)
       '@medusajs/js-sdk':
         specifier: preview
-        version: 2.10.2-preview-20250911000329(awilix@8.0.1)
+        version: 2.10.2-preview-20250911210151(awilix@8.0.1)
       '@medusajs/types':
         specifier: preview
-        version: 2.10.2-preview-20250911000329(awilix@8.0.1)
+        version: 2.10.2-preview-20250911210151(awilix@8.0.1)
       '@medusajs/ui':
         specifier: preview
-        version: 4.0.22-preview-20250911000329(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
+        version: 4.0.22-preview-20250911210151(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)
       '@meilisearch/instant-meilisearch':
         specifier: ^0.7.1
         version: 0.7.1
@@ -54,8 +54,8 @@ importers:
         specifier: ^4.25.2
         version: 4.25.2
       axios:
-        specifier: ^1.11.0
-        version: 1.11.0
+        specifier: ^1.12.0
+        version: 1.12.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -93,7 +93,7 @@ importers:
         specifier: ^2.9.0
         version: 2.9.0
       webpack:
-        specifier: ^5.101.3
+        specifier: ^5
         version: 5.101.3
     devDependencies:
       '@babel/core':
@@ -104,7 +104,7 @@ importers:
         version: 0.2.12-preview-20240505115807
       '@medusajs/ui-preset':
         specifier: preview
-        version: 2.10.2-preview-20250911000329(tailwindcss@3.4.17)
+        version: 2.10.2-preview-20250911210151(tailwindcss@3.4.17)
       '@playwright/test':
         specifier: ^1.55.0
         version: 1.55.0
@@ -536,17 +536,17 @@ packages:
   '@medusajs/client-types@0.2.12-preview-20240505115807':
     resolution: {integrity: sha512-f7T/7WUAGOFfsNsjdCcVoWLlAqryaQB+hF0v/Dzst2hv+PdJGqHfHwTNdeK3ZYhUwzSQ8YdnCYsj9OEJR9SPiQ==}
 
-  '@medusajs/icons@2.10.2-preview-20250911000329':
-    resolution: {integrity: sha512-xJyAec0pxw+IP1uy+LKGYLKFOfMxwH6eSKZKIB0a+tCIy1n+klJ9hIIo53JdsdQ3qPLoQU5Lxqx2dyGTPrVG6w==}
+  '@medusajs/icons@2.10.2-preview-20250911210151':
+    resolution: {integrity: sha512-7xqFBfWY1scjQBIHaTjX8wH8MrtQFO3lGqI5yKgRm/oZZ55rMniUDhv5OkdYL99s9T50gCKRtGvXLbqc6TMSdw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
-  '@medusajs/js-sdk@2.10.2-preview-20250911000329':
-    resolution: {integrity: sha512-xjnbZolcqgiWwoQS5gXl7bk+D5utveXGKKsCb2pgltNNnHAcbsxlR91VKI/OUbKIEUivQ+gzui9Ronbn5R5K1A==}
+  '@medusajs/js-sdk@2.10.2-preview-20250911210151':
+    resolution: {integrity: sha512-c9R8IFW5o20/bxVhKnY0cCpsQCqJazATE6NGzUr8DaEk++gmOWRjCWBR7v5fMRpL7LRdwA4EwIbHgr5QBHk6VQ==}
     engines: {node: '>=20'}
 
-  '@medusajs/types@2.10.2-preview-20250911000329':
-    resolution: {integrity: sha512-66G4YOmZQfl2viBvCdVmlYa74+XV/Ko+HHO8UPL4qLqEgNgMJFpO7HiyMlAK9tsLe1o/i4EPtldFENPG6IpruQ==}
+  '@medusajs/types@2.10.2-preview-20250911210151':
+    resolution: {integrity: sha512-446M3VPX1J02zSO2hdfL3az6wvyBE6WwBJ2AeMhZgqDXL/HEhZTrjtxVSPTqPpNIVKa6obeP+wCoN69/8r+Aow==}
     engines: {node: '>=20'}
     peerDependencies:
       awilix: ^8.0.1
@@ -558,13 +558,13 @@ packages:
       vite:
         optional: true
 
-  '@medusajs/ui-preset@2.10.2-preview-20250911000329':
-    resolution: {integrity: sha512-0ZeJB98B/SosJjb+BaXhyiXFtEhe44qD08YLeNt4+erhOi60kP5RKov8grjrOxrMiIDC0Tk4YHId0PtJOFEEdw==}
+  '@medusajs/ui-preset@2.10.2-preview-20250911210151':
+    resolution: {integrity: sha512-KRRX8vTWoHGaB3xvGe8g2cmlmOq/LCXReRx6h7ZZXGUWq6KjYd62GjL1UMHV+5eLNuNzqgaMsvb8iHw2lCF66g==}
     peerDependencies:
       tailwindcss: '>=3.0.0'
 
-  '@medusajs/ui@4.0.22-preview-20250911000329':
-    resolution: {integrity: sha512-xtctqlZfy4baZeHDsja+YEpObX4bbdORKP3a4pxtgRsnctaV3idaoc8ieWfLPhF+BDSeDXP3pQhLFntJrgiNpA==}
+  '@medusajs/ui@4.0.22-preview-20250911210151':
+    resolution: {integrity: sha512-awEctS20mHhc884YEbOiVYaDR0+FTMMZDuFuErjFCYI9ef+o6+lbisvMr+M2EDdtY/VPzW/wnWbNQgN4yy24sQ==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
@@ -1940,8 +1940,8 @@ packages:
   '@tryghost/content-api@1.12.0':
     resolution: {integrity: sha512-rU9yrBHlVIohOLSpC9PeH9evMeNCk4OKGvI0VEwNwuwWlsQIpBn3o79DzleEN0tbMynlObYAG0IJ/EGkIumtJA==}
 
-  '@tybys/wasm-util@0.10.0':
-    resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
+  '@tybys/wasm-util@0.10.1':
+    resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
   '@types/dom-speech-recognition@0.0.1':
     resolution: {integrity: sha512-udCxb8DvjcDKfk1WTBzDsxFbLgYxmQGKrE/ricoMqHRNjSlSUCcamVTA5lIQqzY10mY5qCY0QDwBfFEwhfoDPw==}
@@ -2341,8 +2341,8 @@ packages:
     resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
     engines: {node: '>=4'}
 
-  axios@1.11.0:
-    resolution: {integrity: sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==}
+  axios@1.12.0:
+    resolution: {integrity: sha512-oXTDccv8PcfjZmPGlWsPSwtOJCZ/b6W5jAMCNcfwJbCzDckwG0jrYJFaWH1yvivfCXjVzV/SPDEhMB3Q+DSurg==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -2585,8 +2585,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.216:
-    resolution: {integrity: sha512-uVgsufJ+qIiOsZBmqkM2AGPn3gbqPySHl/SLKXJ70nowhI0VsRX4aog+R9EUL2bOjqPPhfR9pG8j8s4Zk4xq+A==}
+  electron-to-chromium@1.5.217:
+    resolution: {integrity: sha512-Pludfu5iBxp9XzNl0qq2G87hdD17ZV7h5T4n6rQXDi3nCyloBV3jreE9+8GC6g4X/5yxqVgXEURpcLtM0WS4jA==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -4690,13 +4690,13 @@ snapshots:
 
   '@medusajs/client-types@0.2.12-preview-20240505115807': {}
 
-  '@medusajs/icons@2.10.2-preview-20250911000329(react@18.3.1)':
+  '@medusajs/icons@2.10.2-preview-20250911210151(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
-  '@medusajs/js-sdk@2.10.2-preview-20250911000329(awilix@8.0.1)':
+  '@medusajs/js-sdk@2.10.2-preview-20250911210151(awilix@8.0.1)':
     dependencies:
-      '@medusajs/types': 2.10.2-preview-20250911000329(awilix@8.0.1)
+      '@medusajs/types': 2.10.2-preview-20250911210151(awilix@8.0.1)
       fetch-event-stream: 0.1.5
       qs: 6.14.0
     transitivePeerDependencies:
@@ -4704,23 +4704,23 @@ snapshots:
       - ioredis
       - vite
 
-  '@medusajs/types@2.10.2-preview-20250911000329(awilix@8.0.1)':
+  '@medusajs/types@2.10.2-preview-20250911210151(awilix@8.0.1)':
     dependencies:
       awilix: 8.0.1
       bignumber.js: 9.3.1
 
-  '@medusajs/ui-preset@2.10.2-preview-20250911000329(tailwindcss@3.4.17)':
+  '@medusajs/ui-preset@2.10.2-preview-20250911210151(tailwindcss@3.4.17)':
     dependencies:
       '@tailwindcss/forms': 0.5.10(tailwindcss@3.4.17)
       tailwindcss: 3.4.17
       tailwindcss-animate: 1.0.7(tailwindcss@3.4.17)
 
-  '@medusajs/ui@4.0.22-preview-20250911000329(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)':
+  '@medusajs/ui@4.0.22-preview-20250911210151(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)':
     dependencies:
       '@dnd-kit/core': 6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@dnd-kit/sortable': 7.0.2(@dnd-kit/core@6.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       '@dnd-kit/utilities': 3.2.2(react@18.3.1)
-      '@medusajs/icons': 2.10.2-preview-20250911000329(react@18.3.1)
+      '@medusajs/icons': 2.10.2-preview-20250911210151(react@18.3.1)
       '@radix-ui/react-dialog': 1.1.4(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-dismissable-layer': 1.1.4(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-table': 8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4752,7 +4752,7 @@ snapshots:
     dependencies:
       '@emnapi/core': 1.5.0
       '@emnapi/runtime': 1.5.0
-      '@tybys/wasm-util': 0.10.0
+      '@tybys/wasm-util': 0.10.1
     optional: true
 
   '@next/env@15.5.3': {}
@@ -6572,11 +6572,11 @@ snapshots:
 
   '@tryghost/content-api@1.12.0':
     dependencies:
-      axios: 1.11.0
+      axios: 1.12.0
     transitivePeerDependencies:
       - debug
 
-  '@tybys/wasm-util@0.10.0':
+  '@tybys/wasm-util@0.10.1':
     dependencies:
       tslib: 2.8.1
     optional: true
@@ -7012,7 +7012,7 @@ snapshots:
 
   axe-core@4.10.3: {}
 
-  axios@1.11.0:
+  axios@1.12.0:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.4
@@ -7055,7 +7055,7 @@ snapshots:
   browserslist@4.25.4:
     dependencies:
       caniuse-lite: 1.0.30001741
-      electron-to-chromium: 1.5.216
+      electron-to-chromium: 1.5.217
       node-releases: 2.0.20
       update-browserslist-db: 1.1.3(browserslist@4.25.4)
 
@@ -7251,7 +7251,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.216: {}
+  electron-to-chromium@1.5.217: {}
 
   emoji-regex@8.0.0: {}
 
@@ -7379,7 +7379,7 @@ snapshots:
       eslint: 8.10.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(eslint@8.10.0))(eslint@8.10.0)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@8.10.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.10.0))(eslint@8.10.0))(eslint@8.10.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.10.0)
       eslint-plugin-react: 7.37.5(eslint@8.10.0)
       eslint-plugin-react-hooks: 5.0.0-canary-7118f5dd7-20230705(eslint@8.10.0)
@@ -7409,7 +7409,7 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@8.10.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.10.0))(eslint@8.10.0))(eslint@8.10.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -7424,7 +7424,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1)(eslint@8.10.0):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.10.0)(typescript@5.9.2))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.10.0))(eslint@8.10.0))(eslint@8.10.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -8083,7 +8083,7 @@ snapshots:
 
   medusajs-launch-utils@0.0.17:
     dependencies:
-      axios: 1.11.0
+      axios: 1.12.0
       dotenv: 10.0.0
       pg: 8.16.3
     transitivePeerDependencies:
