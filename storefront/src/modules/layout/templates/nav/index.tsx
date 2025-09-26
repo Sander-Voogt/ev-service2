@@ -1,7 +1,8 @@
 "use client";
 
 import { listRegions } from "@lib/data/regions"
-import { StoreRegion } from "@medusajs/types"
+import { enrichLineItems, retrieveCart } from "@lib/data/cart"
+import { StoreRegion, HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { useState, useRef } from 'react';
 import {
@@ -130,7 +131,7 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
   <div className="fixed inset-0 z-[100] bg-white flex flex-col items-start p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out">
     <div className="w-full flex justify-end">
       <button onClick={onClose} aria-label="Close mobile menu" className="p-2 text-green-700 hover:text-green-900 transition-colors">
-        <IconClose className="w-8 h-8" />
+        <IconClose />
       </button>
     </div>
     <nav className="flex flex-col w-full text-left mt-8">
@@ -224,20 +225,41 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
 
 
 // CartSummary
-const CartSummary = () => (
-  <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
-    <div className="relative">
-      <IconCart />
-      <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 shadow">
-        0
-      </span>
+const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => {
+  const totalItems = cart?.items?.reduce((sum: number, item: any) => sum + (item.quantity || 0), 0) || 0
+  
+  // Handle total amount calculation - cart.total should be in cents
+  let totalAmount = "0.00"
+  if (cart?.total !== null && cart?.total !== undefined) {
+    totalAmount = (cart.total ).toFixed(2)
+  }
+  
+  // Debug logging to see what we're getting
+  console.log('Cart data in CartSummary:', {
+    cart,
+    totalItems,
+    cartTotal: cart?.total,
+    calculatedAmount: totalAmount,
+    items: cart?.items
+  })
+  
+  return (
+    <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
+      <div className="relative">
+        <IconCart />
+        {totalItems > 0 && (
+          <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 shadow min-w-[18px] text-center">
+            {totalItems > 99 ? '99+' : totalItems}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col ml-1">
+        <span className="text-xs font-semibold text-green-900">Cart</span>
+        <span className="text-xs text-green-700 font-bold">€{totalAmount}</span>
+      </div>
     </div>
-    <div className="flex flex-col ml-1">
-      <span className="text-xs font-semibold text-green-900">Cart</span>
-      <span className="text-xs text-green-700 font-bold">€0.00</span>
-    </div>
-  </div>
-)
+  )
+}
 
 // Info Bar
 const InfoBar = ({ currentRegion }: { currentRegion?: StoreRegion }) => {
@@ -285,6 +307,7 @@ import { useEffect } from "react";
 
 export default function Nav() {
   const [regions, setRegions] = useState<StoreRegion[] | undefined>(undefined);
+  const [cart, setCart] = useState<HttpTypes.StoreCart | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
@@ -315,6 +338,64 @@ export default function Nav() {
 
   useEffect(() => {
     listRegions().then((regions: StoreRegion[]) => setRegions(regions));
+  }, []);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cartData = await retrieveCart();
+        console.log('Fetched cart data:', cartData);
+        if (cartData?.items?.length) {
+          const enrichedItems = await enrichLineItems(cartData.items, cartData.region_id!);
+          cartData.items = enrichedItems as HttpTypes.StoreCartLineItem[];
+        }
+        setCart(cartData);
+      } catch (error) {
+        console.error('Failed to fetch cart:', error);
+        setCart(null);
+      }
+    };
+    
+    // Fetch cart on initial load
+    fetchCart();
+    
+    // Add event listener for storage changes (when cart is updated in other tabs/windows)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'medusa-cart-id' || e.key === null) {
+        fetchCart();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Add custom event listener for cart updates within the same tab
+    const handleCartUpdate = () => {
+      fetchCart();
+    };
+    
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    
+    // Refresh when user comes back to the tab
+    const handleFocus = () => {
+      fetchCart();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
+    // Simple interval check every 5 seconds, but only when page is visible
+    const intervalId = setInterval(() => {
+      if (!document.hidden) {
+        fetchCart();
+      }
+    }, 5000);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+      window.removeEventListener('focus', handleFocus);
+      clearInterval(intervalId);
+    };
   }, []);
 
   const currentRegion = regions?.[0];
@@ -348,7 +429,7 @@ export default function Nav() {
                 <IconSearch />
               </button>
               <LocalizedClientLink href="/cart" className="flex items-center">
-                <CartSummary />
+                <CartSummary cart={cart} />
               </LocalizedClientLink>
             </div>
         </div>
