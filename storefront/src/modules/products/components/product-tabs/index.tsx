@@ -24,27 +24,28 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   ]
 
   return (
-    <div className="w-full">
-      <Accordion type="multiple">
+    <div className="">
+      <div className="border rounded-lg overflow-hidden divide-y divide-gray-500">
         {tabs.map((tab, i) => (
-          <Accordion.Item
-            key={i}
-            title={tab.label}
-            headingSize="medium"
-            value={tab.label}
+          <div
+        key={i}
+        className={`py-4 px-6`}
           >
-            {tab.component}
-          </Accordion.Item>
+        <div className="font-medium text-base mb-2">{tab.label}</div>
+        <div className="text-sm text-gray-600 pt-2 pb-4">
+          {tab.component}
+        </div>
+          </div>
         ))}
-      </Accordion>
+      </div>
     </div>
   )
 }
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
   return (
-    <div className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8">
+    <div className="text-small-regular py-7">
+      <div className="grid grid-cols-2 gap-x-7">
         <div className="flex flex-col gap-y-4">
           <div>
             <span className="font-semibold">Material</span>

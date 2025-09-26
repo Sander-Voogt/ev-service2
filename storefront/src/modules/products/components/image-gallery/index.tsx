@@ -1,39 +1,83 @@
+"use client"
+
 import { HttpTypes } from "@medusajs/types"
-import { Container } from "@medusajs/ui"
+
 import Image from "next/image"
+import { useState } from "react"
+import { ChevronLeft, ChevronRight } from "@medusajs/icons"
 
 type ImageGalleryProps = {
   images: HttpTypes.StoreProductImage[]
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
+
+  if (!images || images.length === 0) {
+    return null
+  }
+
+  const handlePrev = () => {
+    setActiveImageIndex((prevIndex) => 
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    )
+  }
+
+  const handleNext = () => {
+    setActiveImageIndex((prevIndex) => 
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    )
+  }
+
+  const activeImage = images[activeImageIndex]
+
   return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
-            >
-              {!!image.url && (
-                <Image
-                  src={image.url}
-                  priority={index <= 2 ? true : false}
-                  className="absolute inset-0 rounded-rounded"
-                  alt={`Product image ${index + 1}`}
-                  fill
-                  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </Container>
-          )
-        })}
+    <div className="w-full">
+      {/* Main Image Display */}
+      <div className="relative bg-gray-50 flex items-center justify-center">
+        {!!activeImage.url && (
+          <div
+            key={activeImage.id}
+            className="relative w-full h-full flex items-center justify-center"
+          >
+            <Image
+              src={activeImage.url}
+              priority
+              className="max-w-full max-h-full object-contain"
+              alt={`Product image ${activeImageIndex + 1}`}
+              width={600}
+              height={750}
+            />
+          </div>
+        )}
       </div>
+
+      {/* Simple Thumbnail Row */}
+      {images.length > 1 && (
+        <div className="flex gap-2 pt-4 overflow-x-auto">
+          {images.map((image, index) => (
+            <button
+              key={image.id}
+              onClick={() => setActiveImageIndex(index)}
+              className={`w-16 h-16 border-2 rounded overflow-hidden flex-shrink-0 ${
+              index === activeImageIndex
+                ? 'border-green-500'
+                : 'border-gray-200 hover:border-gray-300'
+              }`}
+            >
+              {image.url && (
+              <Image
+                src={image.url}
+                alt={`Thumbnail ${index + 1}`}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
