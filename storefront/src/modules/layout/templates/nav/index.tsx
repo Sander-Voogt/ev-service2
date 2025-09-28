@@ -103,7 +103,7 @@ const MainNavBar = () => (
     </div>
     <LocalizedClientLink href="#charging-installation" className={navLink}>Charging station installation</LocalizedClientLink>
     <LocalizedClientLink href="/blog" className={navLink}>Blog</LocalizedClientLink>
-    <LocalizedClientLink href="#selection-aid" className={navLink}>Customer Service</LocalizedClientLink>
+    <LocalizedClientLink href="/klantenservice" className={navLink}>Klantenservice</LocalizedClientLink>
     <div className="relative group">
       <LocalizedClientLink href="#commercial" className={`${navLink} flex items-center gap-1`}>
         Commercial
@@ -113,7 +113,7 @@ const MainNavBar = () => (
       </LocalizedClientLink>
       <div className="absolute left-0 top-full mt-2 min-w-[260px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
         <LocalizedClientLink href="/commercial/companies" className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200">
-          Companies and homeowners' associations
+          Companies and homeowners associations
         </LocalizedClientLink>
         <LocalizedClientLink href="/commercial/installers" className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200">
           For Installers
