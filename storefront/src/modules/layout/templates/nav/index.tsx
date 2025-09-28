@@ -234,15 +234,6 @@ const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => {
     totalAmount = (cart.total ).toFixed(2)
   }
   
-  // Debug logging to see what we're getting
-  console.log('Cart data in CartSummary:', {
-    cart,
-    totalItems,
-    cartTotal: cart?.total,
-    calculatedAmount: totalAmount,
-    items: cart?.items
-  })
-  
   return (
     <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
       <div className="relative">
