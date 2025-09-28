@@ -2,7 +2,7 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import { getCollectionsWithProducts } from "@lib/data/collections"
+import { getCollectionByHandle, getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { sdk } from "@lib/config"
 
@@ -27,7 +27,7 @@ export default async function Home({
 }: {
   params: { countryCode: string }
 }) {
-  const collections = await getCollectionsWithProducts(countryCode)
+  const collections = await getCollectionByHandle('home-page')
   const region = await getRegion(countryCode)
 
   const models: ApiResponse = await sdk.client.fetch(`/store/carbrand/models`);
@@ -44,7 +44,7 @@ export default async function Home({
       <Hero models={models.brands}/>
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <FeaturedProducts collection={collections} region={region} />
         </ul>
       </div>
     </>
