@@ -1,14 +1,16 @@
 type Props = {
-  html?: string
+  html: {
+    maindescription_html?: string
+  }
 }
 
 export default function ProductDescription({ html }: Props) {
-  if (!html) return null
+  if (!html.maindescription_html) return null
 
   return (
     <div
       className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: html }}
+      dangerouslySetInnerHTML={{ __html: html.maindescription_html }}
     />
   )
 }
