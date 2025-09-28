@@ -73,9 +73,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         <ProCon data={product.custom} />
       </div>
       <div className="content-container">
-        {product?.custom?.maindescription_html ?? (
-          <ProductDescription html={product.custom.maindescription_html} />
-        )}
+        <ProductDescription html={product.custom?.maindescription_html} />
         <Specs data={product.custom} />
         <Faq data={product.custom.faq} />
       </div>
