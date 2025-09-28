@@ -32,24 +32,23 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     return notFound()
   }
 
-  console.log('ddd', product.custom)
+  console.log("ddd", product.custom)
 
-//     const html = renderContent(product?.custom?.maindescription)
+  //     const html = renderContent(product?.custom?.maindescription)
 
-//   console.log("DB content:", product?.custom?.maindescription)
-// console.log("Rendered HTML:", renderContent(product?.custom?.maindescription))
+  //   console.log("DB content:", product?.custom?.maindescription)
+  // console.log("Rendered HTML:", renderContent(product?.custom?.maindescription))
 
   return (
     <>
       <ProductViewEvent product={product} />
       <div className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 content-container">
-          <ProductInfo product={product} />
+        <ProductInfo product={product} />
       </div>
       <div
         className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"
       >
-        
         <div className="flex w-full gap-x-8">
           <div className="block w-3/5 relative">
             <ImageGallery images={product?.images || []} />
@@ -71,13 +70,15 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         </div>
       </div>
       <div className="container w-1/2">
-      <ProCon data={product.custom} />
+        <ProCon data={product.custom} />
       </div>
       <div className="content-container">
-      <ProductDescription html={product.custom.maindescription_html} />
-      <Specs data={product.custom} />
-      <Faq data={product.custom.faq}/>
-     </div>
+        {product?.custom?.maindescription_html ?? (
+          <ProductDescription html={product.custom.maindescription_html} />
+        )}
+        <Specs data={product.custom} />
+        <Faq data={product.custom.faq} />
+      </div>
       <div
         className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 text-left"
         data-testid="related-products-container"
