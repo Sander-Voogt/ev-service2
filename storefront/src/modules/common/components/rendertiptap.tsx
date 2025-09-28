@@ -5,12 +5,12 @@ type Props = {
 }
 
 export default function ProductDescription({ html }: Props) {
-  if (!html.maindescription_html) return null
+  if (!html?.maindescription_html) return null
 
   return (
     <div
       className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: html.maindescription_html }}
+      dangerouslySetInnerHTML={{ __html: html?.maindescription_html }}
     />
   )
 }
