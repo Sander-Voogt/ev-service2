@@ -1,20 +1,34 @@
-"use client"
+"use client";
 
-import React, { useCallback } from "react"
-import { EditorContent, useEditor } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
-import Image from "@tiptap/extension-image"
-import { Table } from "@tiptap/extension-table"
-import TableRow from "@tiptap/extension-table-row"
-import TableCell from "@tiptap/extension-table-cell"
-import TableHeader from "@tiptap/extension-table-header"
-import { sdk } from "../lib/sdk" // jouw Medusa SDK
+import React, { useCallback } from "react";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import { Table } from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import { sdk } from "../lib/sdk"; // jouw Medusa SDK
 import "./style.css";
+import { Columns, Column } from "./Columns";
 
 type Props = {
-  value?: string
-  onChange?: (html: string) => void
+  value?: string;
+  onChange?: (html: string) => void;
+};
+
+function safeParseContent(value?: string) {
+  if (!value) return ''
+
+  try {
+    // Probeer eerst te parsen als JSON
+    return JSON.parse(value)
+  } catch {
+    // Als dat faalt, ga er vanuit dat het HTML is
+    return value
+  }
 }
+
 
 export default function TiptapEditor({ value = "", onChange }: Props) {
   const editor = useEditor({
@@ -27,32 +41,34 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
       TableRow,
       TableHeader,
       TableCell,
+      Columns,
+      Column,
     ],
-    content: value,
-    onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML())
+      content: safeParseContent(value), // ✅ vangt zowel HTML als JSON af
+      onUpdate: ({ editor }) => {
+      onChange?.(JSON.stringify(editor.getJSON()));
     },
-  })
+  });
 
   // Foto uploaden
   const handleImageUpload = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0]
-      if (!file || !editor) return
+      const file = event.target.files?.[0];
+      if (!file || !editor) return;
 
       try {
-        const res = await sdk.admin.upload.create({ files: [file] })
+        const res = await sdk.admin.upload.create({ files: [file] });
         if (res.files && res.files[0].url) {
-          editor.chain().focus().setImage({ src: res.files[0].url }).run()
+          editor.chain().focus().setImage({ src: res.files[0].url }).run();
         }
       } catch (err) {
-        console.error("Upload failed", err)
+        console.error("Upload failed", err);
       }
     },
     [editor]
-  )
+  );
 
-  if (!editor) return null
+  if (!editor) return null;
 
   return (
     <div className="border rounded-lg p-2 space-y-2">
@@ -80,7 +96,9 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
         </button>
         <button
           type="button"
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
         >
           H2
         </button>
@@ -107,6 +125,21 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
           Kolom +
         </button>
 
+        <button
+          type="button"
+          onClick={() =>
+            editor
+              .chain()
+              .focus()
+              .insertContent(
+                '<div class="columns"><div class="column"><p>Kolom 1</p></div><div class="column"><p>Kolom 2</p></div></div>'
+              )
+              .run()
+          }
+        >
+          2 Kolommen
+        </button>
+
         {/* Upload button */}
         <label className="cursor-pointer bg-gray-200 px-2 py-1 rounded">
           Upload Image
@@ -122,5 +155,5 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
       {/* Editor */}
       <EditorContent editor={editor} className="my-custom-editor" />
     </div>
-  )
+  );
 }

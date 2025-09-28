@@ -12,6 +12,7 @@ import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
 import { sendGTMEvent } from "@next/third-parties/google"
 import ProductViewEvent from "./product-events/ProductViewEvent"
+import { ProductDescription } from "@modules/common/components/rendertiptap"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -28,7 +29,10 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     return notFound()
   }
 
-  
+//     const html = renderContent(product?.custom?.maindescription)
+
+//   console.log("DB content:", product?.custom?.maindescription)
+// console.log("Rendered HTML:", renderContent(product?.custom?.maindescription))
 
   return (
     <>
@@ -62,6 +66,10 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           </div>
         </div>
       </div>
+      <div>
+
+      <ProductDescription content={product.custom.maindescription} />
+     </div>
       <div
         className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 text-left"
         data-testid="related-products-container"
