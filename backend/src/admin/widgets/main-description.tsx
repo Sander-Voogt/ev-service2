@@ -29,6 +29,7 @@ type CustomFields = {
   custom_name: string;
   faq: string;
   maindescription: string;
+  maindescription_html: string;
 };
 
 const MainDescription = ({

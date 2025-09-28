@@ -14,7 +14,7 @@ import { Columns, Column } from "./Columns";
 
 type Props = {
   value?: string;
-  onChange?: (html: string) => void;
+  onChange?: (json: string, html: string) => void;
 };
 
 function safeParseContent(value?: string) {
