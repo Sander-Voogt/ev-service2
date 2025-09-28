@@ -12,7 +12,7 @@ export function ProCon({ data }) {
           <div>
             <p>Pluspunten</p>
             <ul>
-              {data.pros.map(item => (
+              {data?.pros?.map(item => (
                 <li><FontAwesomeIcon icon={faSquarePlus} color="#338414" />{item}</li>
               ))}
             </ul>
@@ -20,7 +20,7 @@ export function ProCon({ data }) {
           <div>
             <p>Minpunten</p>
             <ul>
-              {data.cons.map(item => (
+              {data?.cons?.map(item => (
                 <li><FontAwesomeIcon icon={faSquareMinus} color="gray" />{item}</li>
               ))}
             </ul>

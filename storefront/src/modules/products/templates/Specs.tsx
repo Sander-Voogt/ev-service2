@@ -15,8 +15,8 @@ export function Specs({ data }) {
         <div className="grid grid-rows-2 pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">
           <div>
             <ul>
-              <li>Soort kabel: {data.soort_kabel ?? ""}</li>
-              <li>Certificering: {data.certificering}</li>
+              <li>Soort kabel: {data?.soort_kabel ?? ""}</li>
+              <li>Certificering: {data?.certificering}</li>
               <li>Standaard: </li>
               <li>Stekker:</li>
               <li>Waterbestendigheid: </li>

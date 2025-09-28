@@ -7,7 +7,7 @@ export function Faq({ data }) {
         </h2>
         <div className="grid pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">
           <div>
-            {data.map((item, index) => (
+            {data?.map((item, index) => (
               <div className="mb-10" key={index}>
                 <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900 dark:text-white">
                   <svg
