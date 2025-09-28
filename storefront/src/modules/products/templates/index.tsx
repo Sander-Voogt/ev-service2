@@ -75,7 +75,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
       <div className="content-container">
         <ProductDescription html={product.custom?.maindescription_html} />
         <Specs data={product.custom} />
-        <Faq data={product.custom.faq} />
+        <Faq data={product.custom?.faq} />
       </div>
       <div
         className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 text-left"
