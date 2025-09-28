@@ -46,7 +46,7 @@ const MainNavBar = () => (
         <div className="relative group/sub">
           <LocalizedClientLink
             href="#charging-stations"
-            className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
+            className="block px-4 py-2 hover:bg-green-light text-green-900 flex items-center justify-between"
           >
             Charging Stations
             <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
@@ -54,19 +54,19 @@ const MainNavBar = () => (
             </svg>
           </LocalizedClientLink>
           <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
-            <LocalizedClientLink href="/charging-stations/home" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-stations/home" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging station at home
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-stations/business" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-stations/business" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging station for business
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-stations/vve" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-stations/vve" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging station VvE
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-stations/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-stations/accessories" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging station accessories
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-stations/installation-accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-stations/installation-accessories" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Installation accessories
             </LocalizedClientLink>
           </div>
@@ -74,7 +74,7 @@ const MainNavBar = () => (
         <div className="relative group/sub">
           <LocalizedClientLink
             href="#charging-cables"
-            className="block px-4 py-2 hover:bg-green-50 text-green-900 flex items-center justify-between"
+            className="block px-4 py-2 hover:bg-green-light text-green-900 flex items-center justify-between"
           >
             Charging Cables
             <svg width="12" height="12" fill="none" viewBox="0 0 24 24">
@@ -82,19 +82,19 @@ const MainNavBar = () => (
             </svg>
           </LocalizedClientLink>
           <div className="absolute left-full top-0 ml-2 min-w-[220px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 z-20">
-            <LocalizedClientLink href="/charging-cables/type-2" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-cables/type-2" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging cables type 2
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-cables/type-1" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-cables/type-1" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging cables type 1
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-cables/mobile-car-chargers" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Mobile car chargers
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-cables/accessories" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-cables/accessories" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Charging cable accessories
             </LocalizedClientLink>
-            <LocalizedClientLink href="/charging-cables/extension-cables" className="block px-4 py-2 hover:bg-green-50 text-green-900">
+            <LocalizedClientLink href="/charging-cables/extension-cables" className="block px-4 py-2 hover:bg-green-light text-green-900">
               Extension cables
             </LocalizedClientLink>
           </div>
@@ -112,13 +112,13 @@ const MainNavBar = () => (
         </svg>
       </LocalizedClientLink>
       <div className="absolute left-0 top-full mt-2 min-w-[260px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-        <LocalizedClientLink href="/commercial/companies" className="block px-4 py-3 hover:bg-green-50 text-green-900 border-b border-dotted border-green-200">
+        <LocalizedClientLink href="/commercial/companies" className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200">
           Companies and homeowners' associations
         </LocalizedClientLink>
-        <LocalizedClientLink href="/commercial/installers" className="block px-4 py-3 hover:bg-green-50 text-green-900 border-b border-dotted border-green-200">
+        <LocalizedClientLink href="/commercial/installers" className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200">
           For Installers
         </LocalizedClientLink>
-        <LocalizedClientLink href="/commercial/resellers" className="block px-4 py-3 hover:bg-green-50 text-green-900">
+        <LocalizedClientLink href="/commercial/resellers" className="block px-4 py-3 hover:bg-green-light text-green-900">
           For Resellers
         </LocalizedClientLink>
       </div>
@@ -130,20 +130,20 @@ const MainNavBar = () => (
 const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
   <div className="fixed inset-0 z-[100] bg-white flex flex-col items-start p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out">
     <div className="w-full flex justify-end">
-      <button onClick={onClose} aria-label="Close mobile menu" className="p-2 text-green-700 hover:text-green-900 transition-colors">
+      <button onClick={onClose} aria-label="Close mobile menu" className="p-2 text-green-default hover:text-green-900 transition-colors">
         <IconClose />
       </button>
     </div>
     <nav className="flex flex-col w-full text-left mt-8">
       {/* Main Nav Links */}
-      <LocalizedClientLink href="/auto" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
+      <LocalizedClientLink href="/auto" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors">
         Car Brands
       </LocalizedClientLink>
 
       {/* Nested Details/Dropdowns */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-50 transition-colors">
+          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-light transition-colors">
             Charging
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
               <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
@@ -187,20 +187,20 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       </div>
 
       {/* Remaining Top-Level Links */}
-      <LocalizedClientLink href="#charging-installation" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
+      <LocalizedClientLink href="#charging-installation" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors">
         Charging station installation
       </LocalizedClientLink>
-      <LocalizedClientLink href="/blog" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
+      <LocalizedClientLink href="/blog" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors">
         Blog
       </LocalizedClientLink>
-      <LocalizedClientLink href="#selection-aid" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-50 transition-colors">
+      <LocalizedClientLink href="#selection-aid" className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors">
         Customer Service
       </LocalizedClientLink>
 
       {/* Commercial Dropdown */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-50 transition-colors">
+          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-light transition-colors">
             Commercial
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="transform transition-transform details-open:rotate-180">
               <path d="M8 10l4 4 4-4" stroke="#10B981" strokeWidth="2" />
@@ -255,7 +255,7 @@ const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => {
       </div>
       <div className="flex flex-col ml-1">
         <span className="text-xs font-semibold text-green-900">Cart</span>
-        <span className="text-xs text-green-700 font-bold">€{totalAmount}</span>
+        <span className="text-xs text-green-default font-bold">€{totalAmount}</span>
       </div>
     </div>
   )
@@ -278,20 +278,20 @@ const InfoBar = ({ currentRegion }: { currentRegion?: StoreRegion }) => {
   )
 
   return (
-    <div className="w-full bg-gradient-to-r from-green-50 via-white to-green-50 text-sm text-green-900 border-b border-green-100 shadow-sm">
+    <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-sm text-green-900 border-b border-green-100 shadow-sm">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4">
         <div className="flex items-center gap-4 hidden sm:flex">
-          <a href="tel:0851304170" className="flex items-center gap-1 font-medium hover:text-green-700">
+          <a href="tel:0851304170" className="flex items-center gap-1 font-medium hover:text-green-default">
             <IconPhone />
             <span>085 130 4170</span>
           </a>
-          <a href="mailto:info@evservice.com" className="flex items-center gap-1 font-medium hover:text-green-700">
+          <a href="mailto:info@evservice.com" className="flex items-center gap-1 font-medium hover:text-green-default">
             <IconMail />
             <span>info@evservice.com</span>
           </a>
         </div>
         <div className="flex items-center gap-2">
-          <a href="#login" className="flex items-center gap-2 font-semibold hover:text-green-700">
+          <a href="#login" className="flex items-center gap-2 font-semibold hover:text-green-default">
             <IconUser />
             <span className="hidden sm:inline">Login</span>
           </a>
@@ -409,7 +409,7 @@ export default function Nav() {
             {/* Mobile menu button, visible only on mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50 shrink-0"
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-light shrink-0"
               aria-label="Open mobile menu"
             >
               <IconHamburger />
@@ -422,7 +422,7 @@ export default function Nav() {
             <div className="flex items-center gap-3 md:gap-5">
               <button
                 ref={searchButtonRef}
-                className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50"
+                className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-light"
                 aria-label="Search"
                 onClick={() => setShowSearch((prev) => !prev)}
               >

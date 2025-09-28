@@ -13,6 +13,7 @@ export type UpdateCustomFromProductStepInput = {
         custom_name?: string;
         faq?: Record<string, unknown>;
         maindescription?: string;
+        maindescription_html?: string;
         video?: string;
         certificering?: Record<string, unknown>;
         stekker?: Record<string, unknown>;
@@ -61,6 +62,8 @@ export const updateCustomFromProductWorkflow = createWorkflow(
                     faq: input.additional_data.faq,
                     video: input.additional_data.video,
                     maindescription: input.additional_data.maindescription,
+                    maindescription_html: input.additional_data.maindescription_html,
+
                     certificering: input.additional_data.certificering,
                     stekker: input.additional_data.stekker,
                     waterbestendigheid: input.additional_data.waterbestendigheid,
@@ -130,6 +133,7 @@ export const updateCustomFromProductWorkflow = createWorkflow(
                     faq: input.additional_data.faq,
                     video: input.additional_data.video,
                     maindescription: input.additional_data.maindescription,
+                    maindescription_html: input.additional_data.maindescription_html,
                     certificering: input.additional_data.certificering,
                     stekker: input.additional_data.stekker,
                     waterbestendigheid: input.additional_data.waterbestendigheid,

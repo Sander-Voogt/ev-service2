@@ -42,6 +42,15 @@
           "nullable": true,
           "mappedType": "text"
         },
+        "maindescription_html": {
+          "name": "maindescription_html",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "text"
+        },
         "video": {
           "name": "video",
           "type": "text",

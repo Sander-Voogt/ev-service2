@@ -25,6 +25,7 @@ export default defineMiddlewares({
         faq: z.string().optional(),
         video: z.string().optional(),
         maindescription: z.string().optional(),
+        maindescription_html: z.string().optional(),
         certificering: z.string().optional(),
         stekker: z.string().optional(),
         waterbestendigheid: z.string().optional(),

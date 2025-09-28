@@ -12,7 +12,10 @@ import ProductActionsWrapper from "./product-actions-wrapper"
 import { HttpTypes } from "@medusajs/types"
 import { sendGTMEvent } from "@next/third-parties/google"
 import ProductViewEvent from "./product-events/ProductViewEvent"
-import { ProductDescription } from "@modules/common/components/rendertiptap"
+import { Faq } from "./Faq"
+import { ProCon } from "./Procon"
+import ProductDescription from "@modules/common/components/rendertiptap"
+import { Specs } from "./Specs"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -28,6 +31,8 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   if (!product || !product.id) {
     return notFound()
   }
+
+  console.log('ddd', product.custom)
 
 //     const html = renderContent(product?.custom?.maindescription)
 
@@ -46,12 +51,11 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
       >
         
         <div className="flex w-full gap-x-8">
-          <div className="block w-full relative flex-1">
+          <div className="block w-3/5 relative">
             <ImageGallery images={product?.images || []} />
           </div>
-          <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12 flex-1">
-            <ProductOnboardingCta />
-            <ProductTabs product={product} />
+          <div className="flex flex-col w-2/5 small:sticky small:top-48 small:py-0  w-full py-8 gap-y-12 flex-1">
+            {/* <ProductTabs product={product} /> */}
             <Suspense
               fallback={
                 <ProductActions
@@ -66,9 +70,13 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           </div>
         </div>
       </div>
-      <div>
-
-      <ProductDescription content={product.custom.maindescription} />
+      <div className="container w-1/2">
+      <ProCon data={product.custom} />
+      </div>
+      <div className="content-container">
+      <ProductDescription html={product.custom.maindescription_html} />
+      <Specs data={product.custom} />
+      <Faq data={product.custom.faq}/>
      </div>
       <div
         className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 text-left"

@@ -96,8 +96,9 @@ const MainDescription = ({
                     <form onSubmit={form.handleSubmit(onSubmit)} id="dddd">
                       <TiptapEditor
                         value={form.watch("maindescription") || ""}
-                        onChange={(e) => {
-                          form.setValue("maindescription", e);
+                        onChange={(json, html) => {
+                          form.setValue("maindescription", json);
+                          form.setValue("maindescription_html", html);
                         }}
                       />
                     </form>

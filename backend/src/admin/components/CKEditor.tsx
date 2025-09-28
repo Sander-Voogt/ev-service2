@@ -18,17 +18,16 @@ type Props = {
 };
 
 function safeParseContent(value?: string) {
-  if (!value) return ''
+  if (!value) return "";
 
   try {
     // Probeer eerst te parsen als JSON
-    return JSON.parse(value)
+    return JSON.parse(value);
   } catch {
     // Als dat faalt, ga er vanuit dat het HTML is
-    return value
+    return value;
   }
 }
-
 
 export default function TiptapEditor({ value = "", onChange }: Props) {
   const editor = useEditor({
@@ -44,9 +43,11 @@ export default function TiptapEditor({ value = "", onChange }: Props) {
       Columns,
       Column,
     ],
-      content: safeParseContent(value), // ✅ vangt zowel HTML als JSON af
-      onUpdate: ({ editor }) => {
-      onChange?.(JSON.stringify(editor.getJSON()));
+    content: safeParseContent(value), // ✅ vangt zowel HTML als JSON af
+    onUpdate: ({ editor }) => {
+      const json = JSON.stringify(editor.getJSON());
+      const html = editor.getHTML();
+      onChange?.(json, html);
     },
   });
 

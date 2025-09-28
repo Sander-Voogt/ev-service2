@@ -12,6 +12,7 @@ export type CreateCustomFromProductWorkflowInput = {
     custom_name?: string;
     faq?: Record<string, unknown>;
     maindescription?: string;
+    maindescription_html?: string;
     video?: string;
     certificering?: Record<string, unknown>;
     stekker?: Record<string, unknown>;

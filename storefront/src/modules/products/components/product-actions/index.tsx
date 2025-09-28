@@ -13,6 +13,8 @@ import MobileActions from "./mobile-actions"
 import ProductPrice from "../product-price"
 import { addToCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSquareCheck } from "@fortawesome/free-solid-svg-icons"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -21,12 +23,19 @@ type ProductActionsProps = {
 }
 
 const optionsAsKeymap = (variantOptions: any) => {
-  return variantOptions?.reduce((acc: Record<string, string | undefined>, varopt: any) => {
-    if (varopt.option && varopt.value !== null && varopt.value !== undefined) {
-      acc[varopt.option.title] = varopt.value
-    }
-    return acc
-  }, {})
+  return variantOptions?.reduce(
+    (acc: Record<string, string | undefined>, varopt: any) => {
+      if (
+        varopt.option &&
+        varopt.value !== null &&
+        varopt.value !== undefined
+      ) {
+        acc[varopt.option.title] = varopt.value
+      }
+      return acc
+    },
+    {}
+  )
 }
 
 export default function ProductActions({
@@ -109,8 +118,9 @@ export default function ProductActions({
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-y-2" ref={actionsRef}>
+    <div className="bg-green-light">
+      <div className="flex flex-col gap-y-2  p-4" ref={actionsRef}>
+        <p className="text-lg text-green-default">Kies je opties</p>
         <div>
           {(product.variants?.length ?? 0) > 1 && (
             <div className="flex flex-col gap-y-4">
@@ -161,6 +171,26 @@ export default function ProductActions({
           optionsDisabled={!!disabled || isAdding}
         />
       </div>
-    </>
+      <div className="gap-y-2  p-4">
+        <ul className="text-sm">
+          <li>
+            <FontAwesomeIcon icon={faSquareCheck} color="#338414" /> Klanten
+            beoordelen ons gemiddeld met een 9.0
+          </li>
+          <li>
+            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
+            GRATIS verzenden vanaf € 100,-
+          </li>
+          <li>
+            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
+            30 dagen retourrecht
+          </li>
+          <li>
+            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
+            Minimaal 2 jaar garantie
+          </li>
+        </ul>
+      </div>
+    </div>
   )
 }

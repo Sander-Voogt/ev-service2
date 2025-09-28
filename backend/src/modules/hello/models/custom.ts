@@ -1,10 +1,12 @@
 import { model } from "@medusajs/framework/utils"
+import MainDescription from "admin/widgets/main-description"
 
 export const Custom = model.define("custom", {
   id: model.id().primaryKey(),
   custom_name: model.text().nullable(),
   faq: model.json().nullable(),
   maindescription: model.text().nullable(),
+  maindescription_html: model.text().nullable(),
   video: model.text().nullable(),
   certificering: model.json().nullable(),
   stekker: model.json().nullable(),
