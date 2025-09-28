@@ -15,8 +15,6 @@ export default function CarSelect({
   const [selectedMake, setSelectedMake] = useState<CarMake>([])
   const [selectedModel, setSelectedModel] = useState<string>()
 
-  console.log(models)
-
   const carouselImages = [
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80",

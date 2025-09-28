@@ -335,14 +335,14 @@ export default function Nav() {
     const fetchCart = async () => {
       try {
         const cartData = await retrieveCart();
-        console.log('Fetched cart data:', cartData);
+        // console.log('Fetched cart data:', cartData);
         if (cartData?.items?.length) {
           const enrichedItems = await enrichLineItems(cartData.items, cartData.region_id!);
           cartData.items = enrichedItems as HttpTypes.StoreCartLineItem[];
         }
         setCart(cartData);
       } catch (error) {
-        console.error('Failed to fetch cart:', error);
+        // console.error('Failed to fetch cart:', error);
         setCart(null);
       }
     };
