@@ -31,17 +31,16 @@ export default async function CarIndexPage({
       <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {data.brands.map((post: Brand) => (
           <li
-            key={post.name}
+            key={post.id}
             className="max-w-sm bg-white border border-green-100 rounded-lg shadow-sm flex flex-col"
           >
             <Link href={`/auto/${post.name}`}>
               {post.image ? (
                 <Image
                   className="rounded-t-lg w-full h-40 object-cover bg-green-50"
-                  width={100}
                   height={100}
                   src={post.image}
-                  alt={post.name}
+                  alt={'auto'}
                   fill={true}
                 />
               ) : (
