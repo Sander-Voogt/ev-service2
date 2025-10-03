@@ -41,17 +41,18 @@ export const IconSearch = () => (
 
 // Logo
 export const Logo = () => (
-  <span className="flex items-center gap-2 min-w-[180px]">
-    <svg width="36" height="36" fill="none" viewBox="0 0 40 40">
-      <rect x="8" y="13" width="25" height="15" rx="4" fill="#E6FCE5" stroke="#22C55E" strokeWidth="2"/>
-      <rect x="34" y="18" width="2.5" height="5" rx="1.25" fill="#22C55E"/>
-      <path d="M20 16l-3.75 6.25h2.5v3.75l3.75-6.25h-2.5V16z" fill="#2DD4BF"/>
-    </svg>
-    <span className="flex flex-col leading-tight">
-      <span className="text-green-900 font-bold tracking-wide">EV SERVICE</span>
-      <span className="text-xs text-green-600 font-normal tracking-wide">CHARGING SOLUTIONS</span>
-    </span>
-  </span>
+  // <span className="flex items-center gap-2 min-w-[180px]">
+  //   <svg width="36" height="36" fill="none" viewBox="0 0 40 40">
+  //     <rect x="8" y="13" width="25" height="15" rx="4" fill="#E6FCE5" stroke="#22C55E" strokeWidth="2"/>
+  //     <rect x="34" y="18" width="2.5" height="5" rx="1.25" fill="#22C55E"/>
+  //     <path d="M20 16l-3.75 6.25h2.5v3.75l3.75-6.25h-2.5V16z" fill="#2DD4BF"/>
+  //   </svg>
+  //   <span className="flex flex-col leading-tight">
+  //     <span className="text-green-900 font-bold tracking-wide">EV SERVICE</span>
+  //     <span className="text-xs text-green-600 font-normal tracking-wide">CHARGING SOLUTIONS</span>
+  //   </span>
+  // </span>
+  <img src="/img/ev-service-logo.png" alt="logo evservice" width={'150'}/>
 );
 
 // Utility style

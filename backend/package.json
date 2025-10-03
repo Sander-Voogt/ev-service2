@@ -54,6 +54,7 @@
     "medusajs-launch-utils": "0.0.17",
     "minio": "8.0.5",
     "pg": "8.16.3",
+    "react-dropzone": "^14.3.8",
     "react-hook-form": "7.62.0",
     "react-router-dom": "6.20.1",
     "resend": "4.0.1",

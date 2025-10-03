@@ -1,5 +1,8 @@
-import { MedusaRequest, MedusaResponse } from "@medusajs/framework"
-
+import { MedusaRequest, MedusaResponse, container } from "@medusajs/framework"
+import CarBrandModuleService from "modules/carbrand/service"
+import CarModelModuleService from "../../../../modules/carmodel/service"
+import { CARMODEL_MODULE } from "../../../../modules/carmodel/index"
+import { CARBRAND_MODULE } from "modules/carbrand"
 export const GET = async (
   req: MedusaRequest,
   res: MedusaResponse
@@ -11,7 +14,7 @@ export const GET = async (
 
   const baseConfig = {
     entity: "carbrand",
-    fields: ["id", "name", "created_at"],
+    fields: ["id", "name", "created_at", "image"],
     ...req.queryConfig,
   }
 
@@ -41,4 +44,23 @@ export const GET = async (
     limit: take,
     offset: skip,
   })
+}
+
+export const POST = async (
+  req: MedusaRequest,
+  res: MedusaResponse
+) => {
+  const { id } = req.params
+
+  const CarModelModuleService: CarBrandModuleService = container.resolve(
+    CARBRAND_MODULE
+  )
+
+  const response = await CarModelModuleService.updateCarbrands(req.body)
+  // const { result } = await CarModelModuleService.update(id, req.scope)
+  //   .run({
+  //     input: req.body,
+  //   })
+
+  res.json(response)
 }

@@ -24,7 +24,7 @@ export const GET = async (
 
       entity: "carbrand",
 
-      fields: ["id", "name", "carmodels.*"], // niet alleen "*"
+      fields: ["name", "id", "image", "description", "BottomDescription", "created_at", "carmodels.*"],
 
       filters: { name: id },
 

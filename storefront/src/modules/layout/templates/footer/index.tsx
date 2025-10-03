@@ -84,26 +84,22 @@ export default function Footer() {
           </div>
           {/* Customer Service */}
           <div>
-            <span className="font-bold text-lg mb-4 block">Customer service</span>
+            <span className="font-bold text-lg mb-4 block">Klantenservice</span>
             <ul className="space-y-2 text-sm">
               <li>
                 <LocalizedClientLink href="#about" className={navLink}>
-                  About EV Service
+                  Over EV Service
                 </LocalizedClientLink>
               </li>
               <li>
                 <LocalizedClientLink href="#faq" className={navLink}>
-                  Frequently Asked Questions
+                  Veel gestelde vragen
                 </LocalizedClientLink>
               </li>
-              <li>
-                <LocalizedClientLink href="#buyback" className={navLink}>
-                  Buyback guarantee
-                </LocalizedClientLink>
-              </li>
+              
               <li>
                 <LocalizedClientLink href="#returns" className={navLink}>
-                  Returns
+                  Retourneren
                 </LocalizedClientLink>
               </li>
               <li>
