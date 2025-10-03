@@ -31,8 +31,6 @@
     "**/__fixtures__",
     "node_modules",
     "build",
-    ".cache",
-    "admin",
-    "admin/**"
+    ".cache"
   ]
 }
