@@ -1,4 +1,5 @@
 import { sdk } from "@lib/config"
+import Image from "next/image";
 import Link from "next/link"
 
 type Brand = {
@@ -35,10 +36,13 @@ export default async function CarIndexPage({
           >
             <Link href={`/auto/${post.name}`}>
               {post.image ? (
-                <img
+                <Image
                   className="rounded-t-lg w-full h-40 object-cover bg-green-50"
+                  width={100}
+                  height={100}
                   src={post.image}
                   alt={post.name}
+                  fill={true}
                 />
               ) : (
                 <div className="rounded-t-lg w-full h-40 flex items-center justify-center bg-gray-100 text-gray-500 text-sm font-semibold border-b border-green-100">

@@ -36,7 +36,8 @@ module.exports = {
         },
         green: {
           default: '#338414',
-          light: '#f1f8e9'
+          light: '#f1f8e9',
+          logo: '#32ad6a'
         }
       },
       borderRadius: {
