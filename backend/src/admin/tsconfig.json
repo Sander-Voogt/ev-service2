@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "target": "ES2020",
     "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["vite/client"]   // 👈 belangrijk!
+    "types": ["vite/client"]
   },
-  "include": ["src", "env.d.ts"]  // 👈 expliciet je env types includen
+  "include": ["**/*"]
 }

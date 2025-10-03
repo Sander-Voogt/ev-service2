@@ -1,12 +1,13 @@
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+"use client";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import {
   IconPhone,
   IconMail,
   Logo,
   navLink,
-} from "@modules/common/components/reusable-nav-elements"
-import FooterSub from "./FooterSub"
-import api from "@lib/ghost";
+} from "@modules/common/components/reusable-nav-elements";
+import { useState } from "react";
 
 const paymentIcons = [
   {
@@ -33,9 +34,9 @@ const paymentIcons = [
     src: "https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png",
     alt: "Visa",
   },
-]
+];
 
-export default async function Footer() {
+export default function Footer() {
   // const { collections } = await (
   //   await import("@lib/data/collections")
   // ).listCollections({ fields: "*products" });
@@ -44,13 +45,12 @@ export default async function Footer() {
   // ).listCategories();
 
   // Accordion state for mobile
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
 
-  const blogs = await api.posts.browse({
-      // filter: 'tag:hash-helpdesk', // Filter op de 'helpdesk' tag
-      // include: 'tags',
-      limit: '5',
-      order: 'date ASC' // Sorteren op titel is vaak handig voor categorieën
-    });
+  // Accordion toggle handler
+  const handleAccordion = (section: string) => {
+    setOpenAccordion(openAccordion === section ? null : section);
+  };
 
   return (
     <footer className="w-full bg-white text-green-900 border-t border-green-100 mt-20">
@@ -96,7 +96,7 @@ export default async function Footer() {
                   Veel gestelde vragen
                 </LocalizedClientLink>
               </li>
-
+              
               <li>
                 <LocalizedClientLink href="#returns" className={navLink}>
                   Retourneren
@@ -116,19 +116,21 @@ export default async function Footer() {
           </div>
           {/* Electric Driving */}
           <div>
-            <span className="font-bold text-lg mb-4 block">
-              Laatste blogs
-            </span>
+            <span className="font-bold text-lg mb-4 block">Electric Driving</span>
+
 
             <ul className="space-y-2 text-sm">
-              {blogs.map(blog => (
-                 <li key={blog.id} >
-                <LocalizedClientLink href={`/blog/${blog.slug}`} className={navLink}>
-                  {blog.title}
+              <li>
+                <LocalizedClientLink href="#cable-choice" className={navLink}>
+                  Which charging cable should I choose?
                 </LocalizedClientLink>
               </li>
-              ))}
-             
+              <li>
+                <LocalizedClientLink href="#installation" className={navLink}>
+                  Charging station including installation
+                </LocalizedClientLink>
+              </li>
+              {/* Add other relevant links here */}
             </ul>
           </div>
           {/* My Account */}
@@ -186,10 +188,140 @@ export default async function Footer() {
               </a>
             </div>
           </div>
-                  <FooterSub />
 
+          {/* Accordion Section: Customer Service */}
+          <div className="border-b border-green-100">
+            <button
+              className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
+              onClick={() => handleAccordion("customer")}
+              aria-expanded={openAccordion === "customer"}
+            >
+              Customer service
+              <svg
+                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "customer" ? "rotate-180" : "rotate-0"}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openAccordion === "customer" && (
+              <ul className="space-y-2 text-sm pb-4">
+                <li>
+                  <LocalizedClientLink href="#about" className={navLink}>
+                    About EV Service
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#faq" className={navLink}>
+                    Frequently Asked Questions
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#buyback" className={navLink}>
+                    Buyback guarantee
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#returns" className={navLink}>
+                    Returns
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="/blog" className={navLink}>
+                    Blog
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#contact" className={navLink}>
+                    Contact
+                  </LocalizedClientLink>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* Accordion Section: Electric Driving */}
+          <div className="border-b border-green-100">
+            <button
+              className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
+              onClick={() => handleAccordion("electric")}
+              aria-expanded={openAccordion === "electric"}
+            >
+              Electric Driving
+              <svg
+                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "electric" ? "rotate-180" : "rotate-0"}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openAccordion === "electric" && (
+              <ul className="space-y-2 text-sm pb-4">
+                <li>
+                  <LocalizedClientLink href="#cable-choice" className={navLink}>
+                    Which charging cable should I choose?
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#installation" className={navLink}>
+                    Charging station including installation
+                  </LocalizedClientLink>
+                </li>
+                {/* Add other relevant links here */}
+              </ul>
+            )}
+          </div>
+
+          {/* Accordion Section: My Account */}
+          <div className="border-b border-green-100">
+            <button
+              className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
+              onClick={() => handleAccordion("account")}
+              aria-expanded={openAccordion === "account"}
+            >
+              My Account
+              <svg
+                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "account" ? "rotate-180" : "rotate-0"}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {openAccordion === "account" && (
+              <ul className="space-y-2 text-sm pb-4">
+                <li>
+                  <LocalizedClientLink href="#account" className={navLink}>
+                    My account
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#orders" className={navLink}>
+                    Orders
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#addresses" className={navLink}>
+                    Addresses
+                  </LocalizedClientLink>
+                </li>
+                <li>
+                  <LocalizedClientLink href="#cart" className={navLink}>
+                    Shopping cart
+                  </LocalizedClientLink>
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
-
 
         {/* Bottom section with social media and payment icons */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8">
@@ -212,12 +344,7 @@ export default async function Footer() {
           {/* Payment Icons */}
           <div className="flex flex-wrap items-center justify-center gap-6">
             {paymentIcons.map((icon) => (
-              <img
-                key={icon.alt}
-                src={icon.src}
-                alt={icon.alt}
-                className="h-6 opacity-60 hover:opacity-100 transition-opacity"
-              />
+              <img key={icon.alt} src={icon.src} alt={icon.alt} className="h-6 opacity-60 hover:opacity-100 transition-opacity" />
             ))}
           </div>
 
@@ -227,17 +354,11 @@ export default async function Footer() {
               Copyright © {new Date().getFullYear()} EV Service.
             </div>
             <div className="order-1 md:order-2 flex gap-2">
-              <LocalizedClientLink
-                href="#terms"
-                className="hover:text-green-900"
-              >
+              <LocalizedClientLink href="#terms" className="hover:text-green-900">
                 General Terms
               </LocalizedClientLink>
               <span className="text-green-400">|</span>
-              <LocalizedClientLink
-                href="#privacy"
-                className="hover:text-green-900"
-              >
+              <LocalizedClientLink href="#privacy" className="hover:text-green-900">
                 Privacy Policy
               </LocalizedClientLink>
             </div>
@@ -245,5 +366,5 @@ export default async function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -48,6 +48,7 @@
     "@tiptap/extension-table-row": "3.3.0",
     "@tiptap/react": "3.3.0",
     "@tiptap/starter-kit": "3.3.0",
+    "@vitejs/plugin-react": "^5.0.4",
     "admin": "link:@medusajs/draft-order/admin",
     "awilix": "8.0.1",
     "ckeditor5": "46.0.2",
