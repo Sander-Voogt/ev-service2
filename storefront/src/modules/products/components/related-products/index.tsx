@@ -58,11 +58,8 @@ export default async function RelatedProducts({
   return (
     <div className="w-full">
       <div className="flex flex-col items-start text-left mb-10">
-      <span className="text-base-regular text-gray-600 mb-4">
-        Related products
-      </span>
       <p className="text-2xl text-ui-fg-base max-w-lg">
-        You might also want to check out these products.
+        Waarschijnlijk zijn
       </p>
       </div>
 

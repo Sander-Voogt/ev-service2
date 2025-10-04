@@ -79,6 +79,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     notFound()
   }
 
+  console.log(product_categories)
+
   return (
     <CategoryTemplate
       categories={product_categories}

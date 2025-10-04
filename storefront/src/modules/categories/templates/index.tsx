@@ -8,6 +8,7 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
+import ProductDescription from "@modules/common/components/rendertiptap"
 
 export default function CategoryTemplate({
   categories,
@@ -77,6 +78,14 @@ export default function CategoryTemplate({
             countryCode={countryCode}
           />
         </Suspense>
+        <div className="mb-8 text-base-regular">
+          <div
+            className="prose max-w-none"
+            dangerouslySetInnerHTML={{
+              __html: category?.metadata?.maindescription?.html,
+            }}
+          />
+        </div>
       </div>
     </div>
   )

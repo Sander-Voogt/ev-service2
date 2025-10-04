@@ -90,7 +90,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                 <Label>Main description</Label>
                   <TiptapEditor
                     value={form.watch("maindescription") || ""}
-                    onChange={(value) => form.setValue("maindescription", value)}
+                    onChange={(json, html) => form.setValue("maindescription", {json: json, html: html})}
                   />
                   <Label>ModelBannerDescription</Label>
                   <TiptapEditor
