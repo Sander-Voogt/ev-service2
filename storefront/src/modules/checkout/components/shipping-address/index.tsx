@@ -130,8 +130,8 @@ const ShippingAddress = ({
          <Input
           label="Huisnummer"
           name="shipping_address.address_2"
-          autoComplete="address-line1"
-          value={formData["shipping_address.address_1"]}
+          autoComplete="address-line2"
+          value={formData["shipping_address.address_2"]}
           onChange={handleChange}
           required
           data-testid="shipping-address-input"

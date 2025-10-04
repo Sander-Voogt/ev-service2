@@ -112,7 +112,7 @@ const Navbar = () => (
           Laadkabel Type 2
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/categories/mobiele-autoloader"
+          href="/categories/mobiele-autolader"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Mobiele autoladers
