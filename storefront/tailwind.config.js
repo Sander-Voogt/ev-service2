@@ -38,7 +38,14 @@ module.exports = {
           default: '#338414',
           light: '#f1f8e9',
           logo: '#32ad6a'
-        }
+        },
+        orange: {
+          action: '#FE7F2D'
+        },
+        charcoal: '#233D4D',
+        jade: '#32AD6A',
+        pear: '#D2DC52',
+        yellowgreen: '#B0CB31'
       },
       borderRadius: {
         none: "0px",

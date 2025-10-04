@@ -48,9 +48,26 @@ export default function ProductActions({
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
+  // Preselect cheapest variant (or the only one)
   useEffect(() => {
-    if (product.variants?.length === 1) {
+    if (!product.variants || product.variants.length === 0) return
+
+    // als er maar 1 variant is -> die selecteren
+    if (product.variants.length === 1) {
       const variantOptions = optionsAsKeymap(product.variants[0].options)
+      setOptions(variantOptions ?? {})
+      return
+    }
+
+    // anders -> goedkoopste variant bepalen
+    const cheapestVariant = product.variants.reduce((cheapest, current) => {
+      const cheapestPrice = cheapest?.prices?.[0]?.amount ?? Infinity
+      const currentPrice = current?.prices?.[0]?.amount ?? Infinity
+      return currentPrice < cheapestPrice ? current : cheapest
+    })
+
+    if (cheapestVariant) {
+      const variantOptions = optionsAsKeymap(cheapestVariant.options)
       setOptions(variantOptions ?? {})
     }
   }, [product.variants])
@@ -118,7 +135,7 @@ export default function ProductActions({
   }
 
   return (
-    <div className="bg-green-light">
+    <div className="bg-white border border-charcoal">
       <div className="flex flex-col gap-y-2  p-4" ref={actionsRef}>
         <p className="text-lg text-green-default">Kies je opties</p>
         <div>
@@ -149,15 +166,15 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-10 bg-orange-action"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {!selectedVariant
-            ? "Select variant"
+            ? "Selecteer variant"
             : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "Niet op voorraad"
+            : "In winkelwagen"}
         </Button>
         <MobileActions
           product={product}

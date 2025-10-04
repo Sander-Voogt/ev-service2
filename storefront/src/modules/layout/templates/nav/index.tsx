@@ -270,7 +270,7 @@ const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => {
         )}
       </div>
       <div className="flex flex-col ml-1">
-        <span className="text-xs font-semibold text-green-900">Cart</span>
+        <span className="text-xs font-semibold text-green-900">Winkelwagen</span>
         <span className="text-xs text-green-default font-bold">
           €{totalAmount}
         </span>

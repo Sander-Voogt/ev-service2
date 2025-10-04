@@ -1,4 +1,4 @@
-'use server'
+"use server"
 import React, { Suspense } from "react"
 import ImageGallery from "@modules/products/components/image-gallery"
 import ProductActions from "@modules/products/components/product-actions"
@@ -49,12 +49,14 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"
       >
-        <div className="flex w-full gap-x-8">
-          <div className="block w-3/5 relative">
+        <div className="flex flex-col md:flex-row gap-x-8 gap-y-12">
+          {/* Image gallery */}
+          <div className="w-full md:w-3/5 relative">
             <ImageGallery images={product?.images || []} />
           </div>
-          <div className="flex flex-col w-2/5 small:sticky small:top-48 small:py-0  w-full py-8 gap-y-12 flex-1">
-            {/* <ProductTabs product={product} /> */}
+
+          {/* Product actions */}
+          <div className="w-full md:w-2/5 flex flex-col md:sticky md:top-48 md:py-0 py-8 gap-y-12 flex-1">
             <Suspense
               fallback={
                 <ProductActions
@@ -69,12 +71,18 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           </div>
         </div>
       </div>
-      <div className="container w-1/2">
-        <ProCon data={product.custom} />
+      <div className="content-container ">
+        <div className="flex flex-row">
+          <div className="flex-1">
+            <ProCon data={product.custom} />
+          </div>
+          <div className="flex-1">
+            <Specs data={product.custom} />
+          </div>
+        </div>
       </div>
       <div className="content-container">
         <ProductDescription html={product.custom} />
-        <Specs data={product.custom} />
         <Faq data={product.custom?.faq} />
       </div>
       <div

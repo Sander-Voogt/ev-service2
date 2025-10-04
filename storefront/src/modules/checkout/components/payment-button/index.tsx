@@ -77,7 +77,7 @@ const GiftCardPaymentButton = () => {
       isLoading={submitting}
       data-testid="submit-order-button"
     >
-      Place order
+      Bestelling plaatsen
     </Button>
   )
 }
@@ -179,7 +179,7 @@ const StripePaymentButton = ({
         isLoading={submitting}
         data-testid={dataTestId}
       >
-        Place order
+        Bestelling plaatsen
       </Button>
       <ErrorMessage
         error={errorMessage}
@@ -288,7 +288,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         size="large"
         data-testid="submit-order-button"
       >
-        Place order
+        Bestelling plaatsen
       </Button>
       <ErrorMessage
         error={errorMessage}

@@ -38,11 +38,11 @@ export default async function CarIndexPage({
               {post.image ? (
                 <Image
                   className="rounded-t-lg w-full h-40 object-cover bg-green-50"
-                  height={100}
                   src={post.image}
                   alt={'auto'}
-                  fill={true}
-                />
+                  height={100}
+                  width={100}
+                  />
               ) : (
                 <div className="rounded-t-lg w-full h-40 flex items-center justify-center bg-gray-100 text-gray-500 text-sm font-semibold border-b border-green-100">
                   No Image Found
