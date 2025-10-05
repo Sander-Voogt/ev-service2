@@ -159,11 +159,20 @@ const Payment = ({
     }
   }
 
+  // Auto-selecteer betaalmethode als er maar één beschikbaar is
+  useEffect(() => {
+    if (filteredPaymentMethods.length === 1 && !selectedPaymentMethod) {
+      const singleMethod = filteredPaymentMethods[0].id
+      setSelectedPaymentMethod(singleMethod)
+    }
+  }, [filteredPaymentMethods, selectedPaymentMethod])
+
   useEffect(() => {
     if (
       !activeSession &&
       isOpen &&
-      selectedPaymentMethod !== "pp_system_default"
+      selectedPaymentMethod !== "pp_system_default" &&
+      selectedPaymentMethod !== ""
     ) {
       initStripe()
     }
@@ -191,7 +200,6 @@ const Payment = ({
     stripeReady
 
   console.log(availablePaymentMethods)
-
 
   return (
     <div className="bg-white">
