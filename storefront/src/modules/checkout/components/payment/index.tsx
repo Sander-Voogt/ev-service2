@@ -11,6 +11,8 @@ import { useCallback, useContext, useEffect, useState } from "react"
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { StripePaymentElementChangeEvent } from "@stripe/stripe-js"
 import { StripeContext } from "../payment-wrapper"
+import { RadioGroup } from "@headlessui/react"
+import PaymentContainer from "@modules/checkout/components/payment-container"
 
 const Payment = ({
   cart,
@@ -38,32 +40,45 @@ const Payment = ({
 
   const isOpen = searchParams.get("step") === "payment"
 
-  console.log("Available PaymentMethods:", elements?.getElement("payment"))
+  const businesscustomers = process.env.NEXT_PUBLIC_BUSINESSCUSTOMERGROUP || ""
+  const businessGroupId = businesscustomers
+
+  // Check of de klant een zakelijke klant is
+  const isBusinessCustomer = cart?.customer?.groups?.some(
+    (group: any) => group.id === businessGroupId
+  )
+
+  // Filter betaalmethoden op basis van klanttype
+  const filteredPaymentMethods = availablePaymentMethods.filter((item) => {
+    // pp_system_default (achteraf betalen) alleen voor zakelijke klanten
+    if (item.id === "pp_system_default") {
+      return isBusinessCustomer
+    }
+    // Alle andere betaalmethoden (inclusief Stripe) voor iedereen
+    return true
+  })
 
   const handlePaymentElementChange = async (
     event: StripePaymentElementChangeEvent
   ) => {
-    // Catches the selected payment method and sets it to state
     if (event.value.type) {
       setSelectedPaymentMethod(event.value.type)
     }
-    
-    // Sets stripeComplete on form completion
+
     setStripeComplete(event.complete)
 
-    // Clears any errors on successful completion
     if (event.complete) {
       setError(null)
     }
   }
 
-  const setPaymentMethod = async (method: string) => {
+  const handlePaymentMethodChange = async (value: string) => {
+    setSelectedPaymentMethod(value)
     setError(null)
-    setSelectedPaymentMethod(method)
-    if (isStripeFunc(method)) {
-      await initiatePaymentSession(cart, {
-        provider_id: method,
-      })
+
+    // Reset stripe complete state when switching payment methods
+    if (value === "pp_system_default") {
+      setStripeComplete(false)
     }
   }
 
@@ -94,20 +109,32 @@ const Payment = ({
     setError(null)
 
     try {
-      // Check if the necessary context is ready
+      // Als pp_system_default (achteraf betalen) is geselecteerd
+      if (selectedPaymentMethod === "pp_system_default") {
+        // Initieer de payment session voor achteraf betalen
+        await initiatePaymentSession(cart, {
+          provider_id: selectedPaymentMethod,
+        })
+
+        // Ga direct naar review stap
+        router.push(pathname + "?" + createQueryString("step", "review"), {
+          scroll: false,
+        })
+        return
+      }
+
+      // Voor Stripe betalingen
       if (!stripe || !elements) {
         setError("Payment processing not ready. Please try again.")
         return
       }
 
-      // Submit the payment method details
       await elements.submit().catch((err) => {
         console.error(err)
         setError(err.message || "An error occurred with the payment")
         return
       })
 
-      // Navigate to the final checkout step
       router.push(pathname + "?" + createQueryString("step", "review"), {
         scroll: false,
       })
@@ -120,9 +147,12 @@ const Payment = ({
 
   const initStripe = async () => {
     try {
-      await initiatePaymentSession(cart, {
-        provider_id: "pp_stripe_stripe",
-      })
+      // Initieer alleen Stripe als dat de geselecteerde methode is
+      if (selectedPaymentMethod !== "pp_system_default") {
+        await initiatePaymentSession(cart, {
+          provider_id: "pp_stripe_stripe",
+        })
+      }
     } catch (err) {
       console.error("Failed to initialize Stripe session:", err)
       setError("Failed to initialize payment. Please try again.")
@@ -130,14 +160,38 @@ const Payment = ({
   }
 
   useEffect(() => {
-    if (!activeSession && isOpen) {
+    if (
+      !activeSession &&
+      isOpen &&
+      selectedPaymentMethod !== "pp_system_default"
+    ) {
       initStripe()
     }
-  }, [cart, isOpen, activeSession])
+  }, [cart, isOpen, activeSession, selectedPaymentMethod])
 
   useEffect(() => {
     setError(null)
   }, [isOpen])
+
+  // Bepaal of de continue knop disabled moet zijn
+  const isSubmitDisabled = () => {
+    if (paidByGiftcard) return false
+    if (!selectedPaymentMethod) return true
+
+    // Voor achteraf betalen is geen Stripe validatie nodig
+    if (selectedPaymentMethod === "pp_system_default") return false
+
+    // Voor Stripe betalingen wel
+    return !stripeComplete || !stripe || !elements
+  }
+
+  const showStripePaymentElement =
+    selectedPaymentMethod !== "pp_system_default" &&
+    selectedPaymentMethod !== "" &&
+    stripeReady
+
+  console.log(availablePaymentMethods)
+
 
   return (
     <div className="bg-white">
@@ -169,19 +223,42 @@ const Payment = ({
       </div>
       <div>
         <div className={isOpen ? "block" : "hidden"}>
-          {!paidByGiftcard &&
-            availablePaymentMethods?.length &&
-            stripeReady && (
-              <div className="mt-5 transition-all duration-150 ease-in-out">
-                <PaymentElement
-                  onChange={handlePaymentElementChange}
-                  options={{
-                    layout: "accordion",
-                  }}
-                />
-              </div>
-            )
-          }
+          {!paidByGiftcard && filteredPaymentMethods?.length > 0 && (
+            <>
+              {/* Toon radio group alleen als er meerdere betaalmethoden zijn */}
+              {filteredPaymentMethods.length > 1 && (
+                <div className="mb-5">
+                  <RadioGroup
+                    value={selectedPaymentMethod}
+                    onChange={handlePaymentMethodChange}
+                  >
+                    {filteredPaymentMethods
+                      .sort((a, b) => (a.id > b.id ? 1 : -1))
+                      .map((paymentMethod) => (
+                        <PaymentContainer
+                          paymentInfoMap={paymentInfoMap}
+                          paymentProviderId={paymentMethod.id}
+                          key={paymentMethod.id}
+                          selectedPaymentOptionId={selectedPaymentMethod}
+                        />
+                      ))}
+                  </RadioGroup>
+                </div>
+              )}
+
+              {/* Toon Stripe Payment Element alleen als een Stripe methode is geselecteerd */}
+              {showStripePaymentElement && (
+                <div className="mt-5 transition-all duration-150 ease-in-out">
+                  <PaymentElement
+                    onChange={handlePaymentElementChange}
+                    options={{
+                      layout: "accordion",
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
 
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
@@ -207,12 +284,7 @@ const Payment = ({
             className="mt-6"
             onClick={handleSubmit}
             isLoading={isLoading}
-            disabled={
-              !stripeComplete ||
-              !stripe ||
-              !elements ||
-              (!selectedPaymentMethod && !paidByGiftcard)
-            }
+            disabled={isSubmitDisabled()}
             data-testid="submit-payment-button"
           >
             Continue to review
@@ -247,7 +319,11 @@ const Payment = ({
                       <CreditCard />
                     )}
                   </Container>
-                  <Text>Another step may appear</Text>
+                  <Text>
+                    {selectedPaymentMethod === "pp_system_default"
+                      ? "Pay on invoice"
+                      : "Another step may appear"}
+                  </Text>
                 </div>
               </div>
             </div>
