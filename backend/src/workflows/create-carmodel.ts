@@ -8,65 +8,35 @@ import { CARMODEL_MODULE } from "../modules/carmodel"
 import CarModelModuleService from "../modules/carmodel/service"
 
 export type CreateBrandStepInput = {
-    name: string,
-    title: string,
-    intro: string,
-    description: string,
-    image: string,
-    PictureId: string,
-    Description: string,
-    MetaKeywords: string,
-    MetaDescription: string,
-    MetaTitle: string,
-    Published: string,
-    Deleted: string,
-    DisplayOrder: string,
-    CreatedOnUtc: string,
-    UpdatedOnUtc: string,
-    ModelBannerId: string,
-    ChargingStationDescription: string,
-    ChargingCableDescription: string,
-    AccessoriesDescription: string,
-    ModelBannerDescription: string,
-    CableType: string,
-    is1F16A: string,
-    is1F32A: string,
-    is3F16A: string,
-    is3F32A: string,
-    CablePictureId: string,
-    StructuredData: string,
-    H1Title: string
-}
-
-type CreateCarModelWorkflowInput = {
-    name: string,
-    title: string,
-    intro: string,
-    description: string,
-    image: string,
-    PictureId: string,
-    Description: string,
-    MetaKeywords: string,
-    MetaDescription: string,
-    MetaTitle: string,
-    Published: string,
-    Deleted: string,
-    DisplayOrder: string,
-    CreatedOnUtc: string,
-    UpdatedOnUtc: string,
-    ModelBannerId: string,
-    ChargingStationDescription: string,
-    ChargingCableDescription: string,
-    AccessoriesDescription: string,
-    ModelBannerDescription: string,
-    CableType: string,
-    is1F16A: string,
-    is1F32A: string,
-    is3F16A: string,
-    is3F32A: string,
-    CablePictureId: string,
-    StructuredData: string,
-    H1Title: string
+  id: string;
+  name: string;
+  title?: string | null;
+  intro?: string | null;
+  description?: string | null;
+  image?: string | null;
+  PictureId?: string | null;
+  Description?: string | null;
+  MetaKeywords?: string | null;
+  MetaDescription?: string | null;
+  MetaTitle?: string | null;
+  Published?: number | null;
+  Deleted?: boolean | null;
+  DisplayOrder?: number | null;
+  CreatedOnUtc?: Date | null;
+  UpdatedOnUtc?: Date | null;
+  ModelBannerId?: string | null;
+  ChargingStationDescription?: string | null;
+  ChargingCableDescription?: string | null;
+  AccessoriesDescription?: string | null;
+  ModelBannerDescription?: string | null;
+  CableType?: number | null;
+  is1F16A?: number | null;
+  is1F32A?: number | null;
+  is3F16A?: number | null;
+  is3F32A?: number | null;
+  CablePictureId?: number | null;
+  StructuredData?: string | null;
+  H1Title?: string | null;
 }
 
 export const createBrandStep = createStep(
@@ -93,7 +63,7 @@ export const createBrandStep = createStep(
 
 export const createCarModelWorkflow = createWorkflow(
     "create-carmodel",
-    (input: CreateCarModelWorkflowInput) => {
+    (input: CreateBrandStepInput) => {
         const brand = createBrandStep(input)
 
         return new WorkflowResponse(brand)
