@@ -15,8 +15,8 @@ export async function generateStaticParams() {
 
   const params = brands.flatMap((brand) =>
     (brand.carmodels || []).map((model) => ({
-      brand: string_to_slug(brand.name),
-      model: string_to_slug(model.name),
+      brand: string_to_slug(brand.name).replace(/\s+/g, '-'),
+      model: string_to_slug(model.name).replace(/\s+/g, '-'),
     }))
   )
 
@@ -55,6 +55,13 @@ export default async function ModelPage({
     countryCode: params.countryCode,
   })
 
+    const accessoiresdata = await getCollectionByHandle("laadpalen")
+  const { response: accessoires } = await getProductsList({
+    queryParams: { collection_id: accessoiresdata.id },
+    countryCode: params.countryCode,
+  })
+
+
   console.log(model)
 
   return (
@@ -87,7 +94,7 @@ export default async function ModelPage({
             </a>
             <span>/</span>
             <a
-              href={`/nl/auto/${brand.name}`}
+              href={`/nl/auto/${string_to_slug(brand.name.toLowerCase())}`}
               className="hover:underline"
             >
               {brand.name}
@@ -153,6 +160,9 @@ export default async function ModelPage({
       <h3 className="text-xl font-bold mb-2">
         Laad accesoires voor {model.brand} {model.name}
       </h3>
+      <ul className="flex flex-col gap-x-6">
+        <FeaturedProducts collection={accessoires} region={region} />
+      </ul>
       <div
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: model?.AccessoriesDescription }}

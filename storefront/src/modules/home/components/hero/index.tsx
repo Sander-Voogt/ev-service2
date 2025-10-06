@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@medusajs/ui"
+import { string_to_slug } from "app/[countryCode]/(main)/auto/[brand]/CarModelSearch";
 import { useState, useEffect } from "react"
 
 const carMakes = ["Abarth", "Audi", "BMW", "Tesla"] as const;
@@ -122,7 +123,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
       className="w-full bg-green-600 text-white font-semibold rounded-lg py-2 hover:bg-green-700 transition-colors"
       variant="secondary"
       onClick={() => {
-        window.location.href = `/auto/${selectedMake}`;
+        window.location.href = `/auto/${string_to_slug(selectedMake.toLowerCase())}/${string_to_slug(selectedModel.toLowerCase())}`;
       }}
       >
       SHOW PRODUCTS

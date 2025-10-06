@@ -41,6 +41,8 @@ export default async function Home({
 
   const models: ApiResponse = await sdk.client.fetch(`/store/carbrand/models`)
 
+  console.log(models)
+
   if (!collections || !region) {
     return null
   }
