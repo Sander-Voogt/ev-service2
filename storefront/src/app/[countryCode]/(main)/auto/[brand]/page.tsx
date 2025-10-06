@@ -23,7 +23,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
   return (
     <main className="content-container">
       <h1 className="text-3xl font-bold mb-4">{brand.name}       
-        {brand?.image && <img src={brand.image} alt={brand?.name} width={40} height={20} className="rounded-2xl shadow mb-6" />}
+        {/* {brand?.image && <img src={brand.image} alt={brand?.name} width={40} height={20} className="rounded-2xl shadow mb-6" />} */}
 </h1>
 
       <h2 className="text-xl font-semibold mb-2">Modellen</h2>
@@ -31,7 +31,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
       className="prose max-w-none"
       dangerouslySetInnerHTML={{ __html: brand?.description }}
     />
-      <ul className="grid gap-4 grid-cols-4">
+      {/* <ul className="grid gap-4 grid-cols-4">
         {brand.carmodels.map((model) => (
           <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md">
             <Link href={`/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase().replace(/\s+/g, '-'))}`}>
@@ -40,7 +40,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
             </Link>
           </li>
         ))}
-      </ul>
+      </ul> */}
       <div
       className="prose max-w-none"
       dangerouslySetInnerHTML={{ __html: brand?.BottomDescription }}
