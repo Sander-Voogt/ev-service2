@@ -12,7 +12,30 @@ export type CreateBrandStepInput = {
     title: string,
     intro: string,
     description: string,
-    image: string
+    image: string,
+    PictureId: string,
+    Description: string,
+    MetaKeywords: string,
+    MetaDescription: string,
+    MetaTitle: string,
+    Published: string,
+    Deleted: string,
+    DisplayOrder: string,
+    CreatedOnUtc: string,
+    UpdatedOnUtc: string,
+    ModelBannerId: string,
+    ChargingStationDescription: string,
+    ChargingCableDescription: string,
+    AccessoriesDescription: string,
+    ModelBannerDescription: string,
+    CableType: string,
+    is1F16A: string,
+    is1F32A: string,
+    is3F16A: string,
+    is3F32A: string,
+    CablePictureId: string,
+    StructuredData: string,
+    H1Title: string
 }
 
 type CreateCarModelWorkflowInput = {
@@ -20,7 +43,30 @@ type CreateCarModelWorkflowInput = {
     title: string,
     intro: string,
     description: string,
-    image: string
+    image: string,
+    PictureId: string,
+    Description: string,
+    MetaKeywords: string,
+    MetaDescription: string,
+    MetaTitle: string,
+    Published: string,
+    Deleted: string,
+    DisplayOrder: string,
+    CreatedOnUtc: string,
+    UpdatedOnUtc: string,
+    ModelBannerId: string,
+    ChargingStationDescription: string,
+    ChargingCableDescription: string,
+    AccessoriesDescription: string,
+    ModelBannerDescription: string,
+    CableType: string,
+    is1F16A: string,
+    is1F32A: string,
+    is3F16A: string,
+    is3F32A: string,
+    CablePictureId: string,
+    StructuredData: string,
+    H1Title: string
 }
 
 export const createBrandStep = createStep(

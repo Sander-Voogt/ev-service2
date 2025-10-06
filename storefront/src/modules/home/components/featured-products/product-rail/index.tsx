@@ -20,7 +20,7 @@ export default function ProductRail({
   return (
     <div className="content-container py-4 small:py-24">
       <p className="text-xl text-center font-semibold">
-        Aanbevolen door onze service experts
+        {/* Aanbevolen door onze service experts */}
       </p>
       <div className="flex justify-between mb-8">
         <Text className="txt-xlarge">{collection.title}</Text>

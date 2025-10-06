@@ -26,6 +26,7 @@ const CustomPage = () => {
     id: string;
     name: string;
     image: string;
+    PictureId: string;
     title: string | null;
     description: string | null;
     ModelBannerDescription: string | null;
@@ -76,6 +77,9 @@ const CustomPage = () => {
 
   const handleUploadComplete = (uploads) => {
     form.setValue('image', uploads)
+  };
+  const handleUploadCompletePic = (uploads) => {
+    form.setValue('PictureId', uploads)
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -130,6 +134,8 @@ const CustomPage = () => {
                 />
                                 {data?.image ?? <img src={data?.image} />}
                                 <DropzoneUpload onUpload={handleUploadComplete} />
+                                {data?.PictureId ?? <img src={data?.PictureId} />}
+                                <DropzoneUpload onUpload={handleUploadCompletePic} />
               </Tabs.Content>
 
               <Tabs.Content value="laadkabels">

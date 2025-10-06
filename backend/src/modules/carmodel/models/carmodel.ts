@@ -7,7 +7,6 @@ export const Carmodel = model.define("carmodel", {
   intro: model.text().nullable(),
   description: model.text().nullable(),
   image: model.text().nullable(),
-
   PictureId:model.text().nullable(),
   Description:model.text().nullable(),
   MetaKeywords:model.text().nullable(),
