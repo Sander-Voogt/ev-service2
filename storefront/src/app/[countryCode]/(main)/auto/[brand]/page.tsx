@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 
 // Stel dat je data van een lokale file of API haalt
