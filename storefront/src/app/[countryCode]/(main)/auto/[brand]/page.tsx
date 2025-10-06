@@ -38,7 +38,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
           <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md">
             <Link href={`/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase().replace(/\s+/g, '-'))}`}>
               <div className="font-medium justify-center">{model.name}</div>
-              <Image src={model.image} alt={model.name} width={80} height={40} className="mt-2 w-full rounded-md" />
+              {model?.image && <Image src={model?.image} alt={model?.name} width={80} height={40} className="mt-2 w-full rounded-md" />}
             </Link>
           </li>
         ))}
