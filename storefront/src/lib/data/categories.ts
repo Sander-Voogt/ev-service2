@@ -22,11 +22,12 @@ export const getCategoriesList = cache(async function (
 export const getCategoryByHandle = cache(async function (
   categoryHandle: string[]
 ) {
-
   return sdk.store.category.list(
-    // TODO: Look into fixing the type
     // @ts-ignore
-    { handle: categoryHandle,fields: "id, description, name, metadata" },
+    {
+      handle: categoryHandle,
+      fields: "id,description,name,category_children.*,metadata"
+    },
     { next: { tags: ["categories"] } }
   )
 })
