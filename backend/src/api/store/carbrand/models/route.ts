@@ -11,7 +11,7 @@ export const GET = async (
         metadata: { count, take, skip } = {},
     } = await query.graph({
         entity: "carbrand",
-        fields: ["name", "id", "image", "description", "BottomDescription", "created_at", "carmodels.*"],
+        fields: ["name", "id", "image", "PictureId", "description", "BottomDescription", "created_at", "carmodels.*"],
         ...req.queryConfig,
     })
 

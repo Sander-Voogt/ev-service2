@@ -57,8 +57,10 @@ export default async function ModelPage({
     countryCode: params.countryCode,
   })
 
+  console.log(model)
+
   return (
-    <main className="p-6">
+    <main className="content-container">
       <h1 className="text-3xl font-bold mb-2">{model.name}</h1>
       {model?.image && <img alt="adfasdf" src={model?.image} width={100} height={50} />}
       {model?.PictureId && <img alt="adfasdf" src={model?.PictureId} width={100} height={50} />}

@@ -18,7 +18,6 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        
       },
       { // Note: needed to serve images from /public folder
         protocol: process.env.NEXT_PUBLIC_BASE_URL?.startsWith('https') ? 'https' : 'http',
@@ -65,8 +64,7 @@ const nextConfig = {
                 https://m.stripe.network
                 https://maps.googleapis.com;
               style-src 'self' 'unsafe-inline' https://m.stripe.network;
-              img-src 'self' data: blob: https://*.stripe.com https://m.stripe.network;
-              connect-src 'self'
+                img-src 'self' data: blob: ${process.env.NEXT_PUBLIC_BASE_URL} ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL} https://medusa-public-images.s3.eu-west-1.amazonaws.com https://medusa-server-testing.s3.amazonaws.com https://medusa-server-testing.s3.us-east-1.amazonaws.com https://*.stripe.com https://m.stripe.network;              connect-src 'self'
                 https://api.stripe.com
                 https://m.stripe.network
                 https://checkout.stripe.com
