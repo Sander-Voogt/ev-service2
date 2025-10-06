@@ -20,8 +20,6 @@ export default async function BrandPage({ params }: { params: { brand: string } 
     return <div>Merk niet gevonden</div>;
   }
 
-  console.log(brand)
-
   return (
     <main className="content-container">
       <h1 className="text-3xl font-bold mb-4">{brand.name}       <Image src={brand.image} alt={brand.name} width={40} height={20} className="rounded-2xl shadow mb-6" />
