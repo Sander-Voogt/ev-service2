@@ -19,7 +19,6 @@ export async function generateStaticParams() {
     }))
   );
 
-  console.log('✅ Generated model params:', params.slice(0, 5));
   return params;
 }
 
@@ -42,7 +41,6 @@ export default async function ModelPage({
   );
 
   if (!brand || !model) {
-    console.log('❌ Niet gevonden:', { brandParam: params.brand, modelParam: params.model });
     return <div>Model niet gevonden</div>;
   }
   

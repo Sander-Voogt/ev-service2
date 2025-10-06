@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 export async function generateStaticParams() {
   const brands = await sdk.client.fetch(`/store/carbrand/models`)
-  // console.log(brands)
   return brands.brands.map((brand) => ({
     brand: brand.name.toLowerCase(),
   }));
