@@ -21,6 +21,9 @@ export const GET = async (
         pagination: {
             skip,
             take: limit,
+            order: {
+                name: "ASC",
+            }
         },
         ...req.queryConfig,
     })

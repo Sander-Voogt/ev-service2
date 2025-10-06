@@ -12,6 +12,11 @@ export const GET = async (
     } = await query.graph({
         entity: "carbrand",
         fields: ["name", "id", "image", "PictureId", "description", "BottomDescription", "created_at", "carmodels.*"],
+        pagination: {
+            order: {
+                name: "ASC",
+            }
+        },
         ...req.queryConfig,
     })
 

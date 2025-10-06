@@ -18,7 +18,7 @@ export default function ProductRail({
   }
 
   return (
-    <div className="content-container py-4 small:py-24">
+    <div className="content-container">
       <p className="text-xl text-center font-semibold">
         {/* Aanbevolen door onze service experts */}
       </p>
