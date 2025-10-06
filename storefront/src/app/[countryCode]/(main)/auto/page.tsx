@@ -24,7 +24,7 @@ export default async function CarIndexPage({
   )
 
   return (
-    <div className="max-w-screen-xl mx-auto py-8 px-4">
+    <div className="content-container">
       <h1 className="text-3xl font-extrabold mb-8 text-gray-900 flex items-center gap-3">
         Automerken
       </h1>
@@ -34,7 +34,7 @@ export default async function CarIndexPage({
             key={post.id}
             className="max-w-sm bg-white border border-green-100 rounded-lg shadow-sm flex flex-col"
           >
-            <Link href={`/auto/${post.name}`}>
+            <Link href={`/auto/${post.name.toLowerCase()}`}>
               {post.image ? (
                 <Image
                   className="rounded-t-lg w-full h-40 object-cover bg-green-50"
@@ -50,7 +50,7 @@ export default async function CarIndexPage({
               )}
             </Link>
             <div className="p-5 flex flex-col flex-1">
-              <Link href={`/auto/${post.name}`}>
+              <Link href={`/auto/${post.name.toLowerCase()}`}>
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
                   {post.name}
                 </h5>
@@ -60,32 +60,6 @@ export default async function CarIndexPage({
           </li>
         ))}
       </ul>
-      {/* Pagination Controls */}
-      {/* <div className="flex justify-center items-center gap-2 mt-8">
-        <Link
-          href={`?page=${page - 1}`}
-          className={`px-4 py-2 bg-white border border-green-200 rounded hover:bg-green-50 flex items-center gap-2 font-medium ${
-            page <= 1
-              ? "pointer-events-none opacity-50 bg-gray-200 text-gray-500 border-gray-300"
-              : "text-green-700"
-          }`}
-          aria-disabled={page <= 1}
-        >
-          Previous
-        </Link>
-        <span className="px-4 py-2 font-semibold">Page {page}</span>
-        <Link
-          href={`?page=${page + 1}`}
-          className={`px-4 py-2 bg-white border border-green-200 rounded hover:bg-green-50 flex items-center gap-2 font-medium ${
-            data.brands.length < limit
-              ? "pointer-events-none opacity-50 bg-gray-200 text-gray-500 border-gray-300"
-              : "text-green-700"
-          }`}
-          aria-disabled={data.brands.length < limit}
-        >
-          Next
-        </Link>
-      </div> */}
     </div>
   )
 }

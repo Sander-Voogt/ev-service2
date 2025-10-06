@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from "react"
 import Link from "next/link"
+import { useParams } from "next/navigation";
 
 export default function CarModelSearch({ carmodels }: { carmodels: any[] }) {
+  const params = useParams<{ brand: string; model: string }>()
   const [query, setQuery] = useState("")
 
   const filtered = carmodels.filter((model) =>
@@ -11,20 +13,11 @@ export default function CarModelSearch({ carmodels }: { carmodels: any[] }) {
 
   return (
     <div>
-      <div className="max-w-3xl mx-auto">
-        <input
-          type="text"
-          placeholder="Search Car Models..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="mb-8 w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-        />
-      </div>
       <ul className="grid grid-cols-3 items-center gap-6">
         {filtered.map((post) => (
           <li key={post.name} className="w-full justify-center">
-            <Link href={`/car/${post.name}`} legacyBehavior>
-              <div className="flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row w-full max-w-3xl hover:bg-gray-100 transition-colors duration-150 cursor-pointer">
+            <Link href={`/auto/${params.brand}/${string_to_slug(post.name)}`}>
+              <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row w-full max-w-3xl hover:bg-gray-100 transition-colors duration-150 cursor-pointer">
                 {post.image ? (
                   <img className="object-cover w-full rounded-t-lg h-64 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg bg-green-50" src={post.image} alt={post.name} />
                 ) : (
@@ -40,4 +33,22 @@ export default function CarModelSearch({ carmodels }: { carmodels: any[] }) {
       </ul>
     </div>
   )
+}
+
+export function string_to_slug (str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
 }

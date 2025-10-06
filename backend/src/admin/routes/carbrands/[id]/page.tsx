@@ -119,6 +119,7 @@ const CustomPage = () => {
                
 
                 <Label className="text-gray-500">Header description</Label>
+                {data?.image ?? <img src={data?.image} />}
                 <DropzoneUpload onUpload={handleUploadComplete} />
                 </Tabs.Content>
 

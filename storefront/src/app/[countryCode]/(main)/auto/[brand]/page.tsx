@@ -1,31 +1,52 @@
-import { sdk } from "@lib/config"
-import CarModelSearch from "./CarModelSearch"
+import Link from 'next/link';
 
-export default async function CarIndexPage({
-  params,
-  searchParams,
-}: {
-  params: any
-  searchParams: any
-}) {
-  const page = parseInt(searchParams.page || "1", 10)
-  const limit = 5
+// Stel dat je data van een lokale file of API haalt
+import { sdk } from '@lib/config';
+import { string_to_slug } from './slugger';
+import Image from 'next/image';
 
-  const data = await sdk.client.fetch(`/store/carbrand/${params.brand}`) as { carmodels: any[] }
-  console.log(data)
+export async function generateStaticParams() {
+  const brands = await sdk.client.fetch(`/store/carbrand/models`)
+  // console.log(brands)
+  return brands.brands.map((brand) => ({
+    brand: brand.name.toLowerCase(),
+  }));
+}
+
+export default async function BrandPage({ params }: { params: { brand: string } }) {
+  const brands = await sdk.client.fetch(`/store/carbrand/models`)
+  const brand = brands.brands.find((b) => b.name.toLowerCase() === params.brand);
+
+  if (!brand) {
+    return <div>Merk niet gevonden</div>;
+  }
+
+  console.log(brand)
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-4">
+    <main className="content-container">
+      <h1 className="text-3xl font-bold mb-4">{brand.name}       <Image src={brand.image} alt={brand.name} width={40} height={20} className="rounded-2xl shadow mb-6" />
+</h1>
+
+      <h2 className="text-xl font-semibold mb-2">Modellen</h2>
+       <div
+      className="prose max-w-none"
+      dangerouslySetInnerHTML={{ __html: brand?.description }}
+    />
+      <ul className="grid gap-4 grid-cols-4">
+        {brand.carmodels.map((model) => (
+          <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md">
+            <Link href={`/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase().replace(/\s+/g, '-'))}`}>
+              <div className="font-medium justify-center">{model.name}</div>
+              <Image src={model.image} alt={model.name} width={80} height={40} className="mt-2 w-full rounded-md" />
+            </Link>
+          </li>
+        ))}
+      </ul>
       <div
       className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: data?.description }}
+      dangerouslySetInnerHTML={{ __html: brand?.BottomDescription }}
     />
-      <CarModelSearch carmodels={data.carmodels} />
-            <div
-      className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: data?.BottomDescription }}
-    />
-    </div>
-
-  )
+    </main>
+  );
 }

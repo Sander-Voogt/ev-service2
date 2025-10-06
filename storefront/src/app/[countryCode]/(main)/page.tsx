@@ -45,8 +45,6 @@ export default async function Home({
     return null
   }
 
-  console.log(models, response)
-
   return (
     <>
       <Hero models={models.brands} />

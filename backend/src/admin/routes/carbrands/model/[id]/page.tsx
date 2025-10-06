@@ -16,6 +16,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import MyEditor from "../../../../components/CKEditor";
 import Laadkabels from "./Laadkabel";
 import UploadPage from "./Upload";
+import DropzoneUpload from "../../../components/MediaUpload";
 
 const CustomPage = () => {
   const { id } = useParams();
@@ -24,6 +25,7 @@ const CustomPage = () => {
   type CarModel = {
     id: string;
     name: string;
+    image: string;
     title: string | null;
     description: string | null;
     ModelBannerDescription: string | null;
@@ -70,6 +72,10 @@ const CustomPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleUploadComplete = (uploads) => {
+    form.setValue('image', uploads)
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -122,6 +128,8 @@ const CustomPage = () => {
                     form.setValue("ModelBannerDescription", value)
                   }
                 />
+                                {data?.image ?? <img src={data?.image} />}
+                                <DropzoneUpload onUpload={handleUploadComplete} />
               </Tabs.Content>
 
               <Tabs.Content value="laadkabels">

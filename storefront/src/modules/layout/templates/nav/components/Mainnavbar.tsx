@@ -197,13 +197,13 @@ const Navbar = () => (
           Bedrijven en VVE
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/installers"
+          href="/voor-installateurs"
           className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200"
         >
           Voor installateurs
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/resellers"
+          href="/voor-wederverkopers"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Voor wederverkopers
