@@ -59,8 +59,8 @@ export default async function ModelPage({
   return (
     <main className="p-6">
       <h1 className="text-3xl font-bold mb-2">{model.name}</h1>
-      {model?.image && <Image alt="adfasdf" src={model?.image} width={100} height={50} />}
-      {model?.PictureId && <Image alt="adfasdf" src={model?.PictureId} width={100} height={50} />}
+      {model?.image && <img alt="adfasdf" src={model?.image} width={100} height={50} />}
+      {model?.PictureId && <img alt="adfasdf" src={model?.PictureId} width={100} height={50} />}
       
 
       <p className="text-gray-600 mb-2">
