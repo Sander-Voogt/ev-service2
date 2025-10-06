@@ -134,7 +134,7 @@ const Navbar = () => (
 
     <div className="relative group">
       <LocalizedClientLink
-        href="/zakelijk"
+        href="/categories/laadpalen"
         className={`${navLink} flex items-center gap-1`}
       >
         Laadpalen
@@ -144,19 +144,19 @@ const Navbar = () => (
       </LocalizedClientLink>
       <div className="absolute left-0 top-full mt-2 min-w-[260px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
         <LocalizedClientLink
-          href="/zakelijk/companies"
+          href="/categories/laadpaal-thuis"
           className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200"
         >
           Laadpaal Thuis
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/installers"
+          href="/categories/laadpaal-zakelijk"
           className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200"
         >
           Laadpaal Zakelijke
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/resellers"
+          href="/categories/laadpaal-vve"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Laadpaal VVE
