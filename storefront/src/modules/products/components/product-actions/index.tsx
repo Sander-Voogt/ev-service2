@@ -135,9 +135,10 @@ export default function ProductActions({
   }
 
   return (
-    <div className="bg-white border border-charcoal">
-      <div className="flex flex-col gap-y-2  p-4" ref={actionsRef}>
-        <p className="text-lg text-green-default">Kies je opties</p>
+    <>
+      <aside className="border rounded-xl p-5 bg-green-50 h-fit">
+        <h3 className="font-semibold text-lg mb-4">Kies je opties</h3>
+
         <div>
           {(product.variants?.length ?? 0) > 1 && (
             <div className="flex flex-col gap-y-4">
@@ -165,8 +166,8 @@ export default function ProductActions({
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
-          variant="primary"
-          className="w-full h-10 bg-orange-action"
+          // variant="primary"
+          className="bg-green-600 hover:bg-green-700 text-white font-medium w-full py-3 rounded-lg"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -176,6 +177,13 @@ export default function ProductActions({
             ? "Niet op voorraad"
             : "In winkelwagen"}
         </Button>
+
+        <ul className="text-xs text-gray-600 mt-4 space-y-1">
+          <li>⭐ Klanten beoordelen ons met 9.0</li>
+          <li>🚚 Gratis verzending vanaf €100,-</li>
+          <li>🔄 30 dagen retourrecht</li>
+          <li>🛡️ Minimaal 2 jaar garantie</li>
+        </ul>
         <MobileActions
           product={product}
           variant={selectedVariant}
@@ -187,27 +195,7 @@ export default function ProductActions({
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
         />
-      </div>
-      <div className="gap-y-2  p-4">
-        <ul className="text-sm">
-          <li>
-            <FontAwesomeIcon icon={faSquareCheck} color="#338414" /> Klanten
-            beoordelen ons gemiddeld met een 9.0
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
-            GRATIS verzenden vanaf € 100,-
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
-            30 dagen retourrecht
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faSquareCheck} color="#338414" />
-            Minimaal 2 jaar garantie
-          </li>
-        </ul>
-      </div>
-    </div>
+      </aside>
+    </>
   )
 }

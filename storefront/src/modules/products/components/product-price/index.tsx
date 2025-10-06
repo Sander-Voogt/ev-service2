@@ -21,10 +21,11 @@ export default function ProductPrice({
     return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />
   }
 
+
   return (
-    <div className="flex flex-col text-ui-fg-base">
+    <div className="flex items-center justify-between mb-4">
       <span
-        className={clx("text-xl-semi", {
+        className={clx("text-3xl font-semibold text-green-700", {
           "text-orange-400": selectedPrice.price_type === "sale",
         })}
       >
@@ -53,6 +54,8 @@ export default function ProductPrice({
           </span>
         </>
       )}
+                  <p className="text-xs text-gray-500">(incl. btw)</p>
+
     </div>
   )
 }
