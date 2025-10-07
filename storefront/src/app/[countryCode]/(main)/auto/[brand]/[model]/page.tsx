@@ -160,13 +160,14 @@ export default async function ModelPage({
       <h3 className="text-xl font-bold mb-2">
         Laad accesoires voor {model.brand} {model.name}
       </h3>
-      <ul className="flex flex-col gap-x-6">
-        <FeaturedProducts collection={accessoires} region={region} />
-      </ul>
       <div
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: model?.AccessoriesDescription }}
       />
+      <ul className="flex flex-col gap-x-6">
+        <FeaturedProducts collection={accessoires} region={region} />
+      </ul>
+      
 
       <div
         className="prose max-w-none"
