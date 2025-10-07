@@ -36,6 +36,8 @@ const Shipping: React.FC<ShippingProps> = ({
     (method) => method.id === cart.shipping_methods?.at(-1)?.shipping_option_id
   )
 
+  
+
   const handleEdit = () => {
     router.push(pathname + "?step=delivery", { scroll: false })
   }
@@ -55,9 +57,23 @@ const Shipping: React.FC<ShippingProps> = ({
       })
   }
 
-  useEffect(() => {
+    useEffect(() => {
     setError(null)
   }, [isOpen])
+
+  // ✅ Automatisch verzendmethode selecteren als er maar één beschikbaar is
+  useEffect(() => {
+    if (
+      availableShippingMethods?.length === 1 &&
+      cart.shipping_methods?.length === 0
+    ) {
+      const singleOption = availableShippingMethods[0]
+      set(singleOption.id).then(() => {
+        router.push(pathname + "?step=payment", { scroll: false })
+      })
+    }
+  }, [availableShippingMethods, cart.shipping_methods])
+
 
   return (
     <div className="bg-white">
