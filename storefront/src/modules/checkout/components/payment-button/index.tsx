@@ -102,7 +102,7 @@ const StripePaymentButton = ({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}/api/capture-payment/${cart.id}?country_code=${countryCode}`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/capture-payment/${cart.id}?country_code=${countryCode}`,
         payment_method_data: {
           billing_details: {
             name:

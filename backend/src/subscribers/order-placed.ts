@@ -20,12 +20,12 @@ export default async function orderPlacedHandler({
       template: EmailTemplates.ORDER_PLACED,
       data: {
         emailOptions: {
-          replyTo: 'info@example.com',
-          subject: 'Your order has been placed'
+          replyTo: 'helpdesk@evservice.eu',
+          subject: 'Bestelling is geplaatst'
         },
         order,
         shippingAddress,
-        preview: 'Thank you for your order!'
+        preview: 'Bedankt voor uw bestelling!'
       }
     })
   } catch (error) {

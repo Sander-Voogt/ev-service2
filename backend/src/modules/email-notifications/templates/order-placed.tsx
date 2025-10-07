@@ -21,39 +21,39 @@ export const isOrderPlacedTemplateData = (data: any): data is OrderPlacedTemplat
 
 export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
   PreviewProps: OrderPlacedPreviewProps
-} = ({ order, shippingAddress, preview = 'Your order has been placed!' }) => {
+} = ({ order, shippingAddress, preview = 'Uw bestelling is geplaats!' }) => {
   return (
     <Base preview={preview}>
       <Section>
         <Text style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', margin: '0 0 30px' }}>
-          Order Confirmation
+          Order Bevestiging
         </Text>
 
         <Text style={{ margin: '0 0 15px' }}>
-          Dear {shippingAddress.first_name} {shippingAddress.last_name},
+          Beste {shippingAddress.first_name} {shippingAddress.last_name},
         </Text>
 
         <Text style={{ margin: '0 0 30px' }}>
-          Thank you for your recent order! Here are your order details:
+         Bedankt voor uw bestelling. Hierbij de details van uw bestelling:
         </Text>
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 10px' }}>
-          Order Summary
+          Besteoverzicht
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
           Order ID: {order.display_id}
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
-          Order Date: {new Date(order.created_at).toLocaleDateString()}
+          Besteldatum: {new Date(order.created_at).toLocaleDateString()}
         </Text>
         <Text style={{ margin: '0 0 20px' }}>
-          Total: {order.summary.raw_current_order_total.value} {order.currency_code}
+          Totaal: {order.summary.raw_current_order_total.value} {order.currency_code}
         </Text>
 
         <Hr style={{ margin: '20px 0' }} />
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 10px' }}>
-          Shipping Address
+          Bezorgadres
         </Text>
         <Text style={{ margin: '0 0 5px' }}>
           {shippingAddress.address_1}
@@ -68,7 +68,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
         <Hr style={{ margin: '20px 0' }} />
 
         <Text style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 15px' }}>
-          Order Items
+          Items Bestelling
         </Text>
 
         <div style={{
@@ -85,8 +85,8 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
             borderBottom: '1px solid #ddd'
           }}>
             <Text style={{ fontWeight: 'bold' }}>Item</Text>
-            <Text style={{ fontWeight: 'bold' }}>Quantity</Text>
-            <Text style={{ fontWeight: 'bold' }}>Price</Text>
+            <Text style={{ fontWeight: 'bold' }}>Aantal</Text>
+            <Text style={{ fontWeight: 'bold' }}>Prijs</Text>
           </div>
           {order.items.map((item) => (
             <div key={item.id} style={{
