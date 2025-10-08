@@ -1,3 +1,4 @@
+'use client'
 import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import { IconCart } from "@modules/common/components/reusable-nav-elements";
 import CartButton from "@modules/layout/components/cart-button";
