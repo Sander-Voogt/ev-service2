@@ -160,7 +160,8 @@ async function createCustomerInInformer(customer: any) {
 
 // Vergeet niet je createCustomer functie te importeren of definiëren
 async function createInvoiceInInformer(customerId, orderId, items) {
-
+  const date =new Date().toISOString();
+  
   const newCustomer = {
     relation_id: customerId,
     reference: orderId,
@@ -168,12 +169,15 @@ async function createInvoiceInInformer(customerId, orderId, items) {
     currency_id: 61551,
     vat_option: 'incl',
     template_id: 515360,
+    invoice_date: date.substring(0, date.indexOf('T')),
     footer: "Factuur naar aanleiding van bestelling op evservice.eu. Bestelnummer staat als referentie bovenaan de factuur.",
     lines: items.map(item => ({
         qty: item.quantity,
         description: item.title + " - " + item.product_title,
         amount: item.unit_price,
         vat_id: 677633,
+        costs_id: 0,
+        discount: 0,
         ledger_id: 14516798,
     }))
   }
