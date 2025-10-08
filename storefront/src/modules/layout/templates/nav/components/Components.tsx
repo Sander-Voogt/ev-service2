@@ -1,3 +1,4 @@
+'use client'
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion, HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
