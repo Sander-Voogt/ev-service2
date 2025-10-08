@@ -19,7 +19,7 @@ export const GET = async (
 
   // Als er een ID is, voeg een filter toe
   if (id) {
-    console.log(id)
+
     const { data:brands } = await query.graph({
 
       entity: "carbrand",
@@ -30,7 +30,6 @@ export const GET = async (
 
     })
     
-    console.log('asdfasdf', brands)
 
     if (!brands || brands.length === 0) {
       return res.status(404).json({ message: "Car brand not found" })

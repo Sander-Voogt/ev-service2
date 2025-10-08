@@ -20,7 +20,6 @@ export const GET = async (
         ...req.queryConfig,
     })
 
-    console.log(brands)
 
     res.json({
         brands,
