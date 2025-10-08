@@ -169,18 +169,13 @@ async function createInvoiceInInformer(customerId, orderId, items) {
     vat_option: 'incl',
     template_id: 515360,
     footer: "Factuur naar aanleiding van bestelling op evservice.eu. Bestelnummer staat als referentie bovenaan de factuur.",
-    lines: [
-      items.map(item => (
-        {
-          qty: item.quantity,
-          description: item.title + " - " + item.product_title,
-          amount: item.unit_price,
-          vat_id: 677633,
-          ledger_id: 14516798,
-        }
-      ))
-
-    ]
+    lines: items.map(item => ({
+        qty: item.quantity,
+        description: item.title + " - " + item.product_title,
+        amount: item.unit_price,
+        vat_id: 677633,
+        ledger_id: 14516798,
+    }))
   }
 
   console.log("📤 Relatie aanmaken in Informer:", newCustomer)
