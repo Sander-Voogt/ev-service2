@@ -20,7 +20,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 bg-white shadow-md">
-      {/* <InfoBar />  */}
+      <InfoBar /> 
       <div className="sticky top-0 inset-x-0 z-50">
         <header className="bg-white">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between py-5 px-4 gap-4 md:gap-8">
