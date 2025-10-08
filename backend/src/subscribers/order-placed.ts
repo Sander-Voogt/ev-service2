@@ -96,7 +96,7 @@ export default async function orderPlacedHandler({
 async function createCustomerInInformer(customer: any) {
 
 
-  const businessCustomer = customer.billing_address.company ? "1" : "0"
+  const businessCustomer = customer.billing_address.company ? "0" : "1"
 
   const newCustomer = {
     relation_number: "0",
