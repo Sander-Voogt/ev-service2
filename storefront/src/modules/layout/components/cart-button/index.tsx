@@ -1,13 +1,11 @@
-import { notFound } from "next/navigation"
+// src/modules/layout/components/cart-button-server.tsx
 import CartDropdown from "../cart-dropdown"
 import { enrichLineItems, retrieveCart } from "@lib/data/cart"
 
 const fetchCart = async () => {
   const cart = await retrieveCart()
 
-  if (!cart) {
-    return null
-  }
+  if (!cart) return null
 
   if (cart?.items?.length) {
     const enrichedItems = await enrichLineItems(cart.items, cart.region_id!)
@@ -17,7 +15,7 @@ const fetchCart = async () => {
   return cart
 }
 
-export default async function CartButton() {
+export default async function CartButtonServer() {
   const cart = await fetchCart()
 
   return <CartDropdown cart={cart} />
