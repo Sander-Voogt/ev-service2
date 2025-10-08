@@ -48,7 +48,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     !["pending", "authorized"].includes(paymentSession.status)
   ) {
     return NextResponse.redirect(
-      `${origin}/checkout?step=payment&error=payment_failed`
+      `${origin}/${countryCode}/checkout?step=payment&error=payment_failed`
     )
   }
 
