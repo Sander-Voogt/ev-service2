@@ -6,7 +6,7 @@ import Thumbnail from "../thumbnail"
 import PreviewPrice from "./price"
 import { getProductsById } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
-import { sendGTMEvent } from "@next/third-parties/dist/google/gtm"
+// import { sendGTMEvent } from "@next/third-parties/google"
 
 export default async function ProductPreview({
   product,
@@ -34,24 +34,24 @@ export default async function ProductPreview({
     <LocalizedClientLink
       href={`/products/${product.handle}`}
       className="group"
-      onClick={() =>
-        sendGTMEvent({
-          event: "view_item",
-          ecommerce: {
-            currency: "EUR",
-            value: cheapestPrice,
-            items: [
-              {
-                item_id: product?.variants[0].sku,
-                item_name: product.title,
-                price: cheapestPrice,
-                quantity: 1,
-                item_variant: product?.variants[0].title,
-              },
-            ],
-          },
-        })
-      }
+      // onClick={() =>
+      //   sendGTMEvent({
+      //     event: "view_item",
+      //     ecommerce: {
+      //       currency: "EUR",
+      //       value: cheapestPrice,
+      //       items: [
+      //         {
+      //           item_id: product?.variants[0].sku,
+      //           item_name: product.title,
+      //           price: cheapestPrice,
+      //           quantity: 1,
+      //           item_variant: product?.variants[0].title,
+      //         },
+      //       ],
+      //     },
+      //   })
+      // }
     >
       <div
         data-testid="product-wrapper"
