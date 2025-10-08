@@ -9,7 +9,7 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<any>) {
   const notificationModuleService: INotificationModuleService = container.resolve(Modules.NOTIFICATION)
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
-  
+
   const order = await orderModuleService.retrieveOrder(data.id, { relations: ['items', 'summary', 'shipping_address'] })
   const shippingAddress = await (orderModuleService as any).orderAddressService_.retrieve(order.shipping_address.id)
 
@@ -62,6 +62,7 @@ export default async function orderPlacedHandler({
   // 2. Bepaal of het een gast is
   if (isExistingCustomer === true) {
     console.log("✅ Geregistreerde klant:", customer.email)
+    createInvoiceInInformer(customer.metadata.informer_id, order.id, order.items)
     return
   }
 
@@ -69,6 +70,7 @@ export default async function orderPlacedHandler({
     console.log("👤 Gastklant:", customer.email)
 
     const informerData = await createCustomerInInformer(currentOrder)
+    createInvoiceInInformer(informerData.id, order.id, order.items)
 
     if (informerData?.id) {
       try {
@@ -76,6 +78,7 @@ export default async function orderPlacedHandler({
           metadata: {
             informer_id: informerData.id,
           },
+          
         })
 
         console.log(`📌 Klant geüpdatet met informer_id: ${informerData.id}`)
@@ -151,6 +154,65 @@ async function createCustomerInInformer(customer: any) {
     return result
   } catch (err) {
     console.error(`❌ Fout bij aanmaken relatie voor ${customer.email}:`, err)
+    return null
+  }
+}
+
+// Vergeet niet je createCustomer functie te importeren of definiëren
+async function createInvoiceInInformer(customerId, orderId, items) {
+
+  const newCustomer = {
+    relation_id: customerId,
+    reference: orderId,
+    payment_condition_id: 368912,
+    currency_id: 61551,
+    vat_option: 'incl',
+    template_id: 515360,
+    footer: "Factuur naar aanleiding van bestelling op evservice.eu. Bestelnummer staat als referentie bovenaan de factuur.",
+    lines: [
+      items.map(item => (
+        {
+          qty: item.quantity,
+          description: item.title + " - " + item.product_title,
+          amount: item.unit_price,
+          vat_id: 677633,
+          ledger_id: 14516798,
+        }
+      ))
+
+    ]
+  }
+
+  console.log("📤 Relatie aanmaken in Informer:", newCustomer)
+
+  try {
+    const response = await fetch("https://api.informer.eu/v1/invoice/sales/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Securitycode: "30751083",
+        Apikey: "BtmlQbpSBD1e2UjxvRUy7QlkIpfhbudQ99ifbFjHr5XEz9Ebd5s",
+      },
+      body: JSON.stringify(newCustomer),
+    })
+
+    const contentType = response.headers.get("content-type") || ""
+
+    if (!response.ok) {
+      const errorBody = contentType.includes("application/json")
+        ? await response.json()
+        : await response.text()
+
+      console.error(`❌ Mislukt om Factuur aan te maken:`, errorBody)
+      return null
+    }
+
+    const result = await response.json()
+    console.log(`✅ Factuur succesvol aangemaakt voor ${orderId}`, result)
+    return result
+  } catch (err) {
+    console.error(`❌ Fout bij aanmaken Factuur voor ${orderId}:`, err)
     return null
   }
 }
