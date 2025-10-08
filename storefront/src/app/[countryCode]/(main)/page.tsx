@@ -12,9 +12,9 @@ import { sdk } from "@lib/config"
 import { getProductsList } from "@lib/data/products"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "EV Service - Laadkabels en Laadpalen voor elektrische auto's | Laadkabel type 2 | Laadkabel Auto | Laadpaal",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "Laadkabels & Laadpalen. Groot assortiment, alles voor je elektrische auto. Vakkundige laadpaal installatie mogelijk.",
 }
 
 type Brand = {

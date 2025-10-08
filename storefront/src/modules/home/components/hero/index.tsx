@@ -74,7 +74,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
     {/* Center: Form */}
     <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-4 min-w-[320px] max-w-[360px] border border-green-100">
       <h2 className="text-xl font-semibold text-green-900 mb-2 text-center">
-      Find the right product for your car
+      Vind de laadpaal voor jouw auto
       </h2>
       <div className="relative">
       <select
@@ -126,7 +126,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
         window.location.href = `/auto/${string_to_slug(selectedMake.toLowerCase())}/${string_to_slug(selectedModel.toLowerCase())}`;
       }}
       >
-      SHOW PRODUCTS
+      Toon producten
       </Button>
     </div>
 
