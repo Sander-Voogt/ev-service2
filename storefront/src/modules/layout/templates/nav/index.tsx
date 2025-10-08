@@ -2,7 +2,7 @@
 
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
-import MainNavBar from "./components/Mainnavbar"
+// import MainNavBar from "./components/Mainnavbar"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -19,7 +19,7 @@ export default async function Nav() {
       <div className="sticky top-0 inset-x-0 z-50">
         <header className="bg-white">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between py-5 px-4 gap-4 md:gap-8">
-            <MainNavBar />
+            {/* <MainNavBar /> */}
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
               <div className="hidden small:flex items-center gap-x-6 h-full">
                 <LocalizedClientLink
