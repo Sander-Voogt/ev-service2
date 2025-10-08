@@ -18,7 +18,10 @@ async function retrieveCart(cartId?: string) {
     .catch(() => null)
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || ""; 
 export async function GET(req: NextRequest, { params }: { params: Params }) {
+  const redirectOrigin = BASE_URL || req.nextUrl.origin;
+
   const { cartId } = await params
   const { origin, searchParams } = req.nextUrl
 
@@ -33,7 +36,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
   console.log(redirectStatus, cart, cartId)
 
   if (!cart) {
-    return NextResponse.redirect(`${origin}/${countryCode}`)
+    return NextResponse.redirect(`${redirectOrigin}/${countryCode}`)
   }
 
   const paymentSession = cart.payment_collection?.payment_sessions?.find(
@@ -48,13 +51,13 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     !["pending", "authorized"].includes(paymentSession.status)
   ) {
     return NextResponse.redirect(
-      `${origin}/${countryCode}/checkout?step=payment&error=payment_failed`
+      `${redirectOrigin}/${countryCode}/checkout?step=payment&error=payment_failed`
     )
   }
 
   const order = await placeOrder(cartId)
 
   return NextResponse.redirect(
-    `${origin}/${countryCode}/order/${order.id}/confirmed`
+    `${redirectOrigin}/${countryCode}/order/${order.id}/confirmed`
   )
 }
