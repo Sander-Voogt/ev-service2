@@ -25,6 +25,7 @@ export async function retrieveCart() {
     })
 }
 
+
 export async function getOrSetCart(countryCode: string) {
   let cart = await retrieveCart()
   const region = await getRegion(countryCode)
