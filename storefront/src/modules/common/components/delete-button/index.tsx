@@ -1,4 +1,5 @@
 import { deleteLineItem } from "@lib/data/cart"
+import { dispatchCartUpdated } from "@lib/events"
 import { Spinner, Trash } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
 import { useState } from "react"
@@ -18,7 +19,8 @@ const DeleteButton = ({
     setIsDeleting(true)
     await deleteLineItem(id).catch((err) => {
       setIsDeleting(false)
-    })
+      dispatchCartUpdated()
+    }) 
   }
 
   return (
