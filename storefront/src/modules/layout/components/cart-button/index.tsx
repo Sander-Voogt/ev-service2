@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import CartDropdown from "../cart-dropdown"
 import { enrichLineItems } from "@lib/data/cart"
 import { retrieveCartClient } from "@lib/data/cartclient"
+import { onCartUpdated } from "@lib/events"
 
 export default function CartButton() {
   const [cart, setCart] = useState(null)
@@ -20,6 +21,10 @@ export default function CartButton() {
       setLoading(false)
     }
     fetchCart()
+
+    // luister op updates
+    const unsubscribe = onCartUpdated(fetchCart)
+    return unsubscribe
   }, [])
 
   if (loading) return <div>Winkelwagen (laden...)</div>

@@ -15,6 +15,7 @@ import { addToCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareCheck } from "@fortawesome/free-solid-svg-icons"
+import { dispatchCartUpdated } from "@lib/events"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -130,6 +131,7 @@ export default function ProductActions({
       quantity: 1,
       countryCode,
     })
+    dispatchCartUpdated()
 
     setIsAdding(false)
   }

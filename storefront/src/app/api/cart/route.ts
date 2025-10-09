@@ -1,15 +1,25 @@
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { sdk } from "@lib/config"
-import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
-    const cartId = req.cookies["_medusa_cart_id"]
-    if (!cartId) return res.status(200).json({ cart: null })
+    const cookieStore = cookies()
+    const cartId = cookieStore.get("_medusa_cart_id")?.value
 
-    const { cart } = await sdk.store.cart.retrieve(cartId)
-    return res.status(200).json({ cart })
+    if (!cartId) {
+      return NextResponse.json({ cart: null }, { status: 200 })
+    }
+
+    const { cart } = await sdk.store.cart.retrieve(
+      cartId
+    )
+
+    console.log(cart)
+
+    return NextResponse.json({ cart }, { status: 200 })
   } catch (err) {
-    console.error("Cart retrieval failed", err)
-    return res.status(500).json({ cart: null })
+    console.error("❌ Cart retrieval failed:", err)
+    return NextResponse.json({ cart: null }, { status: 500 })
   }
 }
