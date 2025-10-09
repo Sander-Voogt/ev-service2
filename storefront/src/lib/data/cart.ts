@@ -9,6 +9,7 @@ import { redirect } from "next/navigation"
 import { getAuthHeaders, getCartId, removeCartId, setCartId } from "./cookies"
 import { getProductsById } from "./products"
 import { getRegion } from "./regions"
+import { onCartUpdated, dispatchCartUpdated } from "@lib/events"
 
 export async function retrieveCart() {
   const cartId = await getCartId()
@@ -143,7 +144,9 @@ export async function deleteLineItem(lineId: string) {
       revalidateTag("cart")
     })
     .catch(medusaError)
-  revalidateTag("cart")
+
+    revalidateTag("cart")
+  
 }
 
 export async function enrichLineItems(

@@ -22,7 +22,7 @@ export default function CartButton() {
     }
     fetchCart()
 
-    // luister op updates
+    // luister op updates    
     const unsubscribe = onCartUpdated(fetchCart)
     return unsubscribe
   }, [])
