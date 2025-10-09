@@ -37,7 +37,7 @@ export default async function Nav() {
                   </span>
                   <span className="text-xs text-green-default font-bold">
                    
-                      <CartButton />
+                      {/* <CartButton /> */}
                   </span>
                 </div>
               </div>
