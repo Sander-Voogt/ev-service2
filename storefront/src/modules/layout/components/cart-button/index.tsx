@@ -27,7 +27,7 @@ export default function CartButton() {
     return unsubscribe
   }, [])
 
-  if (loading) return <div>Winkelwagen (laden...)</div>
+  if (loading) return <div>Winkelwagen</div>
 
   return <CartDropdown cart={cart} />
 }

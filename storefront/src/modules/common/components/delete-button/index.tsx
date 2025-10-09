@@ -17,10 +17,11 @@ const DeleteButton = ({
 
   const handleDelete = async (id: string) => {
     setIsDeleting(true)
+
     await deleteLineItem(id).catch((err) => {
       setIsDeleting(false)
-      dispatchCartUpdated()
-    }) 
+    }).then(e => dispatchCartUpdated())
+    
   }
 
   return (

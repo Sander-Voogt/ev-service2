@@ -14,6 +14,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Spinner from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { useState } from "react"
+import { dispatchCartUpdated } from "@lib/events"
 
 type ItemProps = {
   item: HttpTypes.StoreCartLineItem
@@ -39,6 +40,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
       })
       .finally(() => {
         setUpdating(false)
+        dispatchCartUpdated()
       })
   }
 
