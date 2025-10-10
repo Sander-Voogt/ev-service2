@@ -225,6 +225,7 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       <LocalizedClientLink
         href="/auto"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
+        onClick={onClose}
       >
         Car Brands
       </LocalizedClientLink>
@@ -260,37 +261,43 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
                 <LocalizedClientLink
                   href="/charging-stations/home"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging station at home
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-stations/business"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging station for business
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-stations/vve"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging station VvE
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-stations/accessories"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging station accessories
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-stations/installation-accessories"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Installation accessories
                 </LocalizedClientLink>
               </div>
             </details>
             <details className="w-full mt-2">
-              <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50">
+              <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50"
+              onClick={onClose}>
                 Charging Cables
                 <svg
                   width="12"
@@ -306,30 +313,35 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
                 <LocalizedClientLink
                   href="/charging-cables/type-2"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging cables type 2
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-cables/type-1"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging cables type 1
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-cables/mobile-car-chargers"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Mobile car chargers
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-cables/accessories"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Charging cable accessories
                 </LocalizedClientLink>
                 <LocalizedClientLink
                   href="/charging-cables/extension-cables"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
+                  onClick={onClose}
                 >
                   Extension cables
                 </LocalizedClientLink>
@@ -341,24 +353,28 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       <LocalizedClientLink
         href="#charging-installation"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
+        onClick={onClose}
       >
         Charging station installation
       </LocalizedClientLink>
       <LocalizedClientLink
         href="/blog"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
+        onClick={onClose}
       >
         Blog
       </LocalizedClientLink>
       <LocalizedClientLink
         href="#selection-aid"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
+        onClick={onClose}
       >
         Customer Service
       </LocalizedClientLink>
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50">
+          <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50"
+          onClick={onClose}>
             Commercial
             <svg
               width="12"
@@ -374,18 +390,21 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
             <LocalizedClientLink
               href="/commercial/companies"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
+              onClick={onClose}
             >
               Companies and homeowners' associations
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/commercial/installers"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
+              onClick={onClose}
             >
               For Installers
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/commercial/resellers"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
+              onClick={onClose}
             >
               For Resellers
             </LocalizedClientLink>

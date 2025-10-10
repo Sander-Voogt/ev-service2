@@ -16,6 +16,7 @@ import { Faq } from "./Faq"
 import { ProCon } from "./Procon"
 import ProductDescription from "@modules/common/components/rendertiptap"
 import { Specs } from "./Specs"
+import ImageGallery2 from "../components/image-gallery/gallery2"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -52,7 +53,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         <div className="flex flex-col md:flex-row gap-x-8 gap-y-12">
           {/* Image gallery */}
           <div className="w-full md:w-3/5 relative">
-            <ImageGallery images={product?.images || []} />
+            <ImageGallery2 images={product?.images || []} />
           </div>
 
           {/* Product actions */}
