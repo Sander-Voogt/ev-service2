@@ -186,7 +186,7 @@ export default function ProductActions({
           <li>🔄 30 dagen retourrecht</li>
           <li>🛡️ Minimaal 2 jaar garantie</li>
         </ul>
-        <MobileActions
+        {/* <MobileActions
           product={product}
           variant={selectedVariant}
           options={options}
@@ -196,7 +196,7 @@ export default function ProductActions({
           isAdding={isAdding}
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
-        />
+        /> */}
       </aside>
     </>
   )

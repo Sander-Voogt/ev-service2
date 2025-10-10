@@ -73,7 +73,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         </div>
       </div>
       <div className="content-container ">
-        <div className="flex flex-row">
+        <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <ProCon data={product.custom} />
           </div>
