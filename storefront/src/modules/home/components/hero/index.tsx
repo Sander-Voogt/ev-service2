@@ -72,7 +72,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
     </div>
 
     {/* Center: Form */}
-    <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-4 min-w-[320px] max-w-[360px] border border-green-100">
+    <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-4 min-w-[320px] mt-[25%] md:mt-0 max-w-[360px] border border-green-100">
       <h2 className="text-xl font-semibold text-green-900 mb-2 text-center">
       Vind de laadpaal voor jouw auto
       </h2>

@@ -3,9 +3,11 @@ import { Container } from "@medusajs/ui"
 import Checkbox from "@modules/common/components/checkbox"
 import Input from "@modules/common/components/input"
 import { mapKeys } from "lodash"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
+import { resourceLimits } from "worker_threads"
+import debounce from "lodash.debounce"
 
 const ShippingAddress = ({
   customer,
@@ -19,7 +21,7 @@ const ShippingAddress = ({
   onChange: () => void
 }) => {
   const [formData, setFormData] = useState<Record<string, any>>({})
-
+  const [addressError, setAddressError] = useState(false)
   const countriesInRegion = useMemo(
     () => cart?.region?.countries?.map((c) => c.iso_2),
     [cart?.region]
@@ -44,6 +46,7 @@ const ShippingAddress = ({
         "shipping_address.first_name": address?.first_name || "",
         "shipping_address.last_name": address?.last_name || "",
         "shipping_address.address_1": address?.address_1 || "",
+        "shipping_address.address_2": address?.address_2 || "",
         "shipping_address.company": address?.company || "",
         "shipping_address.postal_code": address?.postal_code || "",
         "shipping_address.city": address?.city || "",
@@ -71,14 +74,57 @@ const ShippingAddress = ({
   }, [cart]) // Add cart as a dependency
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLInputElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFormData({
+    const { name, value } = e.target
+
+    const updatedFormData = {
       ...formData,
-      [e.target.name]: e.target.value,
-    })
+      [name]: value,
+    }
+
+    setFormData(updatedFormData)
+
+    // Alleen triggeren voor postcode of huisnummer
+    if (
+      name === "shipping_address.postal_code" ||
+      name === "shipping_address.address_2"
+    ) {
+      debouncedGetAddress(updatedFormData)
+    }
+  }
+
+  // Debounce de API-call zodat het niet bij elke tik wordt aangeroepen
+  const debouncedGetAddress = useCallback(
+    debounce((latestFormData) => {
+      getAddress(latestFormData)
+    }, 500),
+    []
+  )
+
+  async function getAddress(latestFormData: typeof formData) {
+    const postalCode = latestFormData["shipping_address.postal_code"]
+    const number = latestFormData["shipping_address.address_2"]
+
+    if (postalCode.length > 4 && number.length > 0) {
+      try {
+        const response = await fetch(
+          `/api/postcode?postcode=${postalCode}&number=${number}`
+        )
+        if (!response.ok)
+          throw new Error(`HTTP error! Status: ${response.status}`)
+
+        const data = await response.json()
+        setFormData((prev) => ({
+          ...prev,
+          ["shipping_address.city"]: data.city,
+          ["shipping_address.address_1"]: data.street,
+        }))
+      } catch (error) {
+        console.error("Er is een fout opgetreden:", error)
+        setAddressError(true)
+      }
+    }
   }
 
   return (
@@ -99,6 +145,16 @@ const ShippingAddress = ({
           />
         </Container>
       )}
+      <div className="pb-4">
+        <Input
+          label="Bedrijf"
+          name="shipping_address.company"
+          value={formData["shipping_address.company"]}
+          onChange={handleChange}
+          autoComplete="organization"
+          data-testid="shipping-company-input"
+        />
+      </div>
       <div className="grid grid-cols-2 gap-4">
         <Input
           label="Voornaam"
@@ -119,15 +175,15 @@ const ShippingAddress = ({
           data-testid="shipping-last-name-input"
         />
         <Input
-          label="Adres"
-          name="shipping_address.address_1"
-          autoComplete="address-line1"
-          value={formData["shipping_address.address_1"]}
+          label="Postcode"
+          name="shipping_address.postal_code"
+          autoComplete="postal-code"
+          value={formData["shipping_address.postal_code"]}
           onChange={handleChange}
           required
-          data-testid="shipping-address-input"
+          data-testid="shipping-postal-code-input"
         />
-         <Input
+        <Input
           label="Huisnummer"
           name="shipping_address.address_2"
           autoComplete="address-line2"
@@ -136,22 +192,17 @@ const ShippingAddress = ({
           required
           data-testid="shipping-address-input"
         />
+      </div>
+      {addressError && <p>Adres kan niet worden gevonden</p>}
+      <div className="grid grid-cols-2 gap-4">
         <Input
-          label="Bedrijf"
-          name="shipping_address.company"
-          value={formData["shipping_address.company"]}
-          onChange={handleChange}
-          autoComplete="organization"
-          data-testid="shipping-company-input"
-        />
-        <Input
-          label="Postcode"
-          name="shipping_address.postal_code"
-          autoComplete="postal-code"
-          value={formData["shipping_address.postal_code"]}
+          label="Adres"
+          name="shipping_address.address_1"
+          autoComplete="address-line1"
+          value={formData["shipping_address.address_1"]}
           onChange={handleChange}
           required
-          data-testid="shipping-postal-code-input"
+          data-testid="shipping-address-input"
         />
         <Input
           label="Stad"
@@ -171,7 +222,7 @@ const ShippingAddress = ({
           required
           data-testid="shipping-country-select"
         />
-        <Input
+        {/* <Input
           label="Provincie"
           name="shipping_address.province"
           autoComplete="address-level1"
@@ -179,7 +230,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
           data-testid="shipping-province-input"
-        />
+        /> */}
       </div>
       <div className="my-8">
         <Checkbox

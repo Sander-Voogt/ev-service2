@@ -11,6 +11,7 @@ const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
       "billing_address.first_name": cart?.billing_address?.first_name || "",
       "billing_address.last_name": cart?.billing_address?.last_name || "",
       "billing_address.address_1": cart?.billing_address?.address_1 || "",
+      "billing_address.address_2": cart?.billing_address?.address_2 || "",
       "billing_address.company": cart?.billing_address?.company || "",
       "billing_address.postal_code": cart?.billing_address?.postal_code || "",
       "billing_address.city": cart?.billing_address?.city || "",
@@ -57,6 +58,15 @@ const BillingAddress = ({ cart }: { cart: HttpTypes.StoreCart | null }) => {
           name="billing_address.address_1"
           autoComplete="address-line1"
           value={formData["billing_address.address_1"]}
+          onChange={handleChange}
+          required
+          data-testid="billing-address-input"
+        />
+         <Input
+          label="Huisnummer"
+          name="billing_address.address_2"
+          autoComplete="address-line1"
+          value={formData["billing_address.address_2"]}
           onChange={handleChange}
           required
           data-testid="billing-address-input"

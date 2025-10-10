@@ -5,6 +5,17 @@ import NativeSelect, {
 } from "@modules/common/components/native-select"
 import { HttpTypes } from "@medusajs/types"
 
+const countryMapping = [
+  {
+    iso: 'nl',
+    name: 'Nederland'
+  },
+    {
+    iso: 'be',
+    name: 'Belgie'
+  }
+]
+
 const CountrySelect = forwardRef<
   HTMLSelectElement,
   NativeSelectProps & {
@@ -25,7 +36,7 @@ const CountrySelect = forwardRef<
 
     return region.countries?.map((country) => ({
       value: country.iso_2,
-      label: country.display_name,
+      label: countryMapping.find(i => i.iso == country.iso_2)?.name,
     }))
   }, [region])
 
