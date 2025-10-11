@@ -1,15 +1,8 @@
-"use client"
-import { useParams } from "next/dist/client/components/navigation";
+'use client'
+import { updateRegion } from "@lib/data/cart"
 import React, { useState, useRef, useEffect } from "react"
 
-// LanguageDropdown
-// - TailwindCSS-only styling
-// - Met vlag-icoontjes per land (inline SVG)
-// - Klik op land: navigeert naar /nl of /be
-
-export default function LanguageDropdown() {
-    const params = useParams<{ countryCode: string;  }>()
-    const initial = params.countryCode
+export default function LanguageDropdown({ initial = "nl" }) {
   const [open, setOpen] = useState(false)
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
@@ -65,6 +58,18 @@ export default function LanguageDropdown() {
 
   const current = languages.find((l) => l.code === initial) || languages[0]
 
+  const handleSelect = async (countryCode) => {
+    setOpen(false)
+    const currentPath = window.location.pathname.replace(/^\//, "")
+    try {
+      await updateRegion(countryCode, currentPath)
+    } catch (err) {
+      console.error("Error updating region:", err)
+      // fallback redirect als updateRegion mislukt
+      window.location.href = `/${countryCode}`
+    }
+  }
+
   return (
     <div className="relative inline-block text-left">
       <button
@@ -73,13 +78,10 @@ export default function LanguageDropdown() {
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((s) => !s)}
-        style={{ zIndex: "1000" }}
         className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 bg-white text-sm font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
-        {/* <Globe className="h-4 w-4" /> */}
-        {/* {current.label} */}
         <Flag code={current.code} />
-        {/* <span className="min-w-[72px] text-left"></span>  */}
+        <span className="min-w-[72px] text-left">{current.label}</span>
         <svg
           className={`h-4 w-4 transform transition-transform ${
             open ? "rotate-180" : "rotate-0"
@@ -109,23 +111,17 @@ export default function LanguageDropdown() {
         >
           <div className="py-1">
             {languages.map((lang) => (
-              <a
+              <button
                 key={lang.code}
-                href={lang.href}
-                role="menuitem"
-                className={`flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none ${
+                type="button"
+                onClick={() => handleSelect(lang.code)}
+                className={`flex w-full items-center gap-3 px-4 py-2 text-sm text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none ${
                   lang.code === current.code ? "font-semibold" : ""
                 }`}
-                onClick={() => setOpen(false)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setOpen(false)
-                  }
-                }}
               >
                 <Flag code={lang.code} />
                 <span className="truncate">{lang.label}</span>
-              </a>
+              </button>
             ))}
           </div>
         </div>
