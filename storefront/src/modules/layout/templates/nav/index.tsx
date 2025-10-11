@@ -11,16 +11,22 @@ import {
   IconUser,
   navLink,
 } from "@modules/common/components/reusable-nav-elements"
+import {iArrowRightMini} from "@medusajs/icons"
 import { Suspense } from "react"
 import NavSub from "./components/NavSub"
+import { clx } from "@medusajs/ui"
+import CountrySelect from "@modules/checkout/components/country-select"
+import CountrySelect2 from "./components/CountrySelect2"
+import LanguageDropdown from "./components/CountrySelect2"
 
 export default async function Nav() {
-  // const regions = await listRegions().then((regions: StoreRegion[]) => regions)
-  // currentRegion={regions[0]} 
+  const regions = await listRegions().then((regions: StoreRegion[]) => regions)
+  
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 bg-white shadow-md">
-      <InfoBar /> 
+      <InfoBar currentRegion={regions[0]} /> 
+      
       <div className="sticky top-0 inset-x-0 z-50">
         <header className="bg-white">
           <div className="max-w-screen-xl mx-auto flex items-center justify-between py-5 px-4 gap-4 md:gap-8">
@@ -49,21 +55,21 @@ export default async function Nav() {
   )
 }
 
-const InfoBar = () => {
-  // { currentRegion }: { currentRegion?: StoreRegion }
-  // const iso2 = currentRegion?.countries?.[0]?.iso_2
-  // const displayName = currentRegion?.countries?.[0]?.display_name
-  // const regionFlag = (
-  //   <span className="flex items-center gap-2 px-2 py-1 rounded-lg text-green-900 text-xs font-medium">
-  //     <span className="w-5 h-5 flex items-center justify-center rounded overflow-hidden bg-white">
-  //       <img
-  //         src={`https://flagcdn.com/24x18/${iso2}.png`}
-  //         alt={`${displayName} flag`}
-  //         className="w-full h-full object-cover"
-  //       />
-  //     </span>
-  //   </span>
-  // )
+const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
+  console.log('asdfasdf', currentRegion)
+  const iso2 = currentRegion?.countries?.[0]?.iso_2
+  const displayName = currentRegion?.countries?.[0]?.display_name
+  const regionFlag = (
+    <span className="flex items-center gap-2 px-2 py-1 rounded-lg text-green-900 text-xs font-medium">
+      <span className="w-5 h-5 flex items-center justify-center rounded overflow-hidden bg-white">
+        <img
+          src={`https://flagcdn.com/24x18/${iso2}.png`}
+          alt={`${displayName} flag`}
+          className="w-full h-full object-cover"
+        />
+      </span>
+    </span>
+  )
 
   return (
     <>
@@ -94,9 +100,9 @@ const InfoBar = () => {
               className="flex items-center gap-2 font-semibold hover:text-green-default"
             >
               <IconUser />
-              <span className="hidden sm:inline">Login</span>
+              <span className="sm:inline">Login</span>
             </a>
-            {/* {regionFlag} */}
+            <LanguageDropdown />
           </div>
         </div>
       </div>
