@@ -24,10 +24,10 @@ export default async function sitemap({
   const recordlist: RecordList[] = []
   while (next !== null) {
 
-    const { response, nextPage } = await getProductsList({ 
+    const { response, nextPage } = await getProductsList({
       pageParam: next, countryCode: 'nl',
     })
-    
+
     response.products.map((product) => (
       recordlist.push({
         url: `https://dddd.nl/products/${product.handle}`,
@@ -50,42 +50,55 @@ export default async function sitemap({
   const categories = await getCategoriesList()
 
   collections.collections.map((collection) => (
-      recordlist.push({
-        url: `https://dddd.nl/collections/${collection.handle}`,
-        lastModified: collection.updated_at ? collection.updated_at : '-',
-        changeFrequency: 'weekly',
-        priority: 1,
-      })
-    ))
+    recordlist.push({
+      url: `https://dddd.nl/collections/${collection.handle}`,
+      lastModified: collection.updated_at ? collection.updated_at : '-',
+      changeFrequency: 'weekly',
+      priority: 1,
+    })
+  ))
 
-    categories.product_categories.map((category) => (
-      recordlist.push({
-        url: `https://dddd.nl/categories/${category.handle}`,
-        lastModified: category.updated_at ? category.updated_at : '-',
-        changeFrequency: 'weekly',
-        priority: 1,
-      })
-    ))
+  categories.product_categories.map((category) => (
+    recordlist.push({
+      url: `https://dddd.nl/categories/${category.handle}`,
+      lastModified: category.updated_at ? category.updated_at : '-',
+      changeFrequency: 'weekly',
+      priority: 1,
+    })
+  ))
 
-    const posts = await api.posts.browse({ limit: "all" })
-    posts.map((post) => (
-      recordlist.push({
-        url: `https://dddd.nl/blog/${post.slug}`,
-        lastModified: post.updated_at ? post.updated_at : '-',
-        changeFrequency: 'weekly',
-        priority: 1,
-      })
-    ))
+  const posts = await api.posts.browse({ limit: "all" })
+  posts.map((post) => (
+    recordlist.push({
+      url: `https://dddd.nl/blog/${post.slug}`,
+      lastModified: post.updated_at ? post.updated_at : '-',
+      changeFrequency: 'weekly',
+      priority: 1,
+    })
+  ))
 
-    const brands = await sdk.client.fetch(`/store/carbrand/models`);
-    brands.brands.map((brand) => (
+  const brands = await sdk.client.fetch(`/store/carbrand/models`);
+  brands.forEach((brand) => {
+    // eerst de merkpagina
+    recordlist.push({
+      url: `https://dddd.nl/auto/${string_to_slug(brand.name.toLowerCase())}`,
+      lastModified: brand.updated_at || '-',
+      changeFrequency: 'weekly',
+      priority: 1,
+    });
+
+    // daarna de modellen
+    (brand.carmodels || []).forEach((model) => {
       recordlist.push({
-        url: `https://dddd.nl/auto/${string_to_slug(brand.name.toLowerCase())}`,
-        lastModified: brand.updated_at ? brand.updated_at : '-',
+        url: `https://dddd.nl/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase())}`,
+        lastModified: brand.updated_at || '-',
         changeFrequency: 'weekly',
-        priority: 1,
-      })
-    ))
+        priority: 0.8,
+      });
+    });
+  });
+
+
 
   return recordlist
 
