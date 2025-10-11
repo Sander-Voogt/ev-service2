@@ -31,6 +31,11 @@ export default async function BlogDetail({ params }: { params: any }) {
     return notFound() // Genereer een 404
   }
 
+  function replaceEvserviceUrls(html) {
+  // Vervang content.evservice.eu met www.evservice.eu
+  return html.replace(/https?:\/\/content\.evservice\.eu/g, 'https://www.evservice.eu');
+}
+
   // Alle volgende regels zijn nu bug-proof
   return (
     <div className="bg-white min-h-screen">
@@ -75,7 +80,7 @@ export default async function BlogDetail({ params }: { params: any }) {
 
           <div
             className="prose prose-green prose-base sm:prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.html }}
+            dangerouslySetInnerHTML={{ __html: replaceEvserviceUrls(post.html) }}
           />
         </article>
       </div>

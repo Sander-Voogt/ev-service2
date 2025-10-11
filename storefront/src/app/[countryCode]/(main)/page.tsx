@@ -11,6 +11,7 @@ import { getRegion } from "@lib/data/regions"
 import { sdk } from "@lib/config"
 import { getProductsList } from "@lib/data/products"
 import Image from "next/image"
+import api from "@lib/ghost"
 
 
 export const metadata: Metadata = {
@@ -48,6 +49,8 @@ export default async function Home({
   if (!collections || !region) {
     return null
   }
+
+   const posts = await api.posts.browse({ limit: "3" })
 
   return (
     <>
@@ -87,9 +90,9 @@ export default async function Home({
             </ul>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden h-48 md:h-auto">
+          <div className="relative rounded-2xl overflow-hidden h-64 md:h-auto">
             <Image
-              src="/images/installation.jpg"
+              src="/img/image.png"
               alt="Installatieservice"
               fill
               className="object-cover"
@@ -145,7 +148,7 @@ export default async function Home({
         </div>
         <div className="flex-1 relative h-72 md:h-96">
           <Image
-            src="/images/service.jpg"
+            src="/img/zaptec-UHNdOFqNhNQ-unsplash.jpg"
             alt="Service team"
             fill
             className="object-cover rounded-2xl"
@@ -162,21 +165,21 @@ export default async function Home({
           </button>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="border rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
+          {posts.map((i) => (
+            <div key={i.id} className="border rounded-2xl overflow-hidden hover:shadow-md transition-shadow">
               <Image
-                src={`/images/blog${i}.jpg`}
+                src={i.feature_image ?? 'https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png'}
                 alt="Blog afbeelding"
                 width={400}
                 height={200}
                 className="object-cover w-full h-48"
               />
               <div className="p-4 space-y-2">
-                <h4 className="font-semibold text-base">Blogtitel {i}</h4>
-                <p className="text-sm text-gray-600">Korte beschrijving van de blog...</p>
-                <button className="text-green-700 text-sm font-medium hover:underline">
+                <h4 className="font-semibold text-base">{i.title}</h4>
+                <p className="text-sm text-gray-600">{i.excerpt}</p>
+                <a href={`/blog/${i.slug}`} className="text-green-700 text-sm font-medium hover:underline">
                   Lees meer →
-                </button>
+                </a>
               </div>
             </div>
           ))}
