@@ -43,22 +43,20 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   return (
     <>
       <ProductViewEvent product={product} />
-      <div className="w-full small:w-auto small:flex-1 mb-8 small:mb-0 py-6 content-container">
+      <div className="w-full small:w-auto small:flex-1 mb-1 small:mb-0 py-6 content-container">
         <ProductInfo product={product} />
       </div>
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container flex flex-col lg:flex-row lg:items-start py-6 relative"
         data-testid="product-container"
       >
-        <div className="flex flex-col md:flex-row gap-x-8 gap-y-12">
-          {/* Image gallery */}
-          <div className="w-full md:w-3/5 relative">
+<div className="flex flex-col lg:flex-row gap-x-8 gap-y-12 w-full">          {/* Image gallery */}
+          <div className="w-full lg:w-2/5 relative">
             <ImageGallery2 images={product?.images || []} />
           </div>
 
           {/* Product actions */}
-          <div className="w-full md:w-2/5 flex flex-col md:sticky md:top-48 md:py-0 py-8 gap-y-12 flex-1">
-            <Suspense
+  <div className="w-full lg:w-2/6 flex flex-col lg:sticky lg:top-48 lg:py-0 py-8 gap-y-12">            <Suspense
               fallback={
                 <ProductActions
                   disabled={true}
@@ -72,6 +70,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           </div>
         </div>
       </div>
+
       <div className="content-container ">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">

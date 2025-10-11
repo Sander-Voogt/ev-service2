@@ -1,7 +1,7 @@
 export function Faq({ data }) {
   return (
     <section className="bg-white dark:bg-gray-900">
-        <h2 className="mb-8 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+        <h2 className="mb-8 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
           Veel gestelde vragen
         </h2>
         <div className="grid pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">

@@ -1,21 +1,28 @@
+import Image from 'next/image'
 import React from 'react'
+import clsx from 'clsx'
+import { HttpTypes } from '@medusajs/types'
 
-export const Thumb = (props) => {
-  const { selected, index, onClick } = props
-    console.log(props)
-  return (
-    <div
-      className={'embla-thumbs__slide'.concat(
-        selected ? ' embla-thumbs__slide--selected' : ''
-      )}
-    >
-      <button
-        onClick={onClick}
-        type="button"
-        className="embla-thumbs__slide__number"
-      >
-        <img src={props.index.url} />
-      </button>
-    </div>
-  )
+type ThumbProps = {
+  index: HttpTypes.StoreProductImage
+  selected: boolean
+  onClick: () => void
 }
+
+export const Thumb = ({ index, selected, onClick }: ThumbProps) => (
+  <button
+    onClick={onClick}
+    className={clsx(
+      'relative w-20 h-20 border-2 rounded-md overflow-hidden transition-all',
+      selected ? 'border-black' : 'border-transparent hover:border-gray-300'
+    )}
+  >
+    <Image
+      src={index.url}
+      alt=""
+      fill
+      className="object-contain"
+      sizes="80px"
+    />
+  </button>
+)

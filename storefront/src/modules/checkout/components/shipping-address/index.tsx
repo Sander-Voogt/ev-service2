@@ -113,6 +113,7 @@ const ShippingAddress = ({
         )
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`)
+        setAddressError(false)
 
         const data = await response.json()
         setFormData((prev) => ({
@@ -193,7 +194,7 @@ const ShippingAddress = ({
           data-testid="shipping-address-input"
         />
       </div>
-      {addressError && <p>Adres kan niet worden gevonden</p>}
+      {addressError && <small>Adres kan niet worden gevonden. Indien u zeker bent dat het adres correct is, dan kunt u dit bericht negeren.</small>}
       <div className="grid grid-cols-2 gap-4">
         <Input
           label="Adres"
