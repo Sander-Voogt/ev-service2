@@ -2,8 +2,9 @@
 import { updateRegion } from "@lib/data/cart"
 import React, { useState, useRef, useEffect } from "react"
 
-export default function LanguageDropdown({ initial = "nl" }) {
+export default function LanguageDropdown() {
   const [open, setOpen] = useState(false)
+
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
 
@@ -56,21 +57,20 @@ export default function LanguageDropdown({ initial = "nl" }) {
     { code: "be", label: "België", href: "/be" },
   ]
 
-  const current = languages.find((l) => l.code === initial) || languages[0]
+
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "/"
+  const currentCode = pathname.startsWith("/be") ? "be" : "nl"
+  const current = languages.find((l) => l.code === currentCode) || languages[0]
 
   const handleSelect = async (countryCode) => {
     setOpen(false)
-    const pathname = window.location.pathname
     const newPath = pathname.replace(/^\/(nl|be)(?=\/|$)/, `/${countryCode}`)
-
     try {
       await updateRegion(countryCode, newPath.replace(/^\//, ""))
     } catch (err) {
       console.error("Error updating region:", err)
-      window.location.href = `/${countryCode}${pathname.replace(
-        /^\/(nl|be)/,
-        ""
-      )}`
+      window.location.href = newPath
     }
   }
 
