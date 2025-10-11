@@ -1,4 +1,4 @@
-import { Text, Section, Hr } from "@react-email/components";
+import { Text, Section, Hr, Container } from "@react-email/components";
 import * as React from "react";
 import { Base } from "./base";
 import { OrderDTO, OrderAddressDTO } from "@medusajs/framework/types";
@@ -31,173 +31,177 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
   PreviewProps: OrderPlacedPreviewProps;
 } = ({ order, shippingAddress, preview = "Uw bestelling is geplaats!" }) => {
   return (
-    <Base
-      preview={preview}
-      style={{
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f9f9f9",
-        color: "#333",
-      }}
-    >
+    <Base preview={preview}>
       <Section
         style={{
-          maxWidth: "600px",
-          margin: "0 auto",
-          padding: "40px",
-          backgroundColor: "#ffffff",
-          borderRadius: "8px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+          backgroundColor: "#f9f9f9",
+          padding: "40px 0",
+          fontFamily: "Arial, sans-serif",
+          color: "#333",
         }}
       >
-        {/* Header */}
-        <Text
+        <Container
           style={{
-            fontSize: "28px",
-            fontWeight: "700",
-            textAlign: "center",
-            margin: "0 0 30px",
-            color: "#1a73e8",
+            maxWidth: "600px",
+            margin: "0 auto",
+            padding: "40px",
+            backgroundColor: "#ffffff",
+            borderRadius: "8px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
           }}
         >
-          Order Bevestiging
-        </Text>
-
-        {/* Greeting */}
-        <Text style={{ margin: "0 0 15px", fontSize: "16px" }}>
-          Beste {shippingAddress.first_name} {shippingAddress.last_name},
-        </Text>
-        <Text style={{ margin: "0 0 30px", fontSize: "16px" }}>
-          Bedankt voor uw bestelling. Hieronder vindt u de details van uw
-          bestelling:
-        </Text>
-
-        {/* Order Overview */}
-        <Text
-          style={{
-            fontSize: "20px",
-            fontWeight: "700",
-            margin: "0 0 10px",
-            color: "#1a73e8",
-          }}
-        >
-          Besteloverzicht
-        </Text>
-        <Text style={{ margin: "0 0 5px" }}>Order ID: {order.display_id}</Text>
-        <Text style={{ margin: "0 0 5px" }}>
-          Besteldatum: {new Date(order.created_at).toLocaleDateString()}
-        </Text>
-        <Text style={{ margin: "0 0 20px" }}>
-          Totaal: {order.summary.raw_current_order_total.value}{" "}
-          {order.currency_code}
-        </Text>
-
-        <Hr
-          style={{
-            border: "none",
-            borderTop: "1px solid #ddd",
-            margin: "20px 0",
-          }}
-        />
-
-        {/* Shipping Address */}
-        <Text
-          style={{
-            fontSize: "20px",
-            fontWeight: "700",
-            margin: "0 0 10px",
-            color: "#1a73e8",
-          }}
-        >
-          Bezorgadres
-        </Text>
-        <Text style={{ margin: "0 0 5px" }}>{shippingAddress.address_1}</Text>
-        <Text style={{ margin: "0 0 5px" }}>
-          {shippingAddress.city}, {shippingAddress.province}{" "}
-          {shippingAddress.postal_code}
-        </Text>
-        <Text style={{ margin: "0 0 20px" }}>
-          {shippingAddress.country_code}
-        </Text>
-
-        <Hr
-          style={{
-            border: "none",
-            borderTop: "1px solid #ddd",
-            margin: "20px 0",
-          }}
-        />
-
-        {/* Order Items */}
-        <Text
-          style={{
-            fontSize: "20px",
-            fontWeight: "700",
-            margin: "0 0 15px",
-            color: "#1a73e8",
-          }}
-        >
-          Items Bestelling
-        </Text>
-
-        <div
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            overflow: "hidden",
-          }}
-        >
-          {/* Table Header */}
-          <div
+          {/* Header */}
+          <Text
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              backgroundColor: "#f2f2f2",
-              padding: "12px 10px",
-              fontWeight: "600",
-              fontSize: "16px",
+              fontSize: "28px",
+              fontWeight: "700",
+              textAlign: "center",
+              margin: "0 0 30px",
+              color: "#1a73e8",
             }}
           >
-            <Text>Item</Text>
-            <Text>Aantal</Text>
-            <Text>Prijs</Text>
-          </div>
+            Order Bevestiging
+          </Text>
 
-          {/* Table Items */}
-          {order.items.map((item) => (
+          {/* Greeting */}
+          <Text style={{ margin: "0 0 15px", fontSize: "16px" }}>
+            Beste {shippingAddress.first_name} {shippingAddress.last_name},
+          </Text>
+          <Text style={{ margin: "0 0 30px", fontSize: "16px" }}>
+            Bedankt voor uw bestelling. Hieronder vindt u de details van uw
+            bestelling:
+          </Text>
+
+          {/* Order Overview */}
+          <Text
+            style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              margin: "0 0 10px",
+              color: "#1a73e8",
+            }}
+          >
+            Besteloverzicht
+          </Text>
+          <Text style={{ margin: "0 0 5px" }}>
+            Order ID: {order.display_id}
+          </Text>
+          <Text style={{ margin: "0 0 5px" }}>
+            Besteldatum: {new Date(order.created_at).toLocaleDateString()}
+          </Text>
+          <Text style={{ margin: "0 0 20px" }}>
+            Totaal: {order.summary.raw_current_order_total.value}{" "}
+            {order.currency_code}
+          </Text>
+
+          <Hr
+            style={{
+              border: "none",
+              borderTop: "1px solid #ddd",
+              margin: "20px 0",
+            }}
+          />
+
+          {/* Shipping Address */}
+          <Text
+            style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              margin: "0 0 10px",
+              color: "#1a73e8",
+            }}
+          >
+            Bezorgadres
+          </Text>
+          <Text style={{ margin: "0 0 5px" }}>{shippingAddress.address_1}</Text>
+          <Text style={{ margin: "0 0 5px" }}>
+            {shippingAddress.city}, {shippingAddress.province}{" "}
+            {shippingAddress.postal_code}
+          </Text>
+          <Text style={{ margin: "0 0 20px" }}>
+            {shippingAddress.country_code}
+          </Text>
+
+          <Hr
+            style={{
+              border: "none",
+              borderTop: "1px solid #ddd",
+              margin: "20px 0",
+            }}
+          />
+
+          {/* Order Items */}
+          <Text
+            style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              margin: "0 0 15px",
+              color: "#1a73e8",
+            }}
+          >
+            Items Bestelling
+          </Text>
+
+          <div
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              border: "1px solid #ddd",
+              borderRadius: "6px",
+              overflow: "hidden",
+            }}
+          >
+            {/* Table Header */}
             <div
-              key={item.id}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                padding: "10px",
-                borderBottom: "1px solid #ddd",
-                fontSize: "15px",
+                backgroundColor: "#f2f2f2",
+                padding: "12px 10px",
+                fontWeight: "600",
+                fontSize: "16px",
               }}
             >
-              <Text>
-                {item.title} - {item.product_title}
-              </Text>
-              <Text>{item.quantity}</Text>
-              <Text>
-                {item.unit_price} {order.currency_code}
-              </Text>
+              <Text>Item</Text>
+              <Text>Aantal</Text>
+              <Text>Prijs</Text>
             </div>
-          ))}
-        </div>
 
-        {/* Footer */}
-        <Text
-          style={{
-            marginTop: "30px",
-            fontSize: "14px",
-            color: "#666",
-            textAlign: "center",
-          }}
-        >
-          Bedankt voor uw bestelling bij ons!
-        </Text>
+            {/* Table Items */}
+            {order.items.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "10px",
+                  borderBottom: "1px solid #ddd",
+                  fontSize: "15px",
+                }}
+              >
+                <Text>
+                  {item.title} - {item.product_title}
+                </Text>
+                <Text>{item.quantity}</Text>
+                <Text>
+                  {item.unit_price} {order.currency_code}
+                </Text>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <Text
+            style={{
+              marginTop: "30px",
+              fontSize: "14px",
+              color: "#666",
+              textAlign: "center",
+            }}
+          >
+            Bedankt voor uw bestelling bij ons!
+          </Text>
+        </Container>
       </Section>
     </Base>
   );

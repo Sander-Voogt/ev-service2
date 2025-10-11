@@ -101,7 +101,7 @@ async function createCustomerInInformer(customer: any) {
   const newCustomer = {
     relation_number: "0",
     relation_type: businessCustomer,
-    company_name: customer.billing_address.company_name,
+    company_name: customer.billing_address.company,
     firstname: customer.billing_address.first_name,
     surname_prefix: "",
     surname: customer.billing_address.last_name,
