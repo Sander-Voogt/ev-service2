@@ -4,6 +4,7 @@ import { getCollectionsList } from '@lib/data/collections';
 import { getProductsList } from '@lib/data/products'
 import api from '@lib/ghost';
 import type { MetadataRoute } from 'next'
+import { string_to_slug } from './[countryCode]/(main)/auto/[brand]/slugger';
 
 
 export default async function sitemap({
