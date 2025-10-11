@@ -40,6 +40,7 @@ export default async function CarIndexPage({
                   className="rounded-t-lg w-full h-40 object-cover bg-green-50"
                   src={post.image}
                   alt={'auto'}
+                  objectFit="contain"
                   height={100}
                   width={100}
                   />

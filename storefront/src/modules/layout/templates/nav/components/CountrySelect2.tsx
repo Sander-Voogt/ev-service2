@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react"
 
 export default function LanguageDropdown() {
   const [open, setOpen] = useState(false)
-
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
 
@@ -57,7 +56,6 @@ export default function LanguageDropdown() {
     { code: "be", label: "België", href: "/be" },
   ]
 
-
   const pathname =
     typeof window !== "undefined" ? window.location.pathname : "/"
   const currentCode = pathname.startsWith("/be") ? "be" : "nl"
@@ -65,12 +63,15 @@ export default function LanguageDropdown() {
 
   const handleSelect = async (countryCode) => {
     setOpen(false)
-    const newPath = pathname.replace(/^\/(nl|be)(?=\/|$)/, `/${countryCode}`)
+    const pathname = window.location.pathname
+    // Verwijder de oude landcode
+    const relativePath = pathname.replace(/^\/(nl|be)/, "").replace(/^\//, "")
+
     try {
-      await updateRegion(countryCode, newPath.replace(/^\//, ""))
+      await updateRegion(countryCode, relativePath)
     } catch (err) {
       console.error("Error updating region:", err)
-      window.location.href = newPath
+      window.location.href = `/${countryCode}/${relativePath}`
     }
   }
 
