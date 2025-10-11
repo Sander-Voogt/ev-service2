@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { updateRegion } from "@lib/data/cart"
 import React, { useState, useRef, useEffect } from "react"
 
@@ -60,13 +60,17 @@ export default function LanguageDropdown({ initial = "nl" }) {
 
   const handleSelect = async (countryCode) => {
     setOpen(false)
-    const currentPath = window.location.pathname.replace(/^\//, "")
+    const pathname = window.location.pathname
+    const newPath = pathname.replace(/^\/(nl|be)(?=\/|$)/, `/${countryCode}`)
+
     try {
-      await updateRegion(countryCode, currentPath)
+      await updateRegion(countryCode, newPath.replace(/^\//, ""))
     } catch (err) {
       console.error("Error updating region:", err)
-      // fallback redirect als updateRegion mislukt
-      window.location.href = `/${countryCode}`
+      window.location.href = `/${countryCode}${pathname.replace(
+        /^\/(nl|be)/,
+        ""
+      )}`
     }
   }
 
