@@ -78,7 +78,7 @@ export default async function sitemap({
   ))
 
   const brands = await sdk.client.fetch(`/store/carbrand/models`);
-  brands.forEach((brand) => {
+  brands.brands.forEach((brand) => {
     // eerst de merkpagina
     recordlist.push({
       url: `https://dddd.nl/auto/${string_to_slug(brand.name.toLowerCase())}`,
