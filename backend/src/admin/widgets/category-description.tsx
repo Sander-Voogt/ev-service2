@@ -1,5 +1,8 @@
 // MainDescriptionWrapper.tsx
-import { DetailWidgetProps, AdminProductCategory } from "@medusajs/framework/types";
+import {
+  DetailWidgetProps,
+  AdminProductCategory,
+} from "@medusajs/framework/types";
 import { sdk } from "../lib/sdk";
 import { useQuery } from "@tanstack/react-query";
 // MainDescriptionForm.tsx
@@ -66,7 +69,8 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
     },
   });
 
-  const onSubmit: SubmitHandler<CustomFields> = (data) => updateMutation.mutate(data);
+  const onSubmit: SubmitHandler<CustomFields> = (data) =>
+    updateMutation.mutate(data);
 
   return (
     <Container className="divide-y p-0">
@@ -87,34 +91,65 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
             <div className="flex w-full max-w-lg flex-col gap-y-8">
               <FormProvider<CustomFields> {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                <Label>Main description</Label>
+                  <Label>Main description</Label>
                   <TiptapEditor
                     value={form.watch("maindescription") || ""}
-                    onChange={(json, html) => form.setValue("maindescription", {json: json, html: html})}
+                    onChange={(json, html) =>
+                      //@ts-ignore
+                      form.setValue("maindescription", {
+                        json: json,
+                        html: html,
+                      })
+                    }
                   />
                   <Label>ModelBannerDescription</Label>
                   <TiptapEditor
                     value={form.watch("ModelBannerDescription") || ""}
-                    onChange={(value) => form.setValue("ModelBannerDescription", value)}
+                    onChange={(json, html) =>
+                      //@ts-ignore
+                      form.setValue("ModelBannerDescription", {
+                        json: json,
+                        html: html,
+                      })
+                    }
                   />
                   <Label>AccessoriesDescription</Label>
                   <TiptapEditor
                     value={form.watch("AccessoriesDescription") || ""}
-                    onChange={(value) => form.setValue("AccessoriesDescription", value)}
+                    onChange={(json, html) =>
+                      //@ts-ignore
+                      form.setValue("AccessoriesDescription", {
+                        json: json,
+                        html: html,
+                      })
+                    }
                   />
                   <Label>ChargingCableDescription</Label>
                   <TiptapEditor
                     value={form.watch("ChargingCableDescription") || ""}
-                    onChange={(value) => form.setValue("ChargingCableDescription", value)}
+                    onChange={(json, html) =>
+                      //@ts-ignore
+                      form.setValue("ChargingCableDescription", {
+                        json: json,
+                        html: html,
+                      })
+                    }
                   />
                   <Label>ChargingStationDescription</Label>
                   <TiptapEditor
                     value={form.watch("ChargingStationDescription") || ""}
-                    onChange={(value) => form.setValue("ChargingStationDescription", value)}
+                    onChange={(json, html) =>
+                      //@ts-ignore
+                      form.setValue("ChargingStationDescription", {
+                        json: json,
+                        html: html,
+                      })
+                    }
                   />
 
-                
-                  <Button type="submit" className="mt-4">Save</Button>
+                  <Button type="submit" className="mt-4">
+                    Save
+                  </Button>
                 </form>
               </FormProvider>
             </div>
