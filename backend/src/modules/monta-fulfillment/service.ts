@@ -32,7 +32,7 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
     this.options_ = options
 
     this.client = axios.create({
-      baseURL: options.baseUrl || "https://api-v6.monta.nl",
+      baseURL: "https://api-v6.monta.nl",
       headers: {
         Authorization: 'Basic ' + new Buffer('vgtonlineEVSERVICE:##R7H6WWWY)Z').toString('base64'),
         "Content-Type": "application/json",
@@ -41,7 +41,20 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
   }
 
   async getFulfillmentOptions(): Promise<FulfillmentOption[]> {
-    return [{ id: "monta_standard", name: "Monta Standard Shipping" }, { id: "monta_pro", name: "Monta pro Shipping" }]
+    return [
+    {
+      id: "monta_standard",
+      name: "Monta Standard Shipping",
+      data: {},
+      provider_id: "monta-fulfillment"
+    },
+    {
+      id: "monta_pro",
+      name: "Monta Pro Shipping",
+      data: {},
+      provider_id: "monta-fulfillment"
+    }
+  ]
   }
 
   async calculatePrice(
