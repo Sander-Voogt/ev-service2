@@ -8,22 +8,21 @@ export default async function orderPaidHandler({
   container,
 }: SubscriberArgs<{ id: string }>) {
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
-  const montaFulfillmentService =
-    container.resolve<MontaFulfillmentProviderService>("monta-fulfillment")
+  const montaService = container.resolve<MontaFulfillmentProviderService>("monta-fulfillment")
 
   const order = await orderModuleService.retrieveOrder(data.id, {
-    relations: ["items", "shipping_address", "shipping_methods", "customer", "payments", "items.variant"],
+    relations: ["items", "shipping_address", "shipping_methods", "transactions"],
   })
 
-  const isPaid = order?.payments?.some(
-    (p) => p.status === "captured" || p.status === "succeeded"
+  const isPaid = order?.transactions?.some(
+    (t) => t.status === "captured" || t.status === "succeeded"
   )
 
   if (isPaid) {
-    const result = await montaFulfillmentService.sendOrder(order)
-    console.log(`✅ Order ${order.id} verzonden naar Monta`, result)
+    const result = await montaService.sendOrder(order)
+    console.log(`✅ Order ${order.id} verzonden naar Monta`, result.data)
   } else {
-    console.log(`ℹ️ Order ${order.id} is niet betaald, wordt niet verzonden`)
+    console.log(`ℹ️ Order ${order.id} is nog niet betaald`)
   }
 }
 
