@@ -76,9 +76,9 @@ export default class MontaFulfillmentProviderService extends AbstractFulfillment
     // Return object: data wordt opgeslagen in fulfillment.data in Medusa
     return {
       data: {
-        ...(fulfillment.data as object || {}),
         ...externalData,
       },
+        labels: [], // <-- verplicht veld, ook als er geen labels zijn
     }
   }
 
