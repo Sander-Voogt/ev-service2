@@ -48,7 +48,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
 
       <ul className="grid gap-4 grid-cols-2 md:grid-cols-4">
         {brand.carmodels.map((model) => (
-          <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md">
+          <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md ">
             <Link
               href={`/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(
                 model.name.toLowerCase().replace(/\s+/g, '-')
@@ -56,12 +56,12 @@ export default async function BrandPage({ params }: { params: { brand: string } 
             >
               <div className="font-medium">{model.name}</div>
               {model.image && (
-                <Image
+                <img
                   src={model.image}
                   alt={model.name}
                   width={80}
                   height={40}
-                  className="mt-2 w-full rounded-md"
+                  className="mt-2 w-full rounded-md max-w-full max-h-full object-contain"
                 />
               )}
             </Link>
