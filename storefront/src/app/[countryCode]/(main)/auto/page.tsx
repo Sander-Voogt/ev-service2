@@ -1,15 +1,15 @@
 import { sdk } from "@lib/config"
-import Image from "next/image";
+import Image from "next/image"
 import Link from "next/link"
 
 type Brand = {
-  name: string;
-  image?: string;
-  description?: string;
-};
+  name: string
+  image?: string
+  description?: string
+}
 type ApiResponse = {
-  brands: Brand[];
-};
+  brands: Brand[]
+}
 
 export default async function CarIndexPage({
   searchParams,
@@ -19,15 +19,17 @@ export default async function CarIndexPage({
   const page = parseInt((searchParams?.page as string) || "1", 10)
   const limit = 8
 
-  const data: ApiResponse = await sdk.client.fetch(
-    `/store/carbrand?limit=100`
-  )
+  const data: ApiResponse = await sdk.client.fetch(`/store/carbrand?limit=100`)
 
   return (
     <div className="content-container">
       <h1 className="text-3xl font-extrabold mb-8 text-gray-900 flex items-center gap-3">
         Automerken
       </h1>
+      <p>
+        Selecteer hieronder jouw automerk om de geschikte laadpalen, laadkabels
+        en bijpassende accessoires per automodel te zien.
+      </p>
       <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {data.brands.map((post: Brand) => (
           <li
@@ -39,10 +41,10 @@ export default async function CarIndexPage({
                 <img
                   className="rounded-t-lg w-full h-40 object-contain bg-green-50"
                   src={post.image}
-                  alt={'auto'}
+                  alt={"auto"}
                   height={50}
                   width={50}
-                  />
+                />
               ) : (
                 <div className="rounded-t-lg w-full h-40 flex items-center justify-center bg-gray-100 text-gray-500 text-sm font-semibold border-b border-green-100">
                   No Image Found
@@ -55,7 +57,6 @@ export default async function CarIndexPage({
                   {post.name}
                 </h5>
               </Link>
-
             </div>
           </li>
         ))}

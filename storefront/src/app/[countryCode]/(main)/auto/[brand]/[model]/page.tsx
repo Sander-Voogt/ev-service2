@@ -118,12 +118,12 @@ export default async function ModelPage({
           />
 
           <div className="flex justify-end space-x-4">
-            <button className="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-black transition">
+            <a href="#laadkabels" className="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-black transition">
               LAADKABELS
-            </button>
-            <button className="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-black transition">
+            </a>
+            <a href="#laadpalen" className="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-black transition">
               LAADPALEN
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -135,7 +135,7 @@ export default async function ModelPage({
         Merk: <strong>{brand.name}</strong>
       </p> */}
 
-      <h3 className="text-xl font-bold mb-2">
+      <h3 className="text-xl font-bold mb-2" id="laadkabels">
         Laadkabels voor {model.brand} {model.name}
       </h3>
       <div
@@ -146,7 +146,7 @@ export default async function ModelPage({
         <FeaturedProducts collection={laadkabels} region={region} />
       </ul>
 
-      <h3 className="text-xl font-bold mb-2">
+      <h3 className="text-xl font-bold mb-2" id="laadpalen">
         Laadpalen voor {model.brand} {model.name}
       </h3>
       <div

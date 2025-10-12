@@ -118,7 +118,7 @@ const Navbar = () => (
           Mobiele autoladers
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/categories/laadkabel-accesoires"
+          href="/categories/laadkabel-accessoires"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Laadkable accesoires

@@ -29,7 +29,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
       <h1 className="text-3xl font-bold mb-4">
         {brand.name}
         {brand.image && (
-          <Image
+          <img
             src={brand.image}
             alt={brand.name}
             width={80}
@@ -46,7 +46,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
         />
       )}
 
-      <ul className="grid gap-4 grid-cols-4">
+      <ul className="grid gap-4 grid-cols-2 md:grid-cols-4">
         {brand.carmodels.map((model) => (
           <li key={model.id} className="p-4 border rounded-lg shadow-sm hover:shadow-md">
             <Link
