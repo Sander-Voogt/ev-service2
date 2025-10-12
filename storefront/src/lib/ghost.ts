@@ -23,6 +23,21 @@ export async function getHelpdeskCategories() {
   }
 }
 
+export async function getInfoPages() {
+  try {
+    const pages = await api.pages.browse({
+      filter: 'tag:hash-infopages', // Filter op de 'helpdesk' tag
+      include: 'tags',
+      limit: 'all',
+      order: 'title ASC' // Sorteren op titel is vaak handig voor categorieën
+    });
+    return pages;
+  } catch (err) {
+    console.error("Fout bij ophalen hoofdcategorieën:", err);
+    return [];
+  }
+}
+
 // 2. Functie voor de specifieke Categorie Pagina
 export async function getCategoryPage(slug) {
   try {

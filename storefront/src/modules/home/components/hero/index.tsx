@@ -20,10 +20,10 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
   console.log(models);
 
   const carouselImages = [
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80",
-    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1500&q=80",
-    "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1500&q=80",
-    "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1500&q=80",
+    "https://bucket-production-6ff8.up.railway.app/medusa-media/0008089.webp",
+    "https://bucket-production-6ff8.up.railway.app/medusa-media/0008090.webp",
+    "https://bucket-production-6ff8.up.railway.app/medusa-media/0008091.webp",
+    "https://bucket-production-6ff8.up.railway.app/medusa-media/0008092.webp"
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
@@ -42,6 +42,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
 
   }, [selectedMake])
 
+  console.log('ddddd', process.env.NEXT_PUBLIC_BASE_URL+carouselImages[0])
   return (
     <div className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
   {/* Background image */}

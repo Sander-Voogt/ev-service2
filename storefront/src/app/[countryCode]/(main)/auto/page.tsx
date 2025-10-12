@@ -36,11 +36,10 @@ export default async function CarIndexPage({
           >
             <Link href={`/auto/${post.name.toLowerCase()}`}>
               {post.image ? (
-                <Image
-                  className="rounded-t-lg w-full h-40 object-cover bg-green-50"
+                <img
+                  className="rounded-t-lg w-full h-40 object-contain bg-green-50"
                   src={post.image}
                   alt={'auto'}
-                  objectFit="contain"
                   height={50}
                   width={50}
                   />
