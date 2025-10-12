@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { sdk } from '@lib/config';
 import { string_to_slug } from './slugger';
 import Image from 'next/image';
-
+import './style.css';
 
 export async function generateStaticParams() {
   const brands = await sdk.client.fetch(`/store/carbrand/models`);

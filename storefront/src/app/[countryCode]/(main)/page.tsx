@@ -58,7 +58,7 @@ export default async function Home({
       <ul className="flex flex-col gap-x-6">
         <FeaturedProducts collection={response} region={region} />
       </ul>
-      <div className="content-container">
+      {/* <div className="content-container">
         <section className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <p>Producten & Service</p>
@@ -73,7 +73,7 @@ export default async function Home({
             <span className="bg-white text-lg my-2 px-4 text-green-600"  style={{width: 'fit-content'}}>met onze installatieservice</span>
           </div>
         </section>
-      </div>
+      </div> */}
       <div className="content-container flex flex-col space-y-16">
       {/* 1️⃣ Producten & Services */}
       <section className="container mx-auto px-4 mt-12">

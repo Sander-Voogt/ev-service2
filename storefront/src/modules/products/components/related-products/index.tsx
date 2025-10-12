@@ -59,7 +59,7 @@ export default async function RelatedProducts({
     <div className="w-full">
       <div className="flex flex-col items-start text-left mb-10">
       <p className="text-2xl text-ui-fg-base max-w-lg">
-        Waarschijnlijk zijn
+        Gerelateerde producten
       </p>
       </div>
 
