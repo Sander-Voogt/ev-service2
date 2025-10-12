@@ -69,13 +69,12 @@ const medusaConfig = {
         providers: [
           {
             resolve: "./src/modules/monta-fulfillment",
-            id: "monta",
+            id: "monta-fulfillment",
             options: {
               apiKey: process.env.MONTA_API_KEY,
               baseUrl: "https://api-v6.monta.nl",
             },
           },
-          // je kunt hier ook andere fulfillment providers registreren
         ],
       },
     },
