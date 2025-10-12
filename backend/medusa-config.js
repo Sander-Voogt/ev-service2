@@ -68,6 +68,10 @@ const medusaConfig = {
       options: {
         providers: [
           {
+            resolve: "@medusajs/medusa/fulfillment-manual",
+            id: "manual",
+          },
+          {
             resolve: "./src/modules/monta-fulfillment",
             id: "monta-fulfillment",
           },
