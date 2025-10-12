@@ -1,7 +1,7 @@
 import { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
 import { Modules } from "@medusajs/framework/utils"
 import { IOrderModuleService } from "@medusajs/framework/types"
-import MontaFulfillmentProviderService from "modules/monta-fulfilment/service"
+import MontaFulfillmentProviderService from "modules/monta-fulfillment/service"
 
 export default async function orderPaidHandler({
   event: { data },
