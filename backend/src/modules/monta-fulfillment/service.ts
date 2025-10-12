@@ -41,7 +41,7 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
   }
 
   async getFulfillmentOptions(): Promise<FulfillmentOption[]> {
-    return [{ id: "monta_standard", name: "Monta Standard Shipping" }]
+    return [{ id: "monta_standard", name: "Monta Standard Shipping" }, { id: "monta_pro", name: "Monta pro Shipping" }]
   }
 
   async calculatePrice(
