@@ -70,10 +70,6 @@ const medusaConfig = {
           {
             resolve: "./src/modules/monta-fulfillment",
             id: "monta-fulfillment",
-            options: {
-              apiKey: process.env.MONTA_API_KEY,
-              baseUrl: "https://api-v6.monta.nl",
-            },
           },
         ],
       },

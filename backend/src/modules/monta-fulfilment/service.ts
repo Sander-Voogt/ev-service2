@@ -34,7 +34,7 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
     this.client = axios.create({
       baseURL: options.baseUrl || "https://api-v6.monta.nl",
       headers: {
-        Authorization: `Bearer ${options.apiKey}`,
+        Authorization: 'Basic ' + new Buffer('vgtonlineEVSERVICE:##R7H6WWWY)Z').toString('base64'),
         "Content-Type": "application/json",
       },
     })
