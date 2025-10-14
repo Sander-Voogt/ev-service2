@@ -83,12 +83,15 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
     order: Partial<FulfillmentOrderDTO> | undefined,
     fulfillment: Partial<Omit<FulfillmentDTO, "provider_id" | "data" | "items">>
   ): Promise<CreateFulfillmentResult> {
+    console.log(items)
     const payload = {
       order_id: order?.id,
       reference: order?.display_id ?? order?.id,
-      customer: {
-        name: `${order?.shipping_address?.first_name ?? ""} ${order?.shipping_address?.last_name ?? ""}`,
-        email: order?.email ?? "",
+      ConsumerDetails: {
+        DeliveryAddress:{
+          name: `${order?.shipping_address?.first_name ?? ""} ${order?.shipping_address?.last_name ?? ""}`,
+          email: order?.email ?? "",
+        },
       },
       address: {
         street: order?.shipping_address?.address_1,
@@ -103,7 +106,8 @@ export class MontaFulfillmentProviderService extends AbstractFulfillmentProvider
       })),
     }
 
-    const response = await this.client.post("/orders", payload)
+    const response = await this.client.post("/order", payload)
+    console.log(response.data.errors)
 
     return {
       data: {
