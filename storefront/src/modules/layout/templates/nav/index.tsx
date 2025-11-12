@@ -84,11 +84,11 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
               <span>085 130 4170</span>
             </a>
             <a
-              href="mailto:info@evservice.com"
+              href="mailto:klantenservice@evservice.eu"
               className="flex items-center gap-1 font-medium hover:text-green-default"
             >
               <IconMail />
-              <span>info@evservice.com</span>
+              <span>klantenservice@evservice.eu</span>
             </a>
           </div>
           <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
               Klantenservice
             </LocalizedClientLink>
             <a
-              href="#login"
+              href="/account"
               className="flex items-center gap-2 font-semibold hover:text-green-default"
             >
               <IconUser />

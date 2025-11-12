@@ -16,7 +16,8 @@ export const ResetPasswordEmail = (data: any): data is NewTemplateProps =>
 export const NewTemplate = ({ greeting, reset_url, preview = 'You have a new message' }: NewTemplateProps) => (
   <Base preview={preview}>
     <Text>{greeting}</Text>
-    <Text>Click <a href={reset_url}>here</a> to take action.</Text>
+    <Text>Klik op de volgende link om uw wachtwoord te resetten <a href={reset_url}>Wachtwoord resetten</a>.</Text>
+    <Text>Indien de link niet werkt kunt u de link kopieren: {reset_url}</Text>
   </Base>
 )
 
