@@ -33,12 +33,13 @@ export function generateEmailTemplate(templateKey: string, data: unknown): React
       return <OrderPlacedTemplate {...data} />
 
    case EmailTemplates.RESET_PASSWORD:
-      if (!isOrderPlacedTemplateData(data)) {
-        throw new MedusaError(
-          MedusaError.Types.INVALID_DATA,
-          `Invalid data for template "${EmailTemplates.RESET_PASSWORD}"`
-        )
-      }
+      // if (!isOrderPlacedTemplateData(data)) {
+      //   throw new MedusaError(
+      //     MedusaError.Types.INVALID_DATA,
+      //     `Invalid data for template "${EmailTemplates.RESET_PASSWORD}"`
+      //   )
+      // }
+      //@ts-ignore
       return <ResetPasswordEmail {...data} />
 
     default:
