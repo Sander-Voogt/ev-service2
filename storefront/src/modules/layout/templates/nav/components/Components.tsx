@@ -127,7 +127,7 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
                   Charging station accessories
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-stations/installation-accessories"
+                  href="/laadpaal-accessoires"
                   className="py-2 text-base text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
                 >
                   Installation accessories

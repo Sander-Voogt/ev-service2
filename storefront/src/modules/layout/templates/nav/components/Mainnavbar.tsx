@@ -162,13 +162,13 @@ const Navbar = () => (
           Laadpaal VVE
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/resellers"
+          href="/categories/laadpaal-accessoires"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Laadpaal accesoires
         </LocalizedClientLink>
         <LocalizedClientLink
-          href="/commercial/resellers"
+          href="/categories/installatie-toebehoren"
           className="block px-4 py-3 hover:bg-green-light text-green-900"
         >
           Installatie toebehoren
@@ -191,7 +191,7 @@ const Navbar = () => (
       </LocalizedClientLink>
       <div className="absolute left-0 top-full mt-2 min-w-[260px] bg-white border border-green-100 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
         <LocalizedClientLink
-          href="/zakelijk/companies"
+          href="/installatie-service"
           className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200"
         >
           Bedrijven en VVE
