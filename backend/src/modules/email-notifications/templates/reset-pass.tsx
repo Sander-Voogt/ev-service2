@@ -2,7 +2,7 @@ import { Text } from '@react-email/components'
 import * as React from 'react'
 import { Base } from './base'
 
-export const RESET_PASSWORD = 'reset-password'
+export const RESET_PASSWORD = 'password-reset'
 
 export interface NewTemplateProps {
   greeting: string
