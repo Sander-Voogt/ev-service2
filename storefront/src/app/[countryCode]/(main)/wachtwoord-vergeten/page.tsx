@@ -17,11 +17,12 @@ export default function RequestResetPassword() {
     }
     setLoading(true)
 
-    sdk.auth.resetPassword("customer", "emailpass", {
-      identifier: email,
+    fetch('/api/wachtwoordreset', {
+        method: "POST",
+        body: JSON.stringify({email: email})
     })
-    .then(() => {
-      alert("If an account exists with the specified email, it'll receive instructions to reset the password.")
+    .then((res) => {
+      
     })
     .catch((error) => {
       alert(error.message)
