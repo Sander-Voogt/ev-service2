@@ -74,11 +74,11 @@ export default async function Footer() {
                 <span>085 130 4170</span>
               </a>
               <a
-                href="mailto:info@evservice.com"
+                href="mailto:info@evservice.eu"
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
               >
                 <IconMail />
-                <span>info@evservice.com</span>
+                <span>info@evservice.eu</span>
               </a>
             </div>
           </div>

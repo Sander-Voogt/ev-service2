@@ -22,7 +22,7 @@ export default function EVServicePage() {
           </p>
           <p className="mb-6">Heb je vragen? Neem contact op.</p>
           <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-            Direct Contact Opnemen
+            <a href="/offerte-aanvragen">Direct Contact Opnemen</a>
           </button>
         </div>
       </section>
