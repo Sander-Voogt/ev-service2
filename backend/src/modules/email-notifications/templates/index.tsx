@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { MedusaError } from '@medusajs/framework/utils'
 import { InviteUserEmail, INVITE_USER, isInviteUserData } from './invite-user'
 import { OrderPlacedTemplate, ORDER_PLACED, isOrderPlacedTemplateData } from './order-placed'
-import { ResetPasswordEmail, RESET_PASSWORD } from './reset-pass'
+import { ResetPasswordEmail, NewTemplate, RESET_PASSWORD } from './reset-pass'
 
 export const EmailTemplates = {
   INVITE_USER,
@@ -40,7 +40,7 @@ export function generateEmailTemplate(templateKey: string, data: unknown): React
       //   )
       // }
       //@ts-ignore
-      return <ResetPasswordEmail {...data} />
+      return <NewTemplate {...data} />
 
     default:
       throw new MedusaError(

@@ -53,17 +53,48 @@ export default function ResetPassword() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Password</label>
-      <input
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" disabled={loading}>
-        Reset Password
-      </button>
-    </form>
+    <form
+  onSubmit={handleSubmit}
+  className="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow p-6 space-y-4 border border-gray-100"
+>
+  <h2 className="text-2xl font-semibold text-gray-800 text-center">
+    Nieuw wachtwoord instellen
+  </h2>
+
+  <div className="flex flex-col space-y-2">
+    <label
+      htmlFor="password"
+      className="text-sm font-medium text-gray-700"
+    >
+      Nieuw wachtwoord
+    </label>
+    <input
+      id="password"
+      type="password"
+      placeholder="••••••••"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
+      required
+    />
+  </div>
+
+  <button
+    type="submit"
+    disabled={loading}
+    className={`w-full py-2 rounded-lg text-white font-medium transition-colors
+      ${loading
+        ? "bg-[#22c55e] cursor-not-allowed"
+        : "bg-[#22c55e] hover:bg-[#22c55e]"}
+    `}
+  >
+    {loading ? "Bezig met resetten..." : "Reset wachtwoord"}
+  </button>
+
+  <p className="text-sm text-gray-500 text-center">
+    Voer een nieuw wachtwoord in om je account te beveiligen.
+  </p>
+</form>
+
   )
 }
