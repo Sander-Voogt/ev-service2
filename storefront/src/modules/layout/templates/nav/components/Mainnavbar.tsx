@@ -47,7 +47,6 @@ const IconClose = () => (
 export default function MainNavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-
   return (
     <>
       <div className="flex items-center">
@@ -153,7 +152,7 @@ const Navbar = () => (
           href="/categories/laadpaal-zakelijk"
           className="block px-4 py-3 hover:bg-green-light text-green-900 border-b border-dotted border-green-200"
         >
-          Laadpaal Zakelijke
+          Laadpaal Zakelijk
         </LocalizedClientLink>
         <LocalizedClientLink
           href="/categories/laadpaal-vve"
@@ -227,12 +226,12 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
         onClick={onClose}
       >
-        Car Brands
+        Automerken
       </LocalizedClientLink>
       <div className="relative w-full">
         <details className="w-full">
           <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50">
-            Charging
+            Laden
             <svg
               width="12"
               height="12"
@@ -246,7 +245,7 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
           <div className="flex flex-col pl-4 mt-2">
             <details className="w-full">
               <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50">
-                Charging Stations
+                Laadpalen
                 <svg
                   width="12"
                   height="12"
@@ -259,45 +258,47 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
               </summary>
               <div className="flex flex-col pl-4 mt-2">
                 <LocalizedClientLink
-                  href="/charging-stations/home"
+                  href="/categories/laadpaal-thuis"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging station at home
+                  Laadpaal Thuis
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-stations/business"
+                  href="/categories/laadpaal-zakelijk"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging station for business
+                  Laadpaal Zakelijke
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-stations/vve"
+                  href="/categories/laadpaal-vve"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging station VvE
+                  Laadpaal VVE
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-stations/accessories"
+                  href="/categories/laadpaal-accessoires"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging station accessories
+                  Laadpaal accesoires
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-stations/installation-accessories"
+                  href="/categories/installatie-toebehoren"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Installation accessories
+                  Installatie toebehoren
                 </LocalizedClientLink>
               </div>
             </details>
             <details className="w-full mt-2">
-              <summary className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50"
-              onClick={onClose}>
+              <summary
+                className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50"
+                onClick={onClose}
+              >
                 Charging Cables
                 <svg
                   width="12"
@@ -351,11 +352,11 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
         </details>
       </div>
       <LocalizedClientLink
-        href="#charging-installation"
+        href="/installatie-service"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
         onClick={onClose}
       >
-        Charging station installation
+        Laadpaal installatie
       </LocalizedClientLink>
       <LocalizedClientLink
         href="/blog"
@@ -365,17 +366,19 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
         Blog
       </LocalizedClientLink>
       <LocalizedClientLink
-        href="#selection-aid"
+        href="/klantenservice"
         className="py-3 text-lg font-medium text-green-900 hover:bg-green-50"
         onClick={onClose}
       >
-        Customer Service
+        Klantenservice
       </LocalizedClientLink>
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50"
-          onClick={onClose}>
-            Commercial
+          <summary
+            className="py-3 text-lg font-medium text-green-900 list-none flex items-center justify-between hover:bg-green-50"
+            onClick={onClose}
+          >
+            Zakelijk
             <svg
               width="12"
               height="12"
@@ -388,25 +391,25 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
           </summary>
           <div className="flex flex-col pl-4 mt-2">
             <LocalizedClientLink
-              href="/commercial/companies"
+              href="/installatie-service"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
               onClick={onClose}
             >
-              Companies and homeowners' associations
+              Bedrijven en VVE
             </LocalizedClientLink>
             <LocalizedClientLink
-              href="/commercial/installers"
+              href="/voor-installateurs"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
               onClick={onClose}
             >
-              For Installers
+              Voor installateurs
             </LocalizedClientLink>
             <LocalizedClientLink
-              href="/commercial/resellers"
+              href="/voor-wederverkopers"
               className="py-2 text-sm text-green-900 hover:bg-green-50"
               onClick={onClose}
             >
-              For Resellers
+              Voor wederverkopers
             </LocalizedClientLink>
           </div>
         </details>
