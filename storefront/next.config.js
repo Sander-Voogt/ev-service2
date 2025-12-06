@@ -19,6 +19,11 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
+       {
+        protocol: "https",
+        hostname: "form.evservice.eu",
+      },
+
       {
         // Note: needed to serve images from /public folder
         protocol: process.env.NEXT_PUBLIC_BASE_URL?.startsWith("https")
