@@ -214,7 +214,7 @@ const Payment = ({
             }
           )}
         >
-          Payment
+          Betaalmethode
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (

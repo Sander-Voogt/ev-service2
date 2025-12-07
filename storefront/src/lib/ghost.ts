@@ -1,65 +1,107 @@
-// lib/ghost.js
-import GhostContentAPI from "@tryghost/content-api";
+import GhostContentAPI, { PagesOrPosts } from "@tryghost/content-api";
+
+// ---- TYPES ----------------------------------------------------
+
+export interface GhostTag {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface GhostPage extends PagesOrPosts {
+  id: string;
+  title: string;
+  slug: string;
+  html: string;
+  tags?: GhostTag[];
+}
+
+// ---- API INITIALISATIE ----------------------------------------
 
 const api = new GhostContentAPI({
-  url: process.env.GHOST_API_URL ?? '', // bv. "https://your-ghost-site.com"
-  key: process.env.GHOST_CONTENT_KEY ?? '',
-  version: "v5.0" // gebruik de juiste versie
+  url: process.env.GHOST_API_URL ?? "",
+  key: process.env.GHOST_CONTENT_KEY ?? "",
+  version: "v5.0"
 });
 
-// 1. Functie voor de Index Pagina en generateStaticParams
-export async function getHelpdeskCategories() {
+// ---- HELPDESK ROOT CATEGORIEËN -------------------------------
+
+export async function getHelpdeskCategories(): Promise<GhostPage[]> {
   try {
-    const pages = await api.pages.browse({
-      filter: 'tag:hash-helpdesk', // Filter op de 'helpdesk' tag
-      include: 'tags',
-      limit: 'all',
-      order: 'title ASC' // Sorteren op titel is vaak handig voor categorieën
-    });
-    return pages;
+    return (await api.pages.browse({
+      filter: "tag:hash-helpdesk",
+      include: "tags",
+      limit: "all",
+      order: "title ASC"
+    })) as GhostPage[];
   } catch (err) {
     console.error("Fout bij ophalen hoofdcategorieën:", err);
     return [];
   }
 }
 
-export async function getInfoPages() {
+export async function getRootCategories(): Promise<GhostPage[]> {
   try {
-    const pages = await api.pages.browse({
-      filter: 'tag:hash-infopages', // Filter op de 'helpdesk' tag
-      include: 'tags',
-      limit: 'all',
-      order: 'title ASC' // Sorteren op titel is vaak handig voor categorieën
-    });
-    return pages;
+    return (await api.pages.browse({
+      filter: "tag:hash-helpdesk",
+      include: "tags",
+      limit: "all",
+      order: "title ASC"
+    })) as GhostPage[];
   } catch (err) {
     console.error("Fout bij ophalen hoofdcategorieën:", err);
     return [];
   }
 }
 
-// 2. Functie voor de specifieke Categorie Pagina
-export async function getCategoryPage(slug) {
+
+// ---- INFO PAGINA’S (ONVERANDERD) ------------------------------
+
+export async function getInfoPages(): Promise<GhostPage[]> {
   try {
-    const page = await api.pages.read({ slug });
-    return page;
+    return (await api.pages.browse({
+      filter: "tag:hash-infopages",
+      include: "tags",
+      limit: "all",
+      order: "title ASC"
+    })) as GhostPage[];
   } catch (err) {
-    console.error(`Fout bij ophalen categoriepagina met slug ${slug}:`, err);
+    console.error("Fout bij ophalen infopagina’s:", err);
+    return [];
+  }
+}
+
+// ---- PAGINA OP BASIS VAN SLUG --------------------------------
+
+export async function getPageBySlug(slug: string): Promise<GhostPage | null> {
+  try {
+    return (await api.pages.read({ slug })) as GhostPage;
+  } catch (err) {
     return null;
   }
 }
 
-// 3. Functie voor de onderliggende Subpagina's
-export async function getSubPages(categorySlug) {
-  const tagFilter = `hash-${categorySlug}_sub`; // Bijv. 'faq-sub'
+/**
+ * Jouw originele logica:
+ *   `hash-{categorySlug}_sub`
+ * 
+ * MAAR:
+ *   voor oneindige dieptestructuur gebruiken we deze regel:
+ * 
+ *   Als de HUIDIGE pagina slug `x` is,
+ *   dan hebben alle subpagina's de tag `hash-x_sub`
+ * 
+ */
+export async function getSubPages(parentSlug: string): Promise<GhostPage[]> {
+  const tagFilter = `hash-${parentSlug}_sub`; // bijv. "hash-betalen_sub"
+
   try {
-    const pages = await api.pages.browse({
-      filter: `tag:${tagFilter}`, // Filter op de unieke subpagina tag
-      include: 'tags',
-      limit: 'all',
-      order: 'title ASC'
-    });
-    return pages;
+    return (await api.pages.browse({
+      filter: `tag:${tagFilter}`,
+      include: "tags",
+      limit: "all",
+      order: "title ASC"
+    })) as GhostPage[];
   } catch (err) {
     console.error(`Fout bij ophalen subpagina's voor ${tagFilter}:`, err);
     return [];
