@@ -100,7 +100,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
         <FocusModal.Content>
           <FocusModal.Header>
             <FocusModal.Title>Edit Description</FocusModal.Title>
-            <Button type="submit" className="mt-4">
+            <Button type="submit" className="mt-4" form="dd">
               Save
             </Button>
           </FocusModal.Header>
@@ -108,7 +108,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
           <FocusModal.Body className="flex flex-col items-center py-4 max-h-[70vh] overflow-y-auto">
             <div className="flex w-full max-w-lg flex-col gap-y-8">
               <FormProvider<CustomFields> {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)}>
+                <form onSubmit={form.handleSubmit(onSubmit)} id="dd">
                   <Label>Main description</Label>
                   <TiptapEditor
                     value={form.watch("maindescription.json") || ""}
