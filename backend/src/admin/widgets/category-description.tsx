@@ -31,11 +31,26 @@ const MainDescriptionWrapper = ({
 };
 
 type CustomFields = {
-  maindescription: string;
-  ChargingStationDescription: string;
-  ChargingCableDescription: string;
-  AccessoriesDescription: string;
-  ModelBannerDescription: string;
+  maindescription: {
+    json: string;
+    html: string;
+  };
+  ChargingStationDescription: {
+    json: string;
+    html: string;
+  };
+  ChargingCableDescription: {
+    json: string;
+    html: string;
+  };
+  AccessoriesDescription: {
+    json: string;
+    html: string;
+  };
+  ModelBannerDescription: {
+    json: string;
+    html: string;
+  };
 };
 
 type Props = {
@@ -85,6 +100,9 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
         <FocusModal.Content>
           <FocusModal.Header>
             <FocusModal.Title>Edit Description</FocusModal.Title>
+            <Button type="submit" className="mt-4">
+              Save
+            </Button>
           </FocusModal.Header>
 
           <FocusModal.Body className="flex flex-col items-center py-4 max-h-[70vh] overflow-y-auto">
@@ -93,7 +111,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                   <Label>Main description</Label>
                   <TiptapEditor
-                    value={form.watch("maindescription") || ""}
+                    value={form.watch("maindescription.json") || ""}
                     onChange={(json, html) =>
                       //@ts-ignore
                       form.setValue("maindescription", {
@@ -104,7 +122,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                   />
                   <Label>ModelBannerDescription</Label>
                   <TiptapEditor
-                    value={form.watch("ModelBannerDescription") || ""}
+                    value={form.watch("ModelBannerDescription.json") || ""}
                     onChange={(json, html) =>
                       //@ts-ignore
                       form.setValue("ModelBannerDescription", {
@@ -115,7 +133,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                   />
                   <Label>AccessoriesDescription</Label>
                   <TiptapEditor
-                    value={form.watch("AccessoriesDescription") || ""}
+                    value={form.watch("AccessoriesDescription.json") || ""}
                     onChange={(json, html) =>
                       //@ts-ignore
                       form.setValue("AccessoriesDescription", {
@@ -126,7 +144,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                   />
                   <Label>ChargingCableDescription</Label>
                   <TiptapEditor
-                    value={form.watch("ChargingCableDescription") || ""}
+                    value={form.watch("ChargingCableDescription.json") || ""}
                     onChange={(json, html) =>
                       //@ts-ignore
                       form.setValue("ChargingCableDescription", {
@@ -137,7 +155,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                   />
                   <Label>ChargingStationDescription</Label>
                   <TiptapEditor
-                    value={form.watch("ChargingStationDescription") || ""}
+                    value={form.watch("ChargingStationDescription.json") || ""}
                     onChange={(json, html) =>
                       //@ts-ignore
                       form.setValue("ChargingStationDescription", {
@@ -146,10 +164,6 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
                       })
                     }
                   />
-
-                  <Button type="submit" className="mt-4">
-                    Save
-                  </Button>
                 </form>
               </FormProvider>
             </div>

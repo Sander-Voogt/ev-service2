@@ -13,7 +13,9 @@ export default function EVServicePage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 max-w-4xl px-6">
-          <p className="text-sm text-gray-200 mb-2">Home / Installatie Service</p>
+          <p className="text-sm text-gray-200 mb-2">
+            Home / Installatie Service
+          </p>
           <h1 className="text-4xl md:text-5xl font-bold mb-3">
             Laadoplossingen voor Bedrijven en VvE’s
           </h1>
@@ -21,15 +23,19 @@ export default function EVServicePage() {
             Load balancing & Smart Charging voor uw laadinfrastructuur.
           </p>
           <p className="mb-6">Heb je vragen? Neem contact op.</p>
-          <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-            <a href="/offerte-aanvragen">Direct Contact Opnemen</a>
-          </button>
+          <a href="/offerte-aanvragen">
+            <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
+              Direct Contact Opnemen
+            </button>
+          </a>
         </div>
       </section>
 
       {/* === Onze Services === */}
       <section className="max-w-6xl w-full px-6 py-16">
-        <h2 className="text-2xl font-semibold text-center mb-10">Onze Services</h2>
+        <h2 className="text-2xl font-semibold text-center mb-10">
+          Onze Services
+        </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -85,7 +91,7 @@ export default function EVServicePage() {
                   <div>
                     <p className="font-medium">{item.title}</p>
                     <p className="text-gray-600 text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      
                     </p>
                   </div>
                 </li>
@@ -106,9 +112,9 @@ export default function EVServicePage() {
           Laadpaal Installatie: Uw Partner in Smart Charging
         </h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Bent u een zakelijke klant die één of meerdere laadpalen wil plaatsen bij uw
-          bedrijf of een VvE die laadpunten wil implementeren? Wij begeleiden u van
-          advies tot oplevering.
+          Bent u een zakelijke klant die één of meerdere laadpalen wil plaatsen
+          bij uw bedrijf of een VvE die laadpunten wil implementeren? Wij
+          begeleiden u van advies tot oplevering.
         </p>
         <p className="text-gray-700 leading-relaxed">
           Onze EV Service Backoffice helpt u bij het beheer en onderhoud van uw
@@ -144,14 +150,16 @@ export default function EVServicePage() {
           </div>
 
           <div className="flex justify-center mt-10">
+            <a href="/offerte-aanvragen">
             <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
               Direct Contact Opnemen
             </button>
+          </a>
           </div>
         </div>
       </section>
     </main>
-  );
+  )
 }
 
 // export default function InstallatieService() {
