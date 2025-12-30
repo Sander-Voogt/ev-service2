@@ -129,60 +129,45 @@ const medusaConfig = {
           },
         ]
       : []),
-    {
-      resolve: "@medusajs/medusa/notification",
-      options: {
-        providers: [
-          // ...
+    ...((SENDGRID_API_KEY && SENDGRID_FROM_EMAIL) ||
+    (RESEND_API_KEY && RESEND_FROM_EMAIL)
+      ? [
           {
-            resolve: "@medusajs/medusa/notification-local",
-            id: "local",
+            key: Modules.NOTIFICATION,
+            resolve: "@medusajs/notification",
             options: {
-              channels: ["email"],
+              providers: [
+                ...(SENDGRID_API_KEY && SENDGRID_FROM_EMAIL
+                  ? [
+                      {
+                        resolve: "@medusajs/notification-sendgrid",
+                        id: "sendgrid",
+                        options: {
+                          channels: ["email"],
+                          api_key: SENDGRID_API_KEY,
+                          from: SENDGRID_FROM_EMAIL,
+                        },
+                      },
+                    ]
+                  : []),
+                ...(RESEND_API_KEY && RESEND_FROM_EMAIL
+                  ? [
+                      {
+                        resolve: "./src/modules/email-notifications",
+                        id: "resend",
+                        options: {
+                          channels: ["email"],
+                          api_key: RESEND_API_KEY,
+                          from: RESEND_FROM_EMAIL,
+                        },
+                      },
+                    ]
+                  : []),
+              ],
             },
           },
-        ],
-      },
-    },
-    // ...((SENDGRID_API_KEY && SENDGRID_FROM_EMAIL) ||
-    // (RESEND_API_KEY && RESEND_FROM_EMAIL)
-    //   ? [
-    // {
-    //   key: Modules.NOTIFICATION,
-    //   resolve: "@medusajs/notification",
-    //   options: {
-    //     providers: [
-    //       ...(SENDGRID_API_KEY && SENDGRID_FROM_EMAIL
-    //         ? [
-    //             {
-    //               resolve: "@medusajs/notification-sendgrid",
-    //               id: "sendgrid",
-    //               options: {
-    //                 channels: ["email"],
-    //                 api_key: SENDGRID_API_KEY,
-    //                 from: SENDGRID_FROM_EMAIL,
-    //               },
-    //             },
-    //           ]
-    //         : []),
-    //       ...(RESEND_API_KEY && RESEND_FROM_EMAIL
-    //         ? [
-    //             {
-    //               resolve: "./src/modules/email-notifications",
-    //               id: "resend",
-    //               options: {
-    //                 channels: ["email"],
-    //                 api_key: RESEND_API_KEY,
-    //                 from: RESEND_FROM_EMAIL,
-    //               },
-    //             },
-    //           ]
-    //         : []),
-    //     ],
-    //   },
-    // },
-    //   ]
-    // : []),
+        ]
+      : []),
     ...(STRIPE_API_KEY
       ? [
           {

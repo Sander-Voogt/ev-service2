@@ -1,5 +1,5 @@
 import Medusa from "@medusajs/js-sdk"
-// import { debug } from "util"
+import { debug } from "util"
 
 export const sdk = new Medusa({
   baseUrl: import.meta.env.VITE_BACKEND_URL || "/",
