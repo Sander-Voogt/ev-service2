@@ -295,7 +295,7 @@ const Payment = ({
             disabled={isSubmitDisabled()}
             data-testid="submit-payment-button"
           >
-            Continue to review
+            Verder
           </Button>
         </div>
 
