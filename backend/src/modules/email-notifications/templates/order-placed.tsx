@@ -1,4 +1,11 @@
-import { Text, Section, Hr, Container } from "@react-email/components";
+import {
+  Html,
+  Head,
+  Body,
+  Text,
+  Hr,
+} from "@react-email/components";
+import { Section, Container } from "@react-email/components";
 import * as React from "react";
 import { Base } from "./base";
 import { OrderDTO, OrderAddressDTO } from "@medusajs/framework/types";
@@ -22,6 +29,7 @@ export interface OrderPlacedTemplateProps {
   preview?: string;
 }
 
+
 export const isOrderPlacedTemplateData = (
   data: any
 ): data is OrderPlacedTemplateProps =>
@@ -30,6 +38,19 @@ export const isOrderPlacedTemplateData = (
 export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
   PreviewProps: OrderPlacedPreviewProps;
 } = ({ order, shippingAddress, preview = "Uw bestelling is geplaats!" }) => {
+  const currencyFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: order.currency_code,
+  });
+
+  const formatPrice = (value: number) =>
+    currencyFormatter.format(value);
+
+  const orderDate = new Date(order.created_at).toLocaleDateString(
+    "nl-BE",
+    { dateStyle: "long" }
+  );
+
   return (
     <Html>
           <Head />
@@ -54,62 +75,62 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
               <Hr />
     
               {/* Adres */}
-              <Table width="100%">
-                <Tr>
-                  <Td style={addressTitle}>Verzendadres</Td>
-                </Tr>
-                <Tr>
-                  <Td style={addressText}>
+              <table width="100%">
+                <tr>
+                  <td style={addressTitle}>Verzendadres</td>
+                </tr>
+                <tr>
+                  <td style={addressText}>
                     {renderAddress(shippingAddress)}
-                  </Td>
-                </Tr>
-              </Table>
+                  </td>
+                </tr>
+              </table>
     
               <Hr />
     
               {/* Items */}
-              <Table width="100%">
-                <Tr style={tableHeader}>
-                  <Th style={th}>Product</Th>
-                  <Th style={th}>Prijs</Th>
-                  <Th style={th}>Aantal</Th>
-                  <Th style={th}>Totaal</Th>
-                </Tr>
+              <table width="100%">
+                <tr style={tableHeader}>
+                  <th style={th}>Product</th>
+                  <th style={th}>Prijs</th>
+                  <th style={th}>Aantal</th>
+                  <th style={th}>Totaal</th>
+                </tr>
     
                 {order.items.map((item) => {
                   const total = item.unit_price * item.quantity;
     
                   return (
-                    <Tr key={item.id} style={tableRow}>
-                      <Td style={td}>
+                    <tr key={item.id} style={tableRow}>
+                      <td style={td}>
                         {item.product_title}
                         <br />
                         <small>{item.title}</small>
-                      </Td>
-                      <Td style={tdRight}>
+                      </td>
+                      <td style={tdRight}>
                         {formatPrice(item.unit_price)}
-                      </Td>
-                      <Td style={tdCenter}>{item.quantity}</Td>
-                      <Td style={tdRight}>
+                      </td>
+                      <td style={tdCenter}>{item.quantity}</td>
+                      <td style={tdRight}>
                         {formatPrice(total)}
-                      </Td>
-                    </Tr>
+                      </td>
+                    </tr>
                   );
                 })}
     
                 {/* Totaal */}
-                <Tr>
-                  <Td />
-                  <Td colSpan={2} style={summary}>
+                <tr>
+                  <td />
+                  <td colSpan={2} style={summary}>
                     Bestelling totaal
-                  </Td>
-                  <Td style={summaryStrong}>
+                  </td>
+                  <td style={summaryStrong}>
                     {formatPrice(
                       order.summary.raw_current_order_total.value
                     )}
-                  </Td>
-                </Tr>
-              </Table>
+                  </td>
+                </tr>
+              </table>
     
               <Text style={text}>
                 Deze e-mail is verstuurd naar {order.email}
@@ -243,7 +264,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
     //           overflow: "hidden",
     //         }}
     //       >
-    //         {/* Table Header */}
+    //         {/* table Header */}
     //         <div
     //           style={{
     //             display: "flex",
@@ -259,7 +280,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
     //           <Text>Prijs</Text>
     //         </div>
 
-    //         {/* Table Items */}
+    //         {/* table Items */}
     //         {order.items.map((item) => (
     //           <div
     //             key={item.id}
@@ -302,7 +323,7 @@ export const OrderPlacedTemplate: React.FC<OrderPlacedTemplateProps> & {
 
 /* Helpers */
 
-const renderAddress = (address: Address) => (
+const renderAddress = (address: Record<string, any>) => (
   <>
     {address.first_name} {address.last_name}
     <br />
@@ -389,20 +410,6 @@ const summaryStrong = {
   ...summary,
   fontWeight: "bold",
 };
-
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: order.currency_code,
-  });
-
-  const formatPrice = (value: number) =>
-    currencyFormatter.format(value);
-
-  const orderDate = new Date(order.created_at).toLocaleDateString(
-    "nl-BE",
-    { dateStyle: "long" }
-  );
-
 
 OrderPlacedTemplate.PreviewProps = {
   order: {
