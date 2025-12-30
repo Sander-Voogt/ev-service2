@@ -55,6 +55,7 @@
     "ckeditor5": "46.0.2",
     "medusajs-launch-utils": "0.0.17",
     "minio": "8.0.5",
+    "next": "15.1.11",
     "pg": "8.16.3",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "7.62.0",
