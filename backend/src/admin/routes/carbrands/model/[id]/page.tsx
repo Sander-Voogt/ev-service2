@@ -45,41 +45,40 @@ const CustomPage = () => {
   const onSubmit = async (formValues: CarModel) => {
     setLoading(true);
     try {
-      const res:any = await sdk.client.fetch(`/admin/carmodels/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-medusa-access-token":
-            localStorage.getItem("medusa_admin_token") || "",
-        },
-        body: formValues,
-      });
+      // sdk.client.fetch returns the parsed JSON body directly
+      const res = await sdk.client.fetch<{ car_model: any }>(
+        `/admin/carmodels/${id}`,
+        {
+          method: "POST",
+          // The SDK handles JSON Content-Type and body stringification automatically
+          body: formValues,
+        }
+      );
 
-      console.log(res, res.status);
-      if (!res.ok) {
-        throw new Error(`Fout bij updaten: ${res.status}`);
-      }
-
+      // If the request reaches here, it was successful (2xx status)
       toast.success("Success", {
         description: "Record updated successfully",
         duration: 5000,
       });
 
-      const updated = await res.json();
-      console.log("Updated model:", updated);
+      console.log("Updated model:", res);
     } catch (error) {
+      // Non-2xx statuses throw an error automatically
       console.error(error);
-      toast.error("Fout", { description: String(error) });
+      toast.error("Fout", {
+        //@ts-ignore
+        description: error.message || String(error),
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const handleUploadComplete = (uploads) => {
-    form.setValue('image', uploads)
+    form.setValue("image", uploads);
   };
   const handleUploadCompletePic = (uploads) => {
-    form.setValue('PictureId', uploads)
+    form.setValue("PictureId", uploads);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -132,10 +131,10 @@ const CustomPage = () => {
                     form.setValue("ModelBannerDescription", value)
                   }
                 />
-                                {data?.image ?? <img src={data?.image} />}
-                                <DropzoneUpload onUpload={handleUploadComplete} />
-                                {data?.PictureId ?? <img src={data?.PictureId} />}
-                                <DropzoneUpload onUpload={handleUploadCompletePic} />
+                {data?.image ?? <img src={data?.image} />}
+                <DropzoneUpload onUpload={handleUploadComplete} />
+                {data?.PictureId ?? <img src={data?.PictureId} />}
+                <DropzoneUpload onUpload={handleUploadCompletePic} />
               </Tabs.Content>
 
               <Tabs.Content value="laadkabels">
