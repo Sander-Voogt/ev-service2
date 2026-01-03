@@ -6,6 +6,7 @@ import { useState } from "react"
 export default function RequestResetPassword() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,7 +20,13 @@ export default function RequestResetPassword() {
       method: "POST",
       body: JSON.stringify({ email: email }),
     })
-      .then((res) => {})
+      .then((res) => {
+        if (res.ok) {
+          setMessage("Reset link is verstuurd naar emailadres.")
+        } else {
+          setMessage("Reset link kan niet worden verstuurd. Neem contact op via klantenservice@evservice.eu")
+        }
+      })
       .catch((error) => {
         alert(error.message)
       })
@@ -65,7 +72,7 @@ export default function RequestResetPassword() {
       >
         {loading ? "Verzenden..." : "Vraag resetlink aan"}
       </button>
-
+      {message && <p className="bg-[#22c55e] bg-[#22c55eb1] p-4 my-6 border-green-600 rounded-lg text-white">{message}</p>}
       <p className="text-sm text-gray-500 text-center">
         Vul je e-mailadres in om een link te ontvangen waarmee je je wachtwoord
         kunt resetten.
