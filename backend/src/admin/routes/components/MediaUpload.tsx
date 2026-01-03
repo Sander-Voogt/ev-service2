@@ -6,6 +6,7 @@ import { sdk } from "../../lib/sdk";
 export default function DropzoneUpload({ onUpload }) {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [succes, setSucces] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     setFiles((prev) => [...prev, ...acceptedFiles]);
@@ -34,10 +35,10 @@ export default function DropzoneUpload({ onUpload }) {
       if (onUpload) onUpload(res.files[0].url);
 
       setFiles([]);
-      alert("Upload succesvol!");
+      setSucces(true);
     } catch (error) {
       console.error(error);
-      alert("Er is iets misgegaan bij uploaden");
+      setSucces(false);
     } finally {
       setLoading(false);
     }
@@ -77,6 +78,7 @@ export default function DropzoneUpload({ onUpload }) {
         <div onClick={handleUpload} disabled={!files.length || loading}>
           {loading ? "Uploaden..." : "Uploaden"}
         </div>
+        {succes && <p className="text-green-600">Upload succesvol!</p>}
       </div>
     </div>
   );
