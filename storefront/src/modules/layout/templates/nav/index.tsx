@@ -76,13 +76,13 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
       <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-sm text-green-900 border-b border-green-100 shadow-sm">
         <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4">
           <div className="flex items-center gap-4 hidden sm:flex">
-            <a
+            {/* <a
               href="tel:0851304170"
               className="flex items-center gap-1 font-medium hover:text-green-default"
             >
               <IconPhone />
               <span>085 130 4170</span>
-            </a>
+            </a> */}
             <a
               href="mailto:klantenservice@evservice.eu"
               className="flex items-center gap-1 font-medium hover:text-green-default"

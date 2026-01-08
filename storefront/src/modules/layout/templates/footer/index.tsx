@@ -60,19 +60,19 @@ export default async function Footer() {
           {/* Company Info / Logo */}
           <div className="flex flex-col items-start gap-4 pr-8">
             <Logo />
-            <p className="text-sm text-green-700 mt-2">
+            {/* <p className="text-sm text-green-700 mt-2">
               Your partner in sustainable e-mobility. We offer a comprehensive
               range of charging solutions and expert advice for your electric
               vehicle.
-            </p>
+            </p> */}
             <div className="flex flex-col gap-2 mt-4">
-              <a
+              {/* <a
                 href="tel:0851304170"
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
               >
                 <IconPhone />
                 <span>085 130 4170</span>
-              </a>
+              </a> */}
               <a
                 href="mailto:klantenservice@evservice.eu"
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
@@ -164,19 +164,19 @@ export default async function Footer() {
           {/* Company Info / Logo (always visible) */}
           <div className="flex flex-col items-start gap-4 pr-8 mb-6">
             <Logo />
-            <p className="text-sm text-green-700 mt-2">
+            {/* <p className="text-sm text-green-700 mt-2">
               Your partner in sustainable e-mobility. We offer a comprehensive
               range of charging solutions and expert advice for your electric
               vehicle.
-            </p>
+            </p> */}
             <div className="flex flex-col gap-2 mt-4">
-              <a
+              {/* <a
                 href="tel:0851304170"
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
               >
                 <IconPhone />
                 <span>085 130 4170</span>
-              </a>
+              </a> */}
               <a
                 href="mailto:klantenservice@evservice.eu"
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
