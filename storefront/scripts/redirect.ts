@@ -36,9 +36,7 @@ function loadRedirects() {
   const csvPath = path.join(process.cwd(), 'scripts/redirects.csv');
   const csv = fs.readFileSync(csvPath, 'utf8');
 
-  const lines = csv
-    .replace(/^\uFEFF/, '')
-    .split(/\r?\n/);
+  const lines = csv.replace(/^\uFEFF/, '').split(/\r?\n/);
 
   const redirects = [];
   let skipped = 0;
@@ -55,6 +53,18 @@ function loadRedirects() {
 
     const src = cleanSource(source);
     const dest = destination.trim();
+
+    // Skip index redirects
+    if (src === '/') {
+      skipped++;
+      continue;
+    }
+
+    // Skip self-redirects
+    if (src === dest) {
+      skipped++;
+      continue;
+    }
 
     redirects.push({
       source: src,
