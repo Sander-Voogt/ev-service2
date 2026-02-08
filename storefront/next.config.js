@@ -17,11 +17,23 @@ const nextConfig = {
   async redirects() {
     return loadRedirects();
   },
+  async rewrites() {
+    return [
+      {
+        source: '/nl/content/images/:path*',
+        destination: 'https://f001.backblazeb2.com/file/website-files/evoud/images/:path*',
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "f001.backblazeb2.com",
       },
        {
         protocol: "https",
