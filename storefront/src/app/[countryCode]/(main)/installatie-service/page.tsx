@@ -25,7 +25,7 @@ export default function EVServicePage() {
           <p className="mb-6">Heb je vragen? Neem contact op.</p>
           <a href="/offerte-aanvragen">
             <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-              Direct Contact Opnemen
+              Offerte aanvragen
             </button>
           </a>
         </div>
@@ -66,7 +66,7 @@ export default function EVServicePage() {
         </div>
         <div className="flex justify-center mt-10">
           <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-            Direct Contact Opnemen
+            Offerte aanvragen
           </button>
         </div>
       </section>
@@ -152,7 +152,7 @@ export default function EVServicePage() {
           <div className="flex justify-center mt-10">
             <a href="/offerte-aanvragen">
             <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-              Direct Contact Opnemen
+              Offerte aanvragen
             </button>
           </a>
           </div>
@@ -197,7 +197,7 @@ export default function EVServicePage() {
 //             href="https://www.evservice.eu/offerte-aanvragen"
 //           >
 //             {" "}
-//             Direct Contact Opnemen
+//             Offerte aanvragen
 //           </a>
 //         </p>
 //         <h1>Waarom kiezen voor EV Service?</h1>
