@@ -1,4 +1,5 @@
 const checkEnvVariables = require("./check-env-variables")
+const loadRedirects = require('./scripts/redirect.ts');
 
 checkEnvVariables()
 
@@ -12,6 +13,9 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  async redirects() {
+    return loadRedirects();
   },
   images: {
     remotePatterns: [
