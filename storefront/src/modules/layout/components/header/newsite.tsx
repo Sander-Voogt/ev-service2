@@ -9,7 +9,7 @@ export default function TopBar() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-yellow-400 text-black text-center py-2 px-4 font-bold text-sm z-50 transition-opacity duration-500">
+    <div className="fixed top-0 left-0 w-full bg-yellow-400 text-black text-center pb-1 px-4 font-bold text-sm z-50 transition-opacity duration-500">
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <span className="mr-2">
           🎉 EV Service heeft een nieuwe website!

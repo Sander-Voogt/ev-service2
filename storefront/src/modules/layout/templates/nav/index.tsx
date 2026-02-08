@@ -18,6 +18,7 @@ import { clx } from "@medusajs/ui"
 import CountrySelect from "@modules/checkout/components/country-select"
 import CountrySelect2 from "./components/CountrySelect2"
 import LanguageDropdown from "./components/CountrySelect2"
+import TopBar from "@modules/layout/components/header/newsite"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -25,6 +26,8 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 bg-white shadow-md">
+            <TopBar/>
+      
       <InfoBar currentRegion={regions[0]} /> 
       
       <div className="sticky top-0 inset-x-0 z-50">
