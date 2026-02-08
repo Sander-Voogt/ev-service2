@@ -1,4 +1,4 @@
-import { getCategoryPage, getHelpdeskCategories, getInfoPages, getSubPages } from '@lib/ghost';
+import { getPageBySlug, getHelpdeskCategories, getInfoPages, getSubPages } from '@lib/ghost';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import './style.css'
@@ -18,7 +18,7 @@ export default async function CategoryPage({ params }) {
   const categorySlug = params.slug;
 
   // Haal de hoofdinhoud van de categoriepagina op
-  const pageContent = await getCategoryPage(categorySlug);
+  const pageContent = await getPageBySlug(categorySlug);
   
 
   if (!pageContent) {
