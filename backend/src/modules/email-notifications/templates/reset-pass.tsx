@@ -73,17 +73,16 @@ export const NewTemplate = ({
           </Text>
 
           <Button
-            pY={12}
-            pX={24}
+            href={reset_url}
             style={{
-              backgroundColor: "#2E7D32",
+              backgroundColor: "#2E7D32", // groene accentkleur
               color: "#fff",
               textDecoration: "none",
               borderRadius: "6px",
               fontWeight: "bold",
+              padding: "12px 24px", // vervangt pY/pX
               display: "inline-block",
             }}
-            href={reset_url}
           >
             Wachtwoord opnieuw instellen
           </Button>
