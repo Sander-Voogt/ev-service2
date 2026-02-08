@@ -200,6 +200,16 @@ const Payment = ({
     stripeReady
 
   console.log(availablePaymentMethods, businessGroupId, isBusinessCustomer)
+  console.log(
+    "Env group ID (prod):",
+    process.env.NEXT_PUBLIC_BUSINESSCUSTOMERGROUP
+  )
+  console.log("Customer groups:", cart?.customer?.groups)
+  console.log(
+    "Available payment methods:",
+    availablePaymentMethods.map((m) => m.id)
+  )
+  console.log("Is business customer?", isBusinessCustomer)
 
   return (
     <div className="bg-white">
