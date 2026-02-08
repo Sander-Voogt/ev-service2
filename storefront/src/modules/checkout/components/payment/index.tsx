@@ -199,7 +199,7 @@ const Payment = ({
     selectedPaymentMethod !== "" &&
     stripeReady
 
-  console.log(availablePaymentMethods)
+  console.log(availablePaymentMethods, businessGroupId, isBusinessCustomer)
 
   return (
     <div className="bg-white">
@@ -295,7 +295,7 @@ const Payment = ({
             disabled={isSubmitDisabled()}
             data-testid="submit-payment-button"
           >
-            Continue to review
+            Verder
           </Button>
         </div>
 
