@@ -1,6 +1,7 @@
 import InteractiveLink from "@modules/common/components/interactive-link"
 import Footer from "@modules/layout/templates/footer"
 import { Metadata } from "next"
+import Nav from "@modules/layout/templates/nav"
 
 export const metadata: Metadata = {
   title: "404",
