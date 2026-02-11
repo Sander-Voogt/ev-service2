@@ -30,7 +30,7 @@ export default async function sitemap({
 
     response.products.map((product) => (
       recordlist.push({
-        url: `https://www.evservice.eu/products/${product.handle}`,
+        url: `https://www.evservice.eu/nl/products/${product.handle}`,
         lastModified: product.updated_at ? product.updated_at : '-',
         changeFrequency: 'weekly',
         priority: 1,
@@ -51,7 +51,7 @@ export default async function sitemap({
 
   collections.collections.map((collection) => (
     recordlist.push({
-      url: `https://www.evservice.eu/collections/${collection.handle}`,
+      url: `https://www.evservice.eu/nl/collections/${collection.handle}`,
       lastModified: collection.updated_at ? collection.updated_at : '-',
       changeFrequency: 'weekly',
       priority: 1,
@@ -60,7 +60,7 @@ export default async function sitemap({
 
   categories.product_categories.map((category) => (
     recordlist.push({
-      url: `https://www.evservice.eu/categories/${category.handle}`,
+      url: `https://www.evservice.eu/nl/categories/${category.handle}`,
       lastModified: category.updated_at ? category.updated_at : '-',
       changeFrequency: 'weekly',
       priority: 1,
@@ -70,7 +70,7 @@ export default async function sitemap({
   const posts = await api.posts.browse({ limit: "all" })
   posts.map((post) => (
     recordlist.push({
-      url: `https://www.evservice.eu/blog/${post.slug}`,
+      url: `https://www.evservice.eu/nl/blog/${post.slug}`,
       lastModified: post.updated_at ? post.updated_at : '-',
       changeFrequency: 'weekly',
       priority: 1,
@@ -81,7 +81,7 @@ export default async function sitemap({
   brands.brands.forEach((brand) => {
     // eerst de merkpagina
     recordlist.push({
-      url: `https://www.evservice.eu/auto/${string_to_slug(brand.name.toLowerCase())}`,
+      url: `https://www.evservice.eu/nl/auto/${string_to_slug(brand.name.toLowerCase())}`,
       lastModified: brand.updated_at || '-',
       changeFrequency: 'weekly',
       priority: 1,
@@ -90,7 +90,7 @@ export default async function sitemap({
     // daarna de modellen
     (brand.carmodels || []).forEach((model) => {
       recordlist.push({
-        url: `https://www.evservice.eu/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase())}`,
+        url: `https://www.evservice.eu/nl/auto/${string_to_slug(brand.name.toLowerCase())}/${string_to_slug(model.name.toLowerCase())}`,
         lastModified: brand.updated_at || '-',
         changeFrequency: 'weekly',
         priority: 0.8,
