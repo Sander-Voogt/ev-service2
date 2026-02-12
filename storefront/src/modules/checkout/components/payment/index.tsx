@@ -281,7 +281,7 @@ const Payment = ({
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                Betaalmethode
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
@@ -314,7 +314,7 @@ const Payment = ({
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment method
+                  Betaalmethode
                 </Text>
                 <Text
                   className="txt-medium text-ui-fg-subtle"
@@ -326,7 +326,7 @@ const Payment = ({
               </div>
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment details
+                  Betaalmethode
                 </Text>
                 <div
                   className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
@@ -339,7 +339,7 @@ const Payment = ({
                   </Container>
                   <Text>
                     {selectedPaymentMethod === "pp_system_default"
-                      ? "Pay on invoice"
+                      ? "Betaal op factuur"
                       : "Another step may appear"}
                   </Text>
                 </div>
@@ -348,7 +348,7 @@ const Payment = ({
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                Betaalmethode
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
