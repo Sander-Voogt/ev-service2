@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const body = await request.json()
   console.log(body, body.email)
     let status = false
-    sdk.auth.resetPassword("customer", "emailpass", {
+    sdk.auth.resetPassword("customer", "email", {
         identifier: body.email,
     }).then(() => {
         status = true
