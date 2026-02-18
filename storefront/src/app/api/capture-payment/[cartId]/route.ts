@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server"
 type Params = Promise<{ cartId: string }>
 
 async function retrieveCart(cartId?: string) {
-  const id = cartId || await getCartId()
+  const id = cartId || (await getCartId())
   if (!id) return null
 
   const authHeaders = await getAuthHeaders()
@@ -17,6 +17,33 @@ async function retrieveCart(cartId?: string) {
     .catch(() => null)
 }
 
+async function waitForFinalPaymentState(
+  cartId: string,
+  paymentIntent: string,
+  retries = 6,
+  delay = 400
+) {
+  for (let i = 0; i < retries; i++) {
+    const cart = await retrieveCart(cartId)
+
+    const session =
+      cart?.payment_collection?.payment_sessions?.find(
+        (p) => p.data?.id === paymentIntent
+      )
+
+    if (
+      session &&
+      ["authorized", "captured", "completed"].includes(session.status)
+    ) {
+      return { cart, session }
+    }
+
+    await new Promise((r) => setTimeout(r, delay))
+  }
+
+  return null
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || ""
 
 export async function GET(req: NextRequest, { params }: { params: Params }) {
@@ -25,44 +52,44 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
   const { searchParams } = req.nextUrl
 
   const paymentIntent = searchParams.get("payment_intent")
-  const paymentIntentClientSecret = searchParams.get("payment_intent_client_secret")
+  const clientSecret = searchParams.get("payment_intent_client_secret")
   const redirectStatus = searchParams.get("redirect_status")
   const countryCode = searchParams.get("country_code")
 
-  if (!paymentIntent || !paymentIntentClientSecret) {
+  if (!paymentIntent || !clientSecret) {
     return NextResponse.redirect(
       `${redirectOrigin}/${countryCode}/checkout?step=payment&error=missing_params`
     )
   }
 
-  const cart = await retrieveCart(cartId)
-
-  if (!cart) {
-    return NextResponse.redirect(`${redirectOrigin}/${countryCode}`)
-  }
-
-  const paymentSession = cart.payment_collection?.payment_sessions?.find(
-    (p) => p.data?.id === paymentIntent
-  )
-
-  console.log("Stripe redirect:", {
-    redirectStatus,
-    paymentSessionStatus: paymentSession?.status,
-  })
-
   /**
-   * Acceptable final states:
-   * Stripe redirect: succeeded
-   * Medusa session: authorized | captured | completed
+   * Stripe redirect MUST be succeeded
    */
-  const validRedirect = redirectStatus === "succeeded"
-  const validSession =
-    paymentSession &&
-    ["authorized", "captured", "completed"].includes(paymentSession.status)
-
-  if (!validRedirect || !validSession) {
+  if (redirectStatus !== "succeeded") {
     return NextResponse.redirect(
       `${redirectOrigin}/${countryCode}/checkout?step=payment&error=payment_failed`
+    )
+  }
+
+  /**
+   * Wait for webhook → Medusa to finalize payment session
+   */
+  const result = await waitForFinalPaymentState(cartId, paymentIntent)
+
+  if (!result) {
+    return NextResponse.redirect(
+      `${redirectOrigin}/${countryCode}/checkout?step=payment&error=payment_pending`
+    )
+  }
+
+  const { cart, session } = result
+
+  /**
+   * Extra safety: verify client secret
+   */
+  if (session.data?.client_secret !== clientSecret) {
+    return NextResponse.redirect(
+      `${redirectOrigin}/${countryCode}/checkout?step=payment&error=invalid_session`
     )
   }
 
@@ -71,7 +98,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
    */
   if (cart.completed_at || cart.order) {
     return NextResponse.redirect(
-      `${redirectOrigin}/${countryCode}/order/${cart.order?.id || ""}/confirmed`
+      `${redirectOrigin}/${countryCode}/order/${cart.order?.id}/confirmed`
     )
   }
 
