@@ -178,10 +178,11 @@ const medusaConfig = {
                 {
                   resolve: "@medusajs/payment-stripe",
                   id: "stripe",
-                  options: {
+                 options: {
                     apiKey: STRIPE_API_KEY,
-                    webhookSecret: STRIPE_WEBHOOK_SECRET,
-                    automatic_payment_methods: true,
+                    webhookSecret: STRIPE_WEBHOOK_SECRET,   
+                    automatic_payment_methods: false,
+                    payment_method_types: ["card", "ideal", "bancontact"],
                     capture: true,
                   },
                 },
