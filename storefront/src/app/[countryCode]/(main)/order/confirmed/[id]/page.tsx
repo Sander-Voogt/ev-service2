@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 
-import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
+import {OrderCompletedTemplate} from "@modules/order/templates/order-completed-template"
 import { notFound } from "next/navigation"
 import { enrichLineItems } from "@lib/data/cart"
 import { retrieveOrder } from "@lib/data/orders"
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 
 export default async function OrderConfirmedPage({ params }: Props) {
   const order = await getOrder(params.id)
+  
   if (!order) {
     return notFound()
   }

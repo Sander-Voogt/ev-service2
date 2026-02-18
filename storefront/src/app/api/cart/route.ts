@@ -4,7 +4,7 @@ import { sdk } from "@lib/config"
 
 export async function GET() {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const cartId = cookieStore.get("_medusa_cart_id")?.value
 
     if (!cartId) {
