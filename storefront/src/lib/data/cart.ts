@@ -6,7 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { omit } from "lodash"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
-import { getAuthHeaders, getCartId, removeCartId, setCartId } from "./cookies"
+import { getAuthHeaders, getCacheTag, getCartId, removeCartId, setCartId } from "./cookies"
 import { getProductsById } from "./products"
 import { getRegion } from "./regions"
 import { onCartUpdated, dispatchCartUpdated } from "@lib/events"
@@ -353,41 +353,80 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   )
 }
 
+/**
+ * Places an order for a cart. If no cart ID is provided, it will use the cart ID from the cookies.
+ * @param cartId - optional - The ID of the cart to place an order for.
+ * @returns The cart object if the order was successful, or null if not.
+ */
+export async function placeOrder(cartId?: string) {
+  const id = cartId || (await getCartId())
 
-export async function placeOrder() {
-  const cartId = await getCartId()
-  if (!cartId) {
+  if (!id) {
     throw new Error("No existing cart found when placing an order")
   }
 
-  let cartRes
-  try {
-    cartRes = await sdk.store.cart
-      .complete(cartId, {}, await getAuthHeaders())
-      .then((res) => {
-        revalidateTag("cart")
-        return res
-      })
-      .catch(medusaError)
-  } catch (err) {
-    // echte fouten (netwerk, Medusa 500, etc.)
-    console.error("Failed to complete cart:", err)
-    throw err // of return { error: err.message } als je dat prefereert
+  const headers = {
+    ...(await getAuthHeaders()),
   }
+
+  const cartRes = await sdk.store.cart
+    .complete(id, {}, headers)
+    .then(async (cartRes) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+      return cartRes
+    })
+    .catch(medusaError)
+
+  if (cartRes?.type === "order") {
+    const countryCode =
+      cartRes.order.shipping_address?.country_code?.toLowerCase()
+
+    const orderCacheTag = await getCacheTag("orders")
+    revalidateTag(orderCacheTag)
+
+    removeCartId()
+    redirect(`/${countryCode}/order/confirmed/${cartRes?.order.id}`)
+  }
+
+  return cartRes.cart
+}
+
+export async function placeOrderManual(cartId?: string) {
+  const id = cartId || (await getCartId())
+
+  if (!id) {
+    throw new Error("No existing cart found when placing an order")
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  const cartRes = await sdk.store.cart
+    .complete(id, {}, headers)
+    .then(async (cartRes) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+      return cartRes
+    })
+    .catch(medusaError)
 
   if (cartRes?.type === "order") {
     const countryCode =
       cartRes.order.shipping_address?.country_code?.toLowerCase() || "nl"
 
-    await removeCartId() // cart_id wissen zodat de winkelwagen leeg lijkt
+    const orderCacheTag = await getCacheTag("orders")
+    revalidateTag(orderCacheTag)
 
-    // redirect buiten try/catch → Next.js handelt dit correct af
-    redirect(`/${countryCode}/order/confirmed/${cartRes.order.id}`)
+    await removeCartId()
+
+    // Return de URL in plaats van redirect()
+    return `/${countryCode}/order/confirmed/${cartRes.order.id}`
   }
 
-  // Als het geen order oplevert (bijv. nog pending betaling, manual capture nodig, etc.)
-  // retourneer de cart of gooi een specifieke error
-  return cartRes.cart
+  // Als het geen order oplevert → retourneer null of throw
+  throw new Error("Order placement failed - no order created")
 }
 
 /**

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { sdk } from "@lib/config"
-import { placeOrder } from "@lib/data/cart"
+import { placeOrder, placeOrderManual } from "@lib/data/cart"
 import { getAuthHeaders } from "@lib/data/cookies"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || ""
@@ -12,7 +12,6 @@ async function retrieveOrderByCartId(cartId: string) {
     const { orders } = await sdk.store.order.list(
       { cart_id: cartId },
       { fields: "id" },
-      authHeaders
     )
     return orders?.[0] || null
   } catch (err) {
@@ -41,41 +40,45 @@ export async function GET(
     )
   }
 
-  // === Hoofdlogica gebaseerd op redirect_status ===
-  if (redirectStatus === "succeeded") {
-    // Optioneel: check eerst of order al bestaat
-    const existingOrder = await retrieveOrderByCartId(cartId)
-    if (existingOrder) {
+  if (["succeeded", "processing"].includes(redirectStatus)) {
+    try {
+      const confirmationUrl = await placeOrderManual(cartId)
+
+      if (confirmationUrl) {
+        // Stuur client-side redirect (maar omdat dit een route handler is, gebruik server redirect)
+        return NextResponse.redirect(
+          `${redirectOrigin}${confirmationUrl}`,
+          303
+        )
+      }
+    } catch (err: any) {
+      console.error("placeOrderManual error:", err.message)
+
+      // Bij "no cart" → korte wait en fallback
+      if (err.message.includes("No existing cart found")) {
+        await new Promise(r => setTimeout(r, 6000))
+
+        // Nog een poging (of direct naar processing)
+        try {
+          const confirmationUrl = await placeOrderManual(cartId)
+          if (confirmationUrl) {
+            return NextResponse.redirect(`${redirectOrigin}${confirmationUrl}`, 303)
+          }
+        } catch (err) {
+          console.error("placeOrderManual error:", err)
+          // Fallback redirect of error response
+          return NextResponse.redirect(
+            `${redirectOrigin}/${countryCode}/checkout?step=payment&message=order_pending`,
+            303
+          )
+        }
+
+      }
+
       return NextResponse.redirect(
-        `${redirectOrigin}/${countryCode}/order/confirmed/${existingOrder.id}`
+        `${redirectOrigin}/${countryCode}/checkout?step=payment&message=order_pending`,
+        303
       )
     }
-
-    // Geen try/catch meer → laat placeOrder() de redirect zelf afhandelen
-    await placeOrder()
-
-    // Als code hier komt (wat niet zou moeten bij succes), fallback
-    return NextResponse.redirect(
-      `${redirectOrigin}/${countryCode}/checkout?step=payment&message=unexpected`
-    )
-  }
-
-  // === Alle andere gevallen ===
-  if (redirectStatus && !["succeeded", "processing"].includes(redirectStatus)) {
-    // Expliciete fail van Stripe (failed, canceled, etc.)
-    return NextResponse.redirect(
-      `${redirectOrigin}/${countryCode}/checkout?step=payment&error=payment_${redirectStatus}`
-    )
-  }
-
-  // redirect_status leeg of onbekend → waarschijnlijk geen redirect-betaalmethode
-  // → ga door met placeOrder of pending
-  try {
-    await placeOrder()
-    return NextResponse.redirect(`${redirectOrigin}/${countryCode}`)
-  } catch {
-    return NextResponse.redirect(
-      `${redirectOrigin}/${countryCode}/checkout?step=payment&message=processing_still_pending`
-    )
   }
 }
