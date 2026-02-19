@@ -31,6 +31,8 @@ const Payment = ({
   const [stripeComplete, setStripeComplete] = useState(false)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("")
 
+  const [loadStripe, setLoadStripe] = useState(false);
+
   const stripe = stripeReady ? useStripe() : null
   const elements = stripeReady ? useElements() : null
 
@@ -75,6 +77,9 @@ const Payment = ({
   const handlePaymentMethodChange = async (value: string) => {
     setSelectedPaymentMethod(value)
     setError(null)
+    if(value === 'pp_stripes_stripe') {
+      setLoadStripe(true)
+    }
 
     // Reset stripe complete state when switching payment methods
     if (value === "pp_system_default") {
@@ -272,7 +277,16 @@ const Payment = ({
                     options={{
                       layout: "accordion",
                     }}
+                    onLoaderStart={() => {setLoadStripe(true)}}
+                    onReady={() => {setLoadStripe(false)}}
                   />
+                  {loadStripe && (
+                    <div className="flex items-center justify-center mt-4">
+                      <Text className="text-sm text-ui-fg-subtle">
+                        Betaalmethoden worden ingeladen. Zodra ze geladen zijn, kun je verder gaan met de betaling.
+                      </Text>
+                    </div>
+                  )}
                 </div>
               )}
             </>
