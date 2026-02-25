@@ -47,7 +47,7 @@ const MainDescription = ({
     mutationFn: (data: CustomFields) =>
       sdk.admin.product.update(product.id, { additional_data: data } as any),
     onSuccess: () => {
-      console.log("✅ Product updated");
+      // console.log("✅ Product updated");
       // eventueel: refetch query of laat een toast zien
     },
     onError: (err) => {

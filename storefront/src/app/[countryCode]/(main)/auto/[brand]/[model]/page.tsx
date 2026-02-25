@@ -62,7 +62,7 @@ export default async function ModelPage({
   })
 
 
-  console.log(model)
+  // console.log(model)
 
   return (
     <main className="content-container">

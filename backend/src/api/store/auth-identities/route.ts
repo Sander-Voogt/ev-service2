@@ -3,7 +3,7 @@ import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
 import { Modules } from "@medusajs/framework/utils"
 
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
-    console.log('asdfasdfasdfasdf')
+    // console.log('asdfasdfasdfasdf')
     const email = req.query.email as string | undefined
 
 
@@ -18,7 +18,10 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
         provider_identities: [
             {
                 provider: "emailpass",
-                entity_id: email, // email as identifier
+                entity_id: email, // email as identifier,
+                user_metadata:{
+                    
+                }
             },
         ],
     })

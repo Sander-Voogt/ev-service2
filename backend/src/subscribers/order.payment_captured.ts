@@ -40,9 +40,9 @@ export default async function orderPaidHandler({
   if (isPaid) {
     const montaService = container.resolve<MontaFulfillmentProviderService>("monta-fulfillment")
     const result = await montaService.sendOrder(order)
-    console.log(`✅ Order ${order.id} verzonden naar Monta`, result.data)
+    // console.log(`✅ Order ${order.id} verzonden naar Monta`, result.data)
   } else {
-    console.log(`ℹ️ Order ${order.id} is nog niet betaald`)
+    // console.log(`ℹ️ Order ${order.id} is nog niet betaald`)
   }
 }
 

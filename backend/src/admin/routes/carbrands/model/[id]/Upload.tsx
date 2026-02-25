@@ -30,7 +30,7 @@ const UploadPage = () => {
         files,
       })
 
-      console.log("Uploaded files:", res.files)
+      // console.log("Uploaded files:", res.files)
       // Haal URL's uit response
       const urls = res.files.map((f) => f.url)
       setUploadResults(urls)

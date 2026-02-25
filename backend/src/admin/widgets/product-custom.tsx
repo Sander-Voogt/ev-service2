@@ -64,7 +64,7 @@ const ProductBrandWidget = ({
 
   const brandName = (queryResult?.product as AdminProductBrand)?.brand?.name;
 
-  console.log(queryResult?.product?.custom);
+  // console.log(queryResult?.product?.custom);
 
   const [content, setContent] = useState<CustomFields>(() => {
     return (
@@ -102,7 +102,7 @@ const ProductBrandWidget = ({
     mutationFn: (data: CustomFields) =>
       sdk.admin.product.update(product.id, { additional_data: data } as any),
     onSuccess: () => {
-      console.log("✅ Product updated");
+      // console.log("✅ Product updated");
       // eventueel: refetch query of laat een toast zien
     },
     onError: (err) => {

@@ -15,8 +15,6 @@ export async function GET() {
       cartId
     )
 
-    console.log(cart)
-
     return NextResponse.json({ cart }, { status: 200 })
   } catch (err) {
     console.error("❌ Cart retrieval failed:", err)

@@ -7,7 +7,6 @@ export function hasNotValue(obj, key) {
 
 
 export function ProCon({ data }) {
-  console.log(data)
   if(hasNotValue(data, "pros") && hasNotValue(data, "cons")){
     return null;
   }

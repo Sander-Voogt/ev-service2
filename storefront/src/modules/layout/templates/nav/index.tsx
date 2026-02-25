@@ -59,7 +59,7 @@ export default async function Nav() {
 }
 
 const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
-  console.log('asdfasdf', currentRegion)
+  // console.log('asdfasdf', currentRegion)
   const iso2 = currentRegion?.countries?.[0]?.iso_2
   const displayName = currentRegion?.countries?.[0]?.display_name
   const regionFlag = (

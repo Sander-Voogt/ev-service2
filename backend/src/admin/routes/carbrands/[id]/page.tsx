@@ -56,7 +56,7 @@ const CustomPage = () => {
         body: formValues,
       });
 
-      console.log(res, res.status);
+      // console.log(res, res.status);
       if (!res.ok) {
         throw new Error(`Fout bij updaten: ${res.status}`);
       }
@@ -67,7 +67,7 @@ const CustomPage = () => {
       });
 
       const updated = await res.json();
-      console.log("Updated model:", updated);
+      // console.log("Updated model:", updated);
     } catch (error) {
       console.error(error);
       toast.error("Fout", { description: String(error) });

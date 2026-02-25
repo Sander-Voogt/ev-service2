@@ -33,7 +33,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     return notFound()
   }
 
-  console.log("ddd", product.custom)
+  // console.log("ddd", product.custom)
 
   //     const html = renderContent(product?.custom?.maindescription)
 

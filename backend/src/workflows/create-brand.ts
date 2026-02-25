@@ -19,7 +19,7 @@ export const createBrandStep = createStep(
         )
 
         const brand = await brandModuleService.createBrands(input)
-        console.log(brand);
+        // console.log(brand);
 
         return new StepResponse(brand, brand.id)
     },
@@ -40,7 +40,7 @@ type CreateBrandWorkflowInput = {
 export const createBrandWorkflow = createWorkflow(
     "create-brand",
     (input: CreateBrandWorkflowInput) => {
-        console.log(input)
+        // console.log(input)
 
         const brand = createBrandStep(input)
 

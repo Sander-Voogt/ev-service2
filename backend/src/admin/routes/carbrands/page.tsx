@@ -44,7 +44,7 @@ const BrandsPage = () => {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => {
-        console.log(row);
+        // console.log(row);
         return (
           <>
             <Drawer>

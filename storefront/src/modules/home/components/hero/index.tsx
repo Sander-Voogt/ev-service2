@@ -17,7 +17,6 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
     carmodels: Record<string,string>[]
   }[]>([]);
 
-  console.log(models);
 
   const carouselImages = [
     "https://bucket-production-6ff8.up.railway.app/medusa-media/0008089.webp",
@@ -42,7 +41,6 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
 
   }, [selectedMake])
 
-  console.log('ddddd', process.env.NEXT_PUBLIC_BASE_URL+carouselImages[0])
   return (
     <div className="relative h-[50vh] w-full flex items-center justify-center overflow-hidden">
   {/* Background image */}

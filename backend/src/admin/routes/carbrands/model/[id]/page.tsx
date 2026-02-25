@@ -61,7 +61,7 @@ const CustomPage = () => {
         duration: 5000,
       });
 
-      console.log("Updated model:", res);
+      // console.log("Updated model:", res);
     } catch (error) {
       // Non-2xx statuses throw an error automatically
       console.error(error);

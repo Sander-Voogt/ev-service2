@@ -26,12 +26,12 @@ completeOrderWorkflow.hooks.ordersCompleted(
       }
 
       if (isExistingCustomer === true) {
-        console.log("✅ Geregistreerde klant:", customer.email)
+        // console.log("✅ Geregistreerde klant:", customer.email)
         return
       }
 
       if (isExistingCustomer === false) {
-        console.log("👤 Gastklant:", customer.email)
+        // console.log("👤 Gastklant:", customer.email)
 
         const informerData = await createCustomer(customer)
 
@@ -40,7 +40,7 @@ completeOrderWorkflow.hooks.ordersCompleted(
             await customerService.updateCustomers(customer.id, {
               metadata: { informer_id: informerData.id },
             })
-            console.log(`📌 Klant geüpdatet met informer_id: ${informerData.id}`)
+            // console.log(`📌 Klant geüpdatet met informer_id: ${informerData.id}`)
           } catch (err) {
             console.error(`❌ Fout bij updaten klant ${customer.id}:`, err)
           }
@@ -84,7 +84,7 @@ async function createCustomer(customer: any) {
         payment_condition_id: "677869",
     }
 
-    console.log("📤 Relatie aanmaken in Informer:", newCustomer)
+    // console.log("📤 Relatie aanmaken in Informer:", newCustomer)
 
     try {
         const response = await fetch("https://api.informer.eu/v1/relation", {
@@ -109,7 +109,7 @@ async function createCustomer(customer: any) {
         }
 
         const result = await response.json()
-        console.log(`✅ Relatie succesvol aangemaakt voor ${customer.email}`, result)
+        // console.log(`✅ Relatie succesvol aangemaakt voor ${customer.email}`, result)
         return result
     } catch (err) {
         console.error(`❌ Fout bij aanmaken relatie voor ${customer.email}:`, err)

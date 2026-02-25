@@ -45,13 +45,13 @@ export default async function orderPlacedHandler({
     currentOrder = await orderModuleService.retrieveOrder(order.id, {
       relations: ["billing_address"],
     })
-    console.log(currentOrder)
+    // console.log(currentOrder)
     // 1. Haal de klant op via customerModuleService
     customer = await customerModuleService.retrieveCustomer(currentOrder.customer_id, {
       relations: ["addresses"],
     })
 
-    console.log(customer)
+    // console.log(customer)
 
     isExistingCustomer = customer.has_account
   } catch (err) {
@@ -61,13 +61,13 @@ export default async function orderPlacedHandler({
 
   // 2. Bepaal of het een gast is
   if (isExistingCustomer === true) {
-    console.log("✅ Geregistreerde klant:", customer.email)
+    // console.log("✅ Geregistreerde klant:", customer.email)
     createInvoiceInInformer(customer.metadata.informer_id, order.id, order.items)
     return
   }
 
   if (isExistingCustomer === false) {
-    console.log("👤 Gastklant:", customer.email)
+    // console.log("👤 Gastklant:", customer.email)
 
     const informerData = await createCustomerInInformer(currentOrder)
     createInvoiceInInformer(informerData.id, order.id, order.items)
@@ -81,14 +81,14 @@ export default async function orderPlacedHandler({
           
         })
 
-        console.log(`📌 Klant geüpdatet met informer_id: ${informerData.id}`)
+        // console.log(`📌 Klant geüpdatet met informer_id: ${informerData.id}`)
       } catch (err) {
         console.error(`❌ Fout bij updaten klant ${customer.id}:`, err)
       }
     }
   }
 
-  console.log(`Order ${order.id} geplaatst door klant ${customer.email}`)
+  // console.log(`Order ${order.id} geplaatst door klant ${customer.email}`)
 }
 
 
@@ -124,7 +124,7 @@ async function createCustomerInInformer(customer: any) {
     payment_condition_id: "677869",
   }
 
-  console.log("📤 Relatie aanmaken in Informer:", newCustomer)
+  // console.log("📤 Relatie aanmaken in Informer:", newCustomer)
 
   try {
     const response = await fetch("https://api.informer.eu/v1/relation", {
@@ -150,7 +150,7 @@ async function createCustomerInInformer(customer: any) {
     }
 
     const result = await response.json()
-    console.log(`✅ Relatie succesvol aangemaakt voor ${customer.email}`, result)
+    // console.log(`✅ Relatie succesvol aangemaakt voor ${customer.email}`, result)
     return result
   } catch (err) {
     console.error(`❌ Fout bij aanmaken relatie voor ${customer.email}:`, err)
@@ -182,7 +182,7 @@ async function createInvoiceInInformer(customerId, orderId, items) {
     }))
   }
 
-  console.log("📤 Relatie aanmaken in Informer:", newCustomer)
+  // console.log("📤 Relatie aanmaken in Informer:", newCustomer)
 
   try {
     const response = await fetch("https://api.informer.eu/v1/invoice/sales/", {
@@ -208,7 +208,7 @@ async function createInvoiceInInformer(customerId, orderId, items) {
     }
 
     const result = await response.json()
-    console.log(`✅ Factuur succesvol aangemaakt voor ${orderId}`, result)
+    // console.log(`✅ Factuur succesvol aangemaakt voor ${orderId}`, result)
     return result
   } catch (err) {
     console.error(`❌ Fout bij aanmaken Factuur voor ${orderId}:`, err)

@@ -3,7 +3,7 @@ import { createCustomersWorkflow } from "@medusajs/medusa/core-flows"
 createCustomersWorkflow.hooks.customersCreated(
     (async ({ customers, additional_data }, { container }) => {
         for (const customer of customers) {
-            console.log(customer.email)
+            // console.log(customer.email)
 
             const billingaddress = customer.addresses.find((address) => address.is_default_billing === true)
 
@@ -34,7 +34,7 @@ createCustomersWorkflow.hooks.customersCreated(
                 sales_invoice_template_id: '515360',
                 payment_condition_id: "677869"
             }
-            console.log("Creating customer with data:", JSON.stringify(newcustomer, null, 2));
+            // console.log("Creating customer with data:", JSON.stringify(newcustomer, null, 2));
 
             try {
                 const response = await fetch("https://api.informer.eu/v1/relation", {
@@ -53,7 +53,7 @@ createCustomersWorkflow.hooks.customersCreated(
                     console.error(`Failed to create relation for ${customer.email}:`, errorBody);
                 } else {
                     const result = await response.json();
-                    console.log(`Successfully created relation for ${customer.email}`, result);
+                    // console.log(`Successfully created relation for ${customer.email}`, result);
                 }
             } catch (err) {
                 console.error(`Error creating relation for ${customer.email}:`, err);
