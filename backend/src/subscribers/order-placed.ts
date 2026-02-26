@@ -53,7 +53,7 @@ export default async function orderPlacedHandler({
 
     // console.log(customer)
 
-    isExistingCustomer = customer.has_account
+    isExistingCustomer = customer.has_account && customer.metadata?.informer_id ? true : false
   } catch (err) {
     console.error(`❌ Fout bij ophalen klant ${order.id}:`, err)
     return // Stop hier als we klant niet kunnen ophalen
