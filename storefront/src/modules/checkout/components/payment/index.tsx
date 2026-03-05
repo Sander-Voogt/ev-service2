@@ -80,6 +80,7 @@ const Payment = ({
   }
 
   const handlePaymentMethodChange = async (value: string) => {
+    console.log('betaalmethode wijziging:',value)
     setSelectedPaymentMethod(value)
     setError(null)
 
