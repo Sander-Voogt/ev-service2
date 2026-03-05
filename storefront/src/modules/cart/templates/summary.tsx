@@ -7,6 +7,7 @@ import Divider from "@modules/common/components/divider"
 import DiscountCode from "@modules/checkout/components/discount-code"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
+import { AddCartReference } from "@modules/checkout/templates/checkout-summary/reference"
 
 type SummaryProps = {
   cart: HttpTypes.StoreCart & {
@@ -40,6 +41,8 @@ const Summary = ({ cart }: SummaryProps) => {
         data-testid="checkout-button"
       >
         <Button className="w-full h-10">Afrekenen</Button>
+        <Divider />
+
       </LocalizedClientLink>
     </div>
   )

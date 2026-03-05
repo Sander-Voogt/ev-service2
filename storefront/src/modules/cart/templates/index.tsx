@@ -3,8 +3,9 @@ import Summary from "./summary"
 import EmptyCartMessage from "../components/empty-cart-message"
 import SignInPrompt from "../components/sign-in-prompt"
 import { HttpTypes } from "@medusajs/types"
+import { AddCartReference } from "@modules/checkout/templates/checkout-summary/reference"
 
-const  CartTemplate = ({
+const CartTemplate = ({
   cart,
   customer,
 }: {
@@ -30,6 +31,9 @@ const  CartTemplate = ({
                     <Summary cart={cart as any} />
                   </div>
                 )}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
+                  <AddCartReference />
+                </div>
               </div>
             </div>
           </div>
