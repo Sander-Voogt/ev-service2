@@ -30,7 +30,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
               </DisclosureButton>
               <DisclosurePanel className="px-6 pb-6">
                 <CartTotals totals={cart} />
-                <ItemsPreviewTemplate cart={cart} />
+                <ItemsPreviewTemplate items={cart?.items} />
               </DisclosurePanel>
             </div>
           )}
@@ -43,7 +43,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
           Besteloverzicht
         </h2>
         <CartTotals totals={cart} />
-        <ItemsPreviewTemplate cart={cart} />
+        <ItemsPreviewTemplate items={cart?.items} />
         <div className="my-6">
           {/* <DiscountCode cart={cart} /> */}
         </div>

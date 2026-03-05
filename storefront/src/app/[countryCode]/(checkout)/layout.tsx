@@ -30,7 +30,7 @@ export default function CheckoutLayout({
             data-testid="store-link"
           >
               <Image
-                src="https://user.fm/files/v2-440e0bb07a929e996c6a98fbc0257f71/RIC-HOLLAND.svg"
+                src="/img/ev-service-logo.png"
                 alt="Ric Holland"
                 width={200}
                 height={60}

@@ -20,7 +20,7 @@ const  CartTemplate = ({
             <div className="flex flex-col gap-y-4">
               {!customer && <SignInPrompt />}
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <ItemsTemplate items={cart?.items} />
+                <ItemsTemplate cart={cart} />
               </div>
             </div>
             <div className="relative">
