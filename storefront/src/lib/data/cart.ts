@@ -6,24 +6,44 @@ import { HttpTypes } from "@medusajs/types"
 import { omit } from "lodash"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
-import { getAuthHeaders, getCacheTag, getCartId, removeCartId, setCartId } from "./cookies"
+import { getAuthHeaders, getCacheOptions, getCacheTag, getCartId, removeCartId, setCartId } from "./cookies"
 import { getProductsById } from "./products"
 import { getRegion } from "./regions"
 import { onCartUpdated, dispatchCartUpdated } from "@lib/events"
 
-export async function retrieveCart() {
-  const cartId = await getCartId()
+/**
+ * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
+ * @param cartId - optional - The ID of the cart to retrieve.
+ * @returns The cart object if found, or null if not found.
+ */
+export async function retrieveCart(cartId?: string, fields?: string) {
+  const id = cartId || (await getCartId())
+  fields ??= "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
 
-  if (!cartId) {
+  if (!id) {
     return null
   }
 
-  return await sdk.store.cart
-    .retrieve(cartId, {}, { next: { tags: ["cart"] }, ...await getAuthHeaders() })
-    .then(({ cart }) => cart)
-    .catch(() => {
-      return null
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  const next = {
+    ...(await getCacheOptions("carts")),
+  }
+
+  return await sdk.client
+    .fetch<HttpTypes.StoreCartResponse>(`/store/carts/${id}`, {
+      method: "GET",
+      query: {
+        fields
+      },
+      headers,
+      next,
+      cache: "force-cache",
     })
+    .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
+    .catch(() => null)
 }
 
 
@@ -306,7 +326,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     if (!formData) {
       throw new Error("No form data found when setting addresses")
     }
-    const cartId = await getCartId()
+    const cartId = getCartId()
     if (!cartId) {
       throw new Error("No existing cart found when setting addresses")
     }
@@ -335,7 +355,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         first_name: formData.get("billing_address.first_name"),
         last_name: formData.get("billing_address.last_name"),
         address_1: formData.get("billing_address.address_1"),
-        address_2: "",
+        address_2: formData.get("billing_address.address_2"),
         company: formData.get("billing_address.company"),
         postal_code: formData.get("billing_address.postal_code"),
         city: formData.get("billing_address.city"),

@@ -1,5 +1,4 @@
 import { Disclosure } from "@headlessui/react"
-import { Badge, Button, clx } from "@medusajs/ui"
 import { useEffect } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -22,7 +21,7 @@ const AccountInfo = ({
   isSuccess,
   isError,
   clearState,
-  errorMessage = "An error occurred, please try again",
+  errorMessage = "Er is een fout opgetreden, probeer het opnieuw",
   children,
   'data-testid': dataTestid
 }: AccountInfoProps) => {
@@ -42,48 +41,48 @@ const AccountInfo = ({
   }, [isSuccess, close])
 
   return (
-    <div className="text-small-regular" data-testid={dataTestid}>
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col">
-          <span className="uppercase text-ui-fg-base">{label}</span>
-          <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
+    <div className="bg-gray-50 rounded-xl p-5 border border-gray-200" data-testid={dataTestid}>
+      <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-medium text-gray-500">{label}</span>
+          <div className="flex items-center gap-2">
             {typeof currentInfo === "string" ? (
-              <span className="font-semibold" data-testid="current-info">{currentInfo}</span>
+              <span className="font-semibold text-neutral-900" data-testid="current-info">{currentInfo}</span>
             ) : (
               currentInfo
             )}
           </div>
         </div>
-        <div>
-          <Button
-            variant="secondary"
-            className="w-[100px] min-h-[25px] py-1"
-            onClick={handleToggle}
-            type={state ? "reset" : "button"}
-            data-testid="edit-button"
-            data-active={state}
-          >
-            {state ? "Cancel" : "Edit"}
-          </Button>
-        </div>
+        <button
+          onClick={handleToggle}
+          type={state ? "reset" : "button"}
+          className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+            state
+              ? "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              : "bg-gray-900 text-white hover:bg-gray-800"
+          }`}
+          data-testid="edit-button"
+          data-active={state}
+        >
+          {state ? "Annuleren" : "Bewerken"}
+        </button>
       </div>
 
       {/* Success state */}
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
-            "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
-            {
-              "max-h-[1000px] opacity-100": isSuccess,
-              "max-h-0 opacity-0": !isSuccess,
-            }
-          )}
+          className={`transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden ${
+            isSuccess ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
           data-testid="success-message"
         >
-          <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
-          </Badge>
+          <div className="flex items-center gap-2 mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-sm text-green-700">{label} succesvol bijgewerkt</span>
+          </div>
         </Disclosure.Panel>
       </Disclosure>
 
@@ -91,43 +90,46 @@ const AccountInfo = ({
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
-            "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
-            {
-              "max-h-[1000px] opacity-100": isError,
-              "max-h-0 opacity-0": !isError,
-            }
-          )}
+          className={`transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden ${
+            isError ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
           data-testid="error-message"
         >
-          <Badge className="p-2 my-4" color="red">
-            <span>{errorMessage}</span>
-          </Badge>
+          <div className="flex items-center gap-2 mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-red-600">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+            <span className="text-sm text-red-700">{errorMessage}</span>
+          </div>
         </Disclosure.Panel>
       </Disclosure>
 
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
-            "transition-[max-height,opacity] duration-300 ease-in-out overflow-visible",
-            {
-              "max-h-[1000px] opacity-100": state,
-              "max-h-0 opacity-0": !state,
-            }
-          )}
+          className={`transition-[max-height,opacity] duration-300 ease-in-out overflow-visible ${
+            state ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
         >
-          <div className="flex flex-col gap-y-2 py-4">
-            <div>{children}</div>
-            <div className="flex items-center justify-end mt-2">
-              <Button
-                isLoading={pending}
-                className="w-full small:max-w-[140px]"
-                type="submit"
-                data-testid="save-button"
-              >
-                Save changes
-              </Button>
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="space-y-4">
+              {children}
+              <div className="flex items-center justify-end pt-2">
+                <button
+                  disabled={pending}
+                  className="px-6 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  type="submit"
+                  data-testid="save-button"
+                >
+                  {pending && (
+                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
+                  Opslaan
+                </button>
+              </div>
             </div>
           </div>
         </Disclosure.Panel>

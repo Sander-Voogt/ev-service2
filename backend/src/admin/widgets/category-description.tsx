@@ -77,7 +77,7 @@ const MainDescriptionForm = ({ productCategoryId, metadata }: Props) => {
     onSuccess: (_, variables) => {
       // direct resetten van de form met nieuwe values
       form.reset({ ...metadata, ...variables });
-      console.log("✅ Metadata updated");
+      // console.log("✅ Metadata updated");
     },
     onError: (err) => {
       console.error("❌ Failed to update metadata", err);

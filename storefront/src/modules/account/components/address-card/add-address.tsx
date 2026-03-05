@@ -2,8 +2,7 @@
 
 import { Plus } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
-import { useEffect, useState } from "react"
-import { useFormState } from "react-dom"
+import { useEffect, useState, useActionState } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import CountrySelect from "@modules/checkout/components/country-select"
@@ -13,11 +12,18 @@ import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { HttpTypes } from "@medusajs/types"
 import { addCustomerAddress } from "@lib/data/customer"
 
-const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
+const AddAddress = ({
+  region,
+  addresses,
+}: {
+  region: HttpTypes.StoreRegion
+  addresses: HttpTypes.StoreCustomerAddress[]
+}) => {
   const [successState, setSuccessState] = useState(false)
   const { state, open, close: closeModal } = useToggleState(false)
 
-  const [formState, formAction] = useFormState(addCustomerAddress, {
+  const [formState, formAction] = useActionState(addCustomerAddress, {
+    isDefaultShipping: addresses.length === 0,
     success: false,
     error: null,
   })
@@ -43,17 +49,19 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
   return (
     <>
       <button
-        className="border border-ui-border-base rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
+        className="border-2 border-dashed border-gray-300 rounded-xl p-6 min-h-[220px] h-full w-full flex flex-col items-center justify-center gap-3 hover:border-gray-400 hover:bg-gray-50 transition-colors group"
         onClick={open}
         data-testid="add-address-button"
       >
-        <span className="text-base-semi">New address</span>
-        <Plus />
+        <div className="w-12 h-12 rounded-full bg-gray-100 group-hover:bg-gray-100 flex items-center justify-center transition-colors">
+          <Plus className="text-gray-400 group-hover:text-gray-900 transition-colors" />
+        </div>
+        <span className="font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Nieuw adres toevoegen</span>
       </button>
 
       <Modal isOpen={state} close={close} data-testid="add-address-modal">
         <Modal.Title>
-          <Heading className="mb-2">Add address</Heading>
+          <Heading className="mb-2">Nieuw adres toevoegen</Heading>
         </Modal.Title>
         <form action={formAction}>
           <Modal.Body>
@@ -75,7 +83,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                 />
               </div>
               <Input
-                label="Bedrijf"
+                label="Bedrijfsnaam"
                 name="company"
                 autoComplete="organization"
                 data-testid="company-input"
@@ -88,7 +96,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                 data-testid="address-1-input"
               />
               <Input
-                label="Huisnummer."
+                label="Huisnummer"
                 name="address_2"
                 autoComplete="address-line2"
                 data-testid="address-2-input"
@@ -102,7 +110,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                   data-testid="postal-code-input"
                 />
                 <Input
-                  label="Stad"
+                  label="Woonplaats"
                   name="city"
                   required
                   autoComplete="locality"
@@ -110,7 +118,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
                 />
               </div>
               <Input
-                label="Province / State"
+                label="Provincie"
                 name="province"
                 autoComplete="address-level1"
                 data-testid="state-input"

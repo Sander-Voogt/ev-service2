@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useActionState } from "react"
 import { PencilSquare as Edit, Trash } from "@medusajs/icons"
 import { Button, Heading, Text, clx } from "@medusajs/ui"
 
@@ -9,7 +9,6 @@ import CountrySelect from "@modules/checkout/components/country-select"
 import Input from "@modules/common/components/input"
 import Modal from "@modules/common/components/modal"
 import Spinner from "@modules/common/icons/spinner"
-import { useFormState } from "react-dom"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import { HttpTypes } from "@medusajs/types"
 import {
@@ -32,7 +31,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
   const [successState, setSuccessState] = useState(false)
   const { state, open, close: closeModal } = useToggleState(false)
 
-  const [formState, formAction] = useFormState(updateCustomerAddress, {
+  const [formState, formAction] = useActionState(updateCustomerAddress, {
     success: false,
     error: null,
     addressId: address.id,
@@ -65,33 +64,38 @@ const EditAddress: React.FC<EditAddressProps> = ({
   return (
     <>
       <div
-        className={clx(
-          "border rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors",
-          {
-            "border-gray-900": isActive,
-          }
-        )}
+        className={`bg-gray-50 border-2 rounded-xl p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors ${
+          isActive ? "border-gray-900" : "border-gray-200"
+        }`}
         data-testid="address-container"
       >
         <div className="flex flex-col">
-          <Heading
-            className="text-left text-base-semi"
-            data-testid="address-name"
-          >
-            {address.first_name} {address.last_name}
-          </Heading>
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-gray-700">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+            </div>
+            <Heading
+              className="text-left font-semibold text-neutral-900"
+              data-testid="address-name"
+            >
+              {address.first_name} {address.last_name}
+            </Heading>
+          </div>
           {address.company && (
             <Text
-              className="txt-compact-small text-ui-fg-base"
+              className="text-sm text-gray-500 mb-1"
               data-testid="address-company"
             >
               {address.company}
             </Text>
           )}
-          <Text className="flex flex-col text-left text-base-regular mt-2">
+          <Text className="flex flex-col text-left text-sm text-gray-700">
             <span data-testid="address-address">
               {address.address_1}
-              {address.address_2 && <span>, {address.address_2}</span>}
+              {address.address_2 && <span> {address.address_2}</span>}
             </span>
             <span data-testid="address-postal-city">
               {address.postal_code}, {address.city}
@@ -102,31 +106,32 @@ const EditAddress: React.FC<EditAddressProps> = ({
             </span>
           </Text>
         </div>
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-3 pt-4 border-t border-gray-200 mt-4">
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
             onClick={open}
             data-testid="address-edit-button"
           >
-            <Edit />
-            Edit
+            <Edit className="w-4 h-4" />
+            Bewerken
           </button>
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
             onClick={removeAddress}
             data-testid="address-delete-button"
           >
-            {removing ? <Spinner /> : <Trash />}
-            Remove
+            {removing ? <Spinner /> : <Trash className="w-4 h-4" />}
+            Verwijderen
           </button>
         </div>
       </div>
 
       <Modal isOpen={state} close={close} data-testid="edit-address-modal">
         <Modal.Title>
-          <Heading className="mb-2">Edit address</Heading>
+          <Heading className="mb-2">Adres bewerken</Heading>
         </Modal.Title>
         <form action={formAction}>
+          <input type="hidden" name="addressId" value={address.id} />
           <Modal.Body>
             <div className="grid grid-cols-1 gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
@@ -148,7 +153,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 />
               </div>
               <Input
-                label="Bedrijf"
+                label="Bedrijfsnaam"
                 name="company"
                 autoComplete="organization"
                 defaultValue={address.company || undefined}
@@ -179,7 +184,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   data-testid="postal-code-input"
                 />
                 <Input
-                  label="Stad"
+                  label="Woonplaats"
                   name="city"
                   required
                   autoComplete="locality"

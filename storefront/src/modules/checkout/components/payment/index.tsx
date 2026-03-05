@@ -3,16 +3,15 @@
 import { isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
 import { initiatePaymentSession } from "@lib/data/cart"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
-import { Button, Container, Heading, Text, clx } from "@medusajs/ui"
+import { clx } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import Divider from "@modules/common/components/divider"
+import PaymentContainer from "@modules/checkout/components/payment-container"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { StripePaymentElementChangeEvent } from "@stripe/stripe-js"
 import { StripeContext } from "../payment-wrapper"
 import { RadioGroup } from "@headlessui/react"
-import PaymentContainer from "@modules/checkout/components/payment-container"
 
 const Payment = ({
   cart,
@@ -31,8 +30,6 @@ const Payment = ({
   const [stripeComplete, setStripeComplete] = useState(false)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("")
 
-  const [loadStripe, setLoadStripe] = useState(false);
-
   const stripe = stripeReady ? useStripe() : null
   const elements = stripeReady ? useElements() : null
 
@@ -50,13 +47,21 @@ const Payment = ({
     (group: any) => group.id === businessGroupId
   )
 
+  console.log("Is business customer:", isBusinessCustomer)
+
   // Filter betaalmethoden op basis van klanttype
-  const filteredPaymentMethods = availablePaymentMethods.filter((item) => {
-    // pp_system_default (achteraf betalen) alleen voor zakelijke klanten
-    if (item.id === "pp_system_default") {
+  const filteredPaymentMethods = availablePaymentMethods.filter((method) => {
+    if (method.id === "pp_system_default") {
+      // Alleen zakelijke klanten mogen pp_system_default gebruiken
       return isBusinessCustomer
     }
-    // Alle andere betaalmethoden (inclusief Stripe) voor iedereen
+
+    // if (method.id === "pp_stripe_stripe") {
+    //   // Zakelijke klanten mogen pp_stripe_stripe **niet** gebruiken
+    //   return !isBusinessCustomer
+    // }
+
+    // Alle andere betaalmethoden zijn voor iedereen beschikbaar
     return true
   })
 
@@ -77,9 +82,6 @@ const Payment = ({
   const handlePaymentMethodChange = async (value: string) => {
     setSelectedPaymentMethod(value)
     setError(null)
-    if(value === 'pp_stripes_stripe') {
-      setLoadStripe(true)
-    }
 
     // Reset stripe complete state when switching payment methods
     if (value === "pp_system_default") {
@@ -173,11 +175,13 @@ const Payment = ({
   }, [filteredPaymentMethods, selectedPaymentMethod])
 
   useEffect(() => {
+    // console.log('dddd', activeSession['provider_id'] !== "pp_stripe_stripe", isStripeFunc(activeSession?.provider_id),
+    //   isOpen,
+    //   selectedPaymentMethod )
     if (
-      !activeSession &&
+      !isStripeFunc(activeSession?.provider_id) &&
       isOpen &&
-      selectedPaymentMethod !== "pp_system_default" &&
-      selectedPaymentMethod !== ""
+      selectedPaymentMethod !== "pp_system_default"
     ) {
       initStripe()
     }
@@ -204,44 +208,59 @@ const Payment = ({
     selectedPaymentMethod !== "" &&
     stripeReady
 
-  console.log(availablePaymentMethods, businessGroupId, isBusinessCustomer)
-  console.log(
-    "Env group ID (prod):",
-    process.env.NEXT_PUBLIC_BUSINESSCUSTOMERGROUP
-  )
-  console.log("Customer groups:", cart?.customer?.groups)
-  console.log(
-    "Available payment methods:",
-    availablePaymentMethods.map((m) => m.id)
-  )
-  console.log("Is business customer?", isBusinessCustomer)
+  console.log(availablePaymentMethods)
 
   return (
-    <div className="bg-white">
+    <div>
       <div className="flex flex-row items-center justify-between mb-6">
-        <Heading
-          level="h2"
+        <h2
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "text-xl font-bold text-gray-900 flex items-center gap-x-2",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
             }
           )}
         >
+          <svg
+            className="w-5 h-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={1.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+            />
+          </svg>
           Betaalmethode
-          {!isOpen && paymentReady && <CheckCircleSolid />}
-        </Heading>
+          {!isOpen && paymentReady && (
+            <CheckCircleSolid className="text-green-600" />
+          )}
+        </h2>
         {!isOpen && paymentReady && (
-          <Text>
-            <button
-              onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
-              data-testid="edit-payment-button"
+          <button
+            onClick={handleEdit}
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-x-1"
+            data-testid="edit-payment-button"
+          >
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              Edit
-            </button>
-          </Text>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+              />
+            </svg>
+            Bewerken
+          </button>
         )}
       </div>
       <div>
@@ -249,8 +268,26 @@ const Payment = ({
           {!paidByGiftcard && filteredPaymentMethods?.length > 0 && (
             <>
               {/* Toon radio group alleen als er meerdere betaalmethoden zijn */}
-              {filteredPaymentMethods.length > 1 && (
+              {filteredPaymentMethods.length > 1 && filteredPaymentMethods.find(m => m.id === 'pp_stripe_stripe') ? (
                 <div className="mb-5">
+                  <RadioGroup
+                    value={selectedPaymentMethod}
+                    onChange={handlePaymentMethodChange}
+                  >
+                    {filteredPaymentMethods
+                      .sort((a, b) => (a.id > b.id ? 1 : -1))
+                      .map((paymentMethod) => (
+                        <PaymentContainer
+                          paymentInfoMap={paymentInfoMap}
+                          paymentProviderId={paymentMethod.id}
+                          key={paymentMethod.id}
+                          selectedPaymentOptionId={selectedPaymentMethod}
+                        />
+                      ))}
+                  </RadioGroup>
+                </div>
+              ): (
+                 <div className="mb-5">
                   <RadioGroup
                     value={selectedPaymentMethod}
                     onChange={handlePaymentMethodChange}
@@ -277,16 +314,7 @@ const Payment = ({
                     options={{
                       layout: "accordion",
                     }}
-                    onLoaderStart={() => {setLoadStripe(true)}}
-                    onReady={() => {setLoadStripe(false)}}
                   />
-                  {loadStripe && (
-                    <div className="flex items-center justify-center mt-4">
-                      <Text className="text-sm text-ui-fg-subtle">
-                        Betaalmethoden worden ingeladen. Zodra ze geladen zijn, kun je verder gaan met de betaling.
-                      </Text>
-                    </div>
-                  )}
                 </div>
               )}
             </>
@@ -294,15 +322,15 @@ const Payment = ({
 
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <span className="txt-medium-plus text-gray-900 mb-1">
                 Betaalmethode
-              </Text>
-              <Text
-                className="txt-medium text-ui-fg-subtle"
+              </span>
+              <span
+                className="txt-medium text-gray-500"
                 data-testid="payment-method-summary"
               >
-                Gift card
-              </Text>
+                Cadeaubon
+              </span>
             </div>
           )}
 
@@ -311,70 +339,71 @@ const Payment = ({
             data-testid="payment-method-error-message"
           />
 
-          <Button
-            size="large"
-            className="mt-6"
+          <button
             onClick={handleSubmit}
-            isLoading={isLoading}
-            disabled={isSubmitDisabled()}
+            disabled={isLoading || isSubmitDisabled()}
+            className="mt-6 w-full bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed rounded-lg py-3 font-medium uppercase tracking-wide transition-colors"
             data-testid="submit-payment-button"
           >
-            Verder
-          </Button>
+            {isLoading ? "Laden..." : "Verder"}
+          </button>
         </div>
 
         <div className={isOpen ? "hidden" : "block"}>
           {cart && paymentReady && activeSession && selectedPaymentMethod ? (
-            <div className="flex items-start gap-x-1 w-full">
-              <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Betaalmethode
-                </Text>
-                <Text
-                  className="txt-medium text-ui-fg-subtle"
-                  data-testid="payment-method-summary"
-                >
-                  {paymentInfoMap[activeSession?.provider_id]?.title ||
-                    activeSession?.provider_id}
-                </Text>
-              </div>
-              <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Betaalmethode
-                </Text>
-                <div
-                  className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
-                  data-testid="payment-details-summary"
-                >
-                  <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
-                    {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      <CreditCard />
-                    )}
-                  </Container>
-                  <Text>
-                    {selectedPaymentMethod === "pp_system_default"
-                      ? "Betaal op factuur"
-                      : "Another step may appear"}
-                  </Text>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                    Betaalmethode
+                  </span>
+                  <span
+                    className="text-sm text-gray-900 font-medium"
+                    data-testid="payment-method-summary"
+                  >
+                    {paymentInfoMap[activeSession?.provider_id]?.title ||
+                      activeSession?.provider_id}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                    Betaalgegevens
+                  </span>
+                  <div
+                    className="flex gap-2 text-sm text-gray-600 items-center"
+                    data-testid="payment-details-summary"
+                  >
+                    <div className="flex items-center h-7 w-fit p-1.5 bg-gray-200 rounded">
+                      {paymentInfoMap[selectedPaymentMethod]?.icon || (
+                        <CreditCard />
+                      )}
+                    </div>
+                    <span>
+                      {selectedPaymentMethod === "pp_system_default"
+                        ? "Betaal op factuur"
+                        : "U wordt doorgestuurd naar de betaalpagina"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           ) : paidByGiftcard ? (
-            <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Betaalmethode
-              </Text>
-              <Text
-                className="txt-medium text-ui-fg-subtle"
-                data-testid="payment-method-summary"
-              >
-                Gift card
-              </Text>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="flex flex-col">
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                  Betaalmethode
+                </span>
+                <span
+                  className="text-sm text-gray-900 font-medium"
+                  data-testid="payment-method-summary"
+                >
+                  Cadeaubon
+                </span>
+              </div>
             </div>
           ) : null}
         </div>
       </div>
-      <Divider className="mt-8" />
     </div>
   )
 }

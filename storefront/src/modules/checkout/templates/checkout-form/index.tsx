@@ -5,6 +5,7 @@ import Addresses from "@modules/checkout/components/addresses"
 import Payment from "@modules/checkout/components/payment"
 import Review from "@modules/checkout/components/review"
 import Shipping from "@modules/checkout/components/shipping"
+import CheckoutProgress from "@modules/checkout/components/checkout-progress"
 
 export default async function CheckoutForm({
   cart,
@@ -25,21 +26,23 @@ export default async function CheckoutForm({
   }
 
   return (
-    <div>
-      <div className="w-full grid grid-cols-1 gap-y-8">
-        <div>
+    <div className="w-full grid grid-cols-1 gap-y-3 sm:gap-y-4">
+      <CheckoutProgress />
+
+      <div className="space-y-3 sm:space-y-4">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-5 md:p-7">
           <Addresses cart={cart} customer={customer} />
         </div>
 
-        <div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-5 md:p-7">
           <Shipping cart={cart} availableShippingMethods={shippingMethods} />
         </div>
 
-        <div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-5 md:p-7">
           <Payment cart={cart} availablePaymentMethods={paymentMethods} />
         </div>
 
-        <div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-5 md:p-7">
           <Review cart={cart} />
         </div>
       </div>
