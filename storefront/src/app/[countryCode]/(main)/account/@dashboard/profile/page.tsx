@@ -34,7 +34,7 @@ export default async function Profile() {
         <ProfileName customer={customer} />
         <ProfileEmail customer={customer} />
         <ProfilePhone customer={customer} />
-        <ProfileBillingAddress customer={customer} regions={regions} />
+        {/* <ProfileBillingAddress customer={customer} regions={regions} /> */}
       </div>
     </div>
   )
