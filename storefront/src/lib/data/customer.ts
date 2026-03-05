@@ -36,7 +36,6 @@ export const retrieveCustomer =
           fields: "*orders, *addresses",
         },
         headers,
-        next,
         cache: "no-store",
       })
       .then(({ customer }) => customer)
