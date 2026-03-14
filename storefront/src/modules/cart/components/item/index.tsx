@@ -33,7 +33,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
       quantity,
     })
       .catch((err) => {
-        setError('Product niet meer in voorraad.')
+        setError("Product niet meer in voorraad.")
       })
       .finally(() => {
         setUpdating(false)
@@ -45,28 +45,42 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
   if (type === "preview") {
     return (
-      <div className="flex items-center gap-x-3 py-3">
-        <LocalizedClientLink
-          href={`/products/${item.product_handle}`}
-          className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
-        >
-          <Thumbnail
-            thumbnail={item.thumbnail}
-            images={item.variant?.product?.images}
-            size="square"
-          />
-        </LocalizedClientLink>
-        <div className="flex-1 min-w-0">
-          <Text className="text-sm font-medium text-gray-900 truncate" data-testid="product-title">
-            {item.product_title}
-          </Text>
-          <LineItemOptions variant={item.variant} data-testid="product-variant" />
-        </div>
-        <div className="flex flex-col items-end flex-shrink-0">
+      <tr key={item.id}>
+        <td className="py-3 px-4">
+          <div className="flex items-center gap-x-3">
+            <LocalizedClientLink
+              href={`/products/${item.product_handle}`}
+              className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
+            >
+              <Thumbnail
+                thumbnail={item.thumbnail}
+                images={item.variant?.product?.images}
+                size="square"
+              />
+            </LocalizedClientLink>
+            <div className="flex-1 min-w-0">
+              <Text
+                className="text-sm font-medium text-gray-900 truncate"
+                data-testid="product-title"
+              >
+                {item.product_title}
+              </Text>
+              <LineItemOptions
+                variant={item.variant}
+                data-testid="product-variant"
+              />
+            </div>
+          </div>
+        </td>
+        <td className="py-3 px-4 text-right">
           <span className="text-xs text-gray-500">{item.quantity}x</span>
-          <LineItemPrice item={item} style="tight" currencyCode={currencyCode} />
-        </div>
-      </div>
+          <LineItemPrice
+            item={item}
+            style="tight"
+            currencyCode={currencyCode}
+          />
+        </td>
+      </tr>
     )
   }
 
@@ -136,8 +150,18 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   className="w-9 h-9 flex items-center justify-center text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Verlaag aantal"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M20 12H4" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M20 12H4"
+                    />
                   </svg>
                 </button>
                 <span
@@ -156,8 +180,18 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   className="w-9 h-9 flex items-center justify-center text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Verhoog aantal"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4v16m8-8H4"
+                    />
                   </svg>
                 </button>
               </div>

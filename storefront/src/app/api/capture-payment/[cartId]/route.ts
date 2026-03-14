@@ -26,6 +26,8 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     (payment) => payment.data.id === paymentIntent
   )
 
+console.log('redirect', redirectStatus)
+
   if (
     !paymentSession ||
     paymentSession.data.client_secret !== paymentIntentClientSecret ||
@@ -33,13 +35,13 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
     !["pending", "authorized"].includes(paymentSession.status)
   ) {
     return redirect(
-      `${origin}/${countryCode}/checkout/return`
+      `${origin}/${countryCode}/checkout/return?cart_id=${cartId}&redirect-status=${redirectStatus}`
     )
   }
 
   const order = await placeOrder(cartId)
 
   return NextResponse.redirect(
-    `${origin}/${countryCode}/order/${order.id}/confirmed`
+    `${origin}/${countryCode}/order/confirmed/${order.id}`
   )
 }

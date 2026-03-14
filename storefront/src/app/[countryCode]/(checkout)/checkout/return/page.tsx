@@ -4,22 +4,38 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { sdk } from "@lib/config"
+import { placeOrder } from "@lib/data/cart"
 
 export default function PaymentReturnPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const cartId = searchParams.get("cart_id")
+  const redirect_status = searchParams.get("redirect-status")
   const paymentIntent = searchParams.get("payment_intent") // optioneel, als je dit meestuurt
 
-  const [status, setStatus] = useState<"checking" | "success" | "failed" | "timeout">("checking")
-  const [message, setMessage] = useState("We controleren je betaling... even geduld aub.")
+  const [status, setStatus] = useState<
+    "checking" | "success" | "failed" | "timeout"
+  >("checking")
+  const [message, setMessage] = useState(
+    "We controleren je betaling... even geduld aub."
+  )
 
   useEffect(() => {
+    if (redirect_status === "failed") {
+      setStatus("failed")
+      setMessage(
+        "Er ging iets mis met de betaling. Je wordt terug naar de winkelwagen gestuurd."
+      )
+      setTimeout(
+        () => router.push("/checkout?error=payment_issue&step=payment"),
+        4000
+      )
+    }
     if (!cartId) {
       setStatus("failed")
-      setMessage("Ongeldige terugkeer – u wordt nu doorgestuurd naar de winkelwagen. Probeer opnieuw vanuit de winkelwagen.")
-      setTimeout(() => router.push("/nl/checkout?step=payment"), 4000)
+      setMessage("Fout in afhandeling betaling. Neem contact op.")
+      setTimeout(() => router.push("/nl/"), 8000)
       return
     }
 
@@ -29,29 +45,45 @@ export default function PaymentReturnPage() {
 
     const poll = async () => {
       try {
-        const { cart } = await sdk.store.cart.retrieve(cartId)
+        const res = await fetch(`/api/cart-status/${cartId}`)
+        const { cart } = await res.json()
 
         // Check of payment session authorized/captured is
-        const paymentSession = cart.payment_sessions?.find(
-          (s) => s.status === "authorized" || s.status === "captured"
+        const paymentSession = ["authorized", "captured", "completed"].includes(
+          cart.payment_collection.status
         )
+        const paymentSession2 = cart.payment_collection.status
+        console.log("paymentsession", paymentSession, paymentSession2)
 
         if (paymentSession) {
           setStatus("success")
           setMessage("Betaling succesvol! Je wordt doorgestuurd...")
-          
+
           // Optioneel: complete cart als dat nog niet gebeurd is (soms nodig bij manual capture)
           // await medusaClient.carts.complete(cartId)
-          
+          const order = await placeOrder(cartId)
+
           setTimeout(() => {
-            router.push(`/order-confirmed/${cart.order_id || cart.id}`)
+            router.push(`/order/confirmed/${order.id}`)
           }, 1500)
           return
         }
 
         // Gefaald?
-        if (cart.payment_sessions?.some((s) => ["error", "canceled", "requires_payment_method"].includes(s.status))) {
-          throw new Error("payment failed")
+
+        if (
+          ["error", "canceled", "requires_payment_method"].includes(
+            cart.payment_collection.status
+          )
+        ) {
+          setStatus("failed")
+          setMessage(
+            "Er ging iets mis met de betaling. Je wordt terug naar de winkelwagen gestuurd."
+          )
+          setTimeout(
+            () => router.push("/checkout?error=payment_issue&step=payment"),
+            4000
+          )
         }
 
         // Nog niet klaar → volgende poging
@@ -59,14 +91,18 @@ export default function PaymentReturnPage() {
           setTimeout(poll, intervalMs)
         } else {
           setStatus("timeout")
-          setMessage("Het duurt langer dan verwacht. Controleer je order status later in je account.")
-          setTimeout(() => router.push("/account/orders"), 5000)
+          setMessage(
+            "Het duurt langer dan verwacht. Controleer je order status later in je account."
+          )
+          // setTimeout(() => router.push("/account/orders"), 5000)
         }
       } catch (err) {
         console.error(err)
         setStatus("failed")
-        setMessage("Er ging iets mis met de betaling. Je wordt terug naar de winkelwagen gestuurd.")
-        setTimeout(() => router.push("/checkout?error=payment_issue"), 4000)
+        setMessage(
+          "Er ging iets mis met de betaling. Je wordt terug naar de winkelwagen gestuurd."
+        )
+        // setTimeout(() => router.push("/checkout?error=payment_issue&step=payment"), 4000)
       }
     }
 
@@ -80,7 +116,11 @@ export default function PaymentReturnPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-6"></div>
         )}
         <h1 className="text-2xl font-bold mb-4">
-          {status === "success" ? "Gelukt!" : status === "failed" || status === "timeout" ? "Oeps..." : "Even geduld..."}
+          {status === "success"
+            ? "Gelukt!"
+            : status === "failed" || status === "timeout"
+            ? "Oeps..."
+            : "Even geduld..."}
         </h1>
         <p className="text-gray-600">{message}</p>
       </div>

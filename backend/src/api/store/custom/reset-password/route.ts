@@ -5,7 +5,7 @@ import { Modules } from "@medusajs/framework/utils"
 // src/api/store/custom/reset-password/route.ts
 export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
     const { email } = req.body as { email: string }
-    // console.log("Received password reset request for email:", email)
+    console.log("Received password reset request for email:", email)
     if (!email) {
         return res.status(400).json({ message: "Email is required" })
     }
@@ -20,7 +20,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
         entity_id: email
     })
 
-    // console.log("Provider identities found:", providerIdentities.length)
+    console.log("Provider identities found:", providerIdentities.length)
 
     if (providerIdentities.length > 0) {
         authIdentity = await authModuleService.retrieveAuthIdentity(
@@ -30,10 +30,10 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
         // Geen identity → check customer
         const [customer] = await customerModule.listCustomers({ email })
 
-        // console.log(customer)
+        console.log(customer)
         if (!customer) {
             // Privacy: altijd succes melden
-            return res.status(200).json({ message: "If an account exists, a reset email was sent." })
+            return res.status(500).json({ message: "Customer doesn't exist." })
         }
 
         // Maak nieuwe AuthIdentity (zonder password)
