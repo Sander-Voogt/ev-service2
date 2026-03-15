@@ -17,5 +17,7 @@ export default async function Cart() {
 
   const customer = await retrieveCustomer()
 
+  console.log(cart,customer)
+
   return <CartTemplate cart={cart} customer={customer} />
 }
