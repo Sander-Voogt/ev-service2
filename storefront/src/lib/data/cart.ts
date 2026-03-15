@@ -14,6 +14,7 @@ import {
   setCartId,
 } from "./cookies"
 import { getRegion } from "./regions"
+import { omit } from "lodash"
 import { getProductsById } from "./products"
 
 /**
