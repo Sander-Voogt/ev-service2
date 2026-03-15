@@ -7,13 +7,13 @@ import { HttpTypes } from "@medusajs/types"
 
 const countryMapping = [
   {
-    iso: 'nl',
-    name: 'Nederland'
+    iso: "nl",
+    name: "Nederland",
   },
-    {
-    iso: 'be',
-    name: 'Belgie'
-  }
+  {
+    iso: "be",
+    name: "Belgie",
+  },
 ]
 
 const CountrySelect = forwardRef<
@@ -36,7 +36,7 @@ const CountrySelect = forwardRef<
 
     return region.countries?.map((country) => ({
       value: country.iso_2,
-      label: countryMapping.find(i => i.iso == country.iso_2)?.name,
+      label: countryMapping.find((i) => i.iso == country.iso_2)?.name,
     }))
   }, [region])
 
@@ -44,7 +44,7 @@ const CountrySelect = forwardRef<
     <NativeSelect
       ref={innerRef}
       placeholder={placeholder}
-      defaultValue={defaultValue}
+      defaultValue={defaultValue ?? "nl"}
       {...props}
     >
       {countryOptions?.map(({ value, label }, index) => (
