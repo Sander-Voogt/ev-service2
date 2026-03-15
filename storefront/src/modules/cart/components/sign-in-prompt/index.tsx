@@ -3,7 +3,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 
 const SignInPrompt = () => {
   return (
-    <div className="bg-white flex items-center justify-between">
+    <div className="bg-[#f9fafb] flex items-center justify-between">
       <div>
         <Heading level="h2" className="txt-xlarge">
           Heeft u al een account?

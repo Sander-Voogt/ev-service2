@@ -152,7 +152,7 @@ const CartDropdown = ({
                                 </span>
                               </div>
                               <div className="flex justify-end">
-                                <LineItemPrice item={item} style="tight" />
+                                <LineItemPrice item={item} style="tight" currencyCode={cartState.currency_code} />
                               </div>
                             </div>
                           </div>
