@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import './style.css'
 // 1. Statische Padgeneratie (Next.js generateStaticParams)
 // Dit zorgt ervoor dat Next.js alle hoofdcategorie-pagina's kent voor de build.
+export const dynamic = "force-static";
 export async function generateStaticParams() {
   const categories = await getInfoPages();
 

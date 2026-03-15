@@ -96,7 +96,7 @@ const Review = ({ cart }: { cart: any }) => {
               </svg>
               Bij het plaatsen van uw bestelling gaat u akkoord met onze{" "}
               <LocalizedClientLink
-                href="/algemene-voorwaarden"
+                href="/pagina/algemene-voorwaarden"
                 className="text-blue-700 underline hover:text-blue-900 font-medium"
               >
                 algemene voorwaarden

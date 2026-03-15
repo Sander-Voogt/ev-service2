@@ -104,7 +104,7 @@ const Register = ({ setCurrentView }: Props) => {
           </LocalizedClientLink>{" "}
           en{" "}
           <LocalizedClientLink
-            href="/algemene-voorwaarden"
+            href="/pagina/algemene-voorwaarden"
             className="text-gray-900 hover:underline"
           >
             Algemene voorwaarden
