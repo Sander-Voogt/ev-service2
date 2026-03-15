@@ -126,12 +126,18 @@ export default function ProductActions({
 
     setIsAdding(true)
 
-    await addToCart({
-      variantId: selectedVariant.id,
-      quantity: 1,
-      countryCode,
-    })
-    dispatchCartUpdated()
+   try {
+      await addToCart({
+        variantId: selectedVariant.id,
+        quantity: 1,
+        countryCode,
+      })
+    } catch (error: any) {
+      const cleanedMessage = error.message.replace(
+        /^Error setting up the request:\s*/,
+        ""
+      )
+    }
 
     setIsAdding(false)
   }
