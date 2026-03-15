@@ -16,49 +16,37 @@ import { onCartUpdated, dispatchCartUpdated } from "@lib/events"
  * @param cartId - optional - The ID of the cart to retrieve.
  * @returns The cart object if found, or null if not found.
  */
-// export async function retrieveCart(cartId?: string, fields?: string) {
-//   const id = cartId || (await getCartId())
-//   fields ??= "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
+export async function retrieveCart(cartId?: string, fields?: string) {
+  const id = cartId || (await getCartId())
+  console.log('cartid', id)
+  fields ??= "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
 
-//   if (!id) {
-//     return null
-//   }
-
-//   const headers = {
-//     ...(await getAuthHeaders()),
-//   }
-
-//   const next = {
-//     ...(await getCacheOptions("carts")),
-//   }
-
-//   return await sdk.client
-//     .fetch<HttpTypes.StoreCartResponse>(`/store/carts/${id}`, {
-//       method: "GET",
-//       query: {
-//         fields
-//       },
-//       headers,
-//       next,
-//       cache: "force-cache",
-//     })
-//     .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
-//     .catch(() => null)
-// }
-
-export async function retrieveCart(cartId?: string,) {
-const id = cartId || (await getCartId())
-  if (!cartId) {
+  if (!id) {
     return null
   }
 
-  return await sdk.store.cart
-    .retrieve(cartId, {}, { next: { tags: ["cart"] }, ...await getAuthHeaders() })
-    .then(({ cart }) => cart)
-    .catch(() => {
-      return null
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  const next = {
+    ...(await getCacheOptions("carts")),
+  }
+
+  return await sdk.client
+    .fetch<HttpTypes.StoreCartResponse>(`/store/carts/${id}`, {
+      method: "GET",
+      query: {
+        fields
+      },
+      headers,
+      next,
+      cache: "force-cache",
     })
+    .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
+    .catch(() => null)
 }
+
 
 export async function getOrSetCart(countryCode: string) {
   let cart = await retrieveCart()
