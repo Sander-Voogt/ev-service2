@@ -37,13 +37,13 @@ export default async function Nav() {
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
               <NavSub />
               <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
-                <div className="relative">
+                {/* <div className="relative">
                   <IconCart />
-                </div>
+                </div> */}
                 <div className="flex flex-col ml-1">
-                  <span className="text-xs font-semibold text-green-900">
+                  {/* <span className="text-xs font-semibold text-green-900">
                     Winkelwagen
-                  </span>
+                  </span> */}
                   <span className="text-xs text-green-default font-bold">
                    
                       <CartButton />

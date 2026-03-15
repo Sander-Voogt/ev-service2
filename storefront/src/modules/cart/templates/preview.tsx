@@ -29,7 +29,7 @@ const ItemsPreviewTemplate = ({ items }: ItemsTemplateProps) => {
                   return (a.created_at ?? "") > (b.created_at ?? "") ? -1 : 1
                 })
                 .map((item) => {
-                  return <Item key={item.id} item={item} type="preview" />
+                  return <Item key={item.id} item={item} type="preview" currencyCode="eur"/>
                 })
             : repeat(5).map((i) => {
                 return <SkeletonLineItem key={i} />

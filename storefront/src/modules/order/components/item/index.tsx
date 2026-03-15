@@ -19,7 +19,7 @@ type ItemProps = {
   currencyCode: string
 }
 
-const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
+const Item = ({ item, type = "full", currencyCode = 'eur' }: ItemProps) => {
   console.log("rendering item", item)
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)

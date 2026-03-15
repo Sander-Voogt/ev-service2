@@ -14,12 +14,12 @@ const LineItemPrice = ({
   style = "default",
   currencyCode,
 }: LineItemPriceProps) => {
-  const { subtotal, original_subtotal } = item
-  const originalPrice = original_subtotal
-  const currentPrice = subtotal
+  const { total, original_total } = item
+  const originalPrice = original_total
+  const currentPrice = total
   const hasReducedPrice = currentPrice < originalPrice
 
-  console.log(originalPrice, currentPrice, "prices in line item price")
+  console.log(item, originalPrice, currentPrice, "prices in linenn item price")
   return (
     <div className="flex flex-col gap-x-2 text-ui-fg-subtle items-end">
       <div className="text-left">
