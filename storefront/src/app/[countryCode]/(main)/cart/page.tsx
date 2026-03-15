@@ -1,34 +1,21 @@
-import { Metadata } from "next"
+import { retrieveCart } from "@lib/data/cart"
+import { retrieveCustomer } from "@lib/data/customer"
 import CartTemplate from "@modules/cart/templates"
-
-import { enrichLineItems, retrieveCart } from "@lib/data/cart"
-import { HttpTypes } from "@medusajs/types"
-import { getCustomer } from "@lib/data/customer"
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Winkelwagen",
-  description: "Bekijk uw winkelwagen",
-}
-
-const fetchCart = async () => {
-  const cart = await retrieveCart()
-
-  if (!cart) {
-    return null
-  }
-
-  if (cart?.items?.length) {
-    const enrichedItems = await enrichLineItems(cart?.items, cart?.region_id!)
-    cart.items = enrichedItems as HttpTypes.StoreCartLineItem[]
-  }
-
-  return cart
+  description: "Bekijk de artikelen in uw winkelwagen",
 }
 
 export default async function Cart() {
-  const cart = await fetchCart()
+  const cart = await retrieveCart().catch((error) => {
+    console.error(error)
+    return notFound()
+  })
 
-  const customer = await getCustomer()
+  const customer = await retrieveCustomer()
 
   return <CartTemplate cart={cart} customer={customer} />
 }
