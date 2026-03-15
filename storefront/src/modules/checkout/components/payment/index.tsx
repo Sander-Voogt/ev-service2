@@ -80,7 +80,7 @@ const Payment = ({
   }
 
   const handlePaymentMethodChange = async (value: string) => {
-    console.log('betaalmethode wijziging:',value)
+    console.log("betaalmethode wijziging:", value)
     setSelectedPaymentMethod(value)
     setError(null)
 
@@ -209,7 +209,7 @@ const Payment = ({
     selectedPaymentMethod !== "" &&
     stripeReady
 
-  console.log(availablePaymentMethods)
+  console.log(availablePaymentMethods, filteredPaymentMethods)
 
   return (
     <div>
@@ -269,26 +269,13 @@ const Payment = ({
           {!paidByGiftcard && filteredPaymentMethods?.length > 0 && (
             <>
               {/* Toon radio group alleen als er meerdere betaalmethoden zijn */}
-              {filteredPaymentMethods.length > 1 && filteredPaymentMethods.find(m => m.id === 'pp_stripe_stripe') ? (
+              {filteredPaymentMethods.length == 1 &&
+              filteredPaymentMethods.find(
+                (m) => m.id === "pp_stripe_stripe"
+              ) ? (
+                <></>
+              ) : (
                 <div className="mb-5">
-                  <RadioGroup
-                    value={selectedPaymentMethod}
-                    onChange={handlePaymentMethodChange}
-                  >
-                    {filteredPaymentMethods
-                      .sort((a, b) => (a.id > b.id ? 1 : -1))
-                      .map((paymentMethod) => (
-                        <PaymentContainer
-                          paymentInfoMap={paymentInfoMap}
-                          paymentProviderId={paymentMethod.id}
-                          key={paymentMethod.id}
-                          selectedPaymentOptionId={selectedPaymentMethod}
-                        />
-                      ))}
-                  </RadioGroup>
-                </div>
-              ): (
-                 <div className="mb-5">
                   <RadioGroup
                     value={selectedPaymentMethod}
                     onChange={handlePaymentMethodChange}
@@ -314,6 +301,14 @@ const Payment = ({
                     onChange={handlePaymentElementChange}
                     options={{
                       layout: "accordion",
+                      terms: {
+                        ideal: "never",
+                      },
+                      fields: {
+                        billingDetails: {
+                          name: "never",
+                        },
+                      },
                     }}
                   />
                 </div>

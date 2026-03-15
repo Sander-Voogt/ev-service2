@@ -33,7 +33,8 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
       quantity,
     })
       .catch((err) => {
-        setError("Product niet meer in voorraad.")
+        console.log(err)
+        setError('Extra product niet meer in voorraad of limiet van product per winkelwagen bereikt. Neem contact op met info@richolland.nl als u meer van dit product wilt bestellen.')
       })
       .finally(() => {
         setUpdating(false)
@@ -45,42 +46,38 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
   if (type === "preview") {
     return (
-      <tr key={item.id}>
-        <td className="py-3 px-4">
-          <div className="flex items-center gap-x-3">
-            <LocalizedClientLink
-              href={`/products/${item.product_handle}`}
-              className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
-            >
-              <Thumbnail
-                thumbnail={item.thumbnail}
-                images={item.variant?.product?.images}
-                size="square"
-              />
-            </LocalizedClientLink>
-            <div className="flex-1 min-w-0">
-              <Text
-                className="text-sm font-medium text-gray-900 truncate"
-                data-testid="product-title"
-              >
-                {item.product_title}
-              </Text>
-              <LineItemOptions
-                variant={item.variant}
-                data-testid="product-variant"
-              />
-            </div>
-          </div>
-        </td>
-        <td className="py-3 px-4 text-right">
+      <div className="flex items-center gap-x-3 py-3">
+        <LocalizedClientLink
+          href={`/products/${item.product_handle}`}
+          className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
+        >
+          <Thumbnail
+            thumbnail={item.thumbnail}
+            images={item.variant?.product?.images}
+            size="square"
+          />
+        </LocalizedClientLink>
+        <div className="flex-1 min-w-0">
+          <Text
+            className="text-sm font-medium text-gray-900 truncate"
+            data-testid="product-title"
+          >
+            {item.product_title}
+          </Text>
+          <LineItemOptions
+            variant={item.variant}
+            data-testid="product-variant"
+          />
+        </div>
+        <div className="flex flex-col items-end flex-shrink-0">
           <span className="text-xs text-gray-500">{item.quantity}x</span>
           <LineItemPrice
             item={item}
             style="tight"
             currencyCode={currencyCode}
           />
-        </td>
-      </tr>
+        </div>
+      </div>
     )
   }
 
