@@ -1,5 +1,6 @@
 import React from "react"
 import AccountNav from "../components/account-nav"
+import Button from "@modules/common/components/button"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
@@ -15,7 +16,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   // If no customer, render a simple centered layout for login/register
   if (!customer) {
     return (
-      <div className="bg-gray-50 min-h-[80vh]" data-testid="account-page">
+      <div className="bg-white" data-testid="account-page">
         {children}
       </div>
     )
@@ -54,13 +55,13 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <LocalizedClientLink
               href="/faq"
-              className="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center px-3 py-1.5 text-sm border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-medium rounded-lg transition-all duration-200"
             >
               FAQ
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/contact"
-              className="px-4 py-2 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-lg transition-all duration-200"
             >
               Contact
             </LocalizedClientLink>

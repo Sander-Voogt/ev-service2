@@ -8,11 +8,11 @@ import {
 } from "@headlessui/react"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@medusajs/ui"
 import DeleteButton from "@modules/common/components/delete-button"
 import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Button from "@modules/common/components/button"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { usePathname } from "next/navigation"
 import { Fragment, useEffect, useRef, useState } from "react"
@@ -209,8 +209,9 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full h-12 bg-gray-900 hover:bg-gray-800 text-white font-semibold uppercase tracking-wide rounded-lg transition-colors"
-                      size="large"
+                      variant="primary"
+                      size="md"
+                      fullWidth
                       data-testid="go-to-cart-button"
                     >
                       Winkelwagen bekijken
@@ -234,7 +235,7 @@ const CartDropdown = ({
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Ga naar de winkel</span>
-                        <Button onClick={close} className="bg-gray-900 hover:bg-gray-800 text-white font-semibold px-8 rounded-lg">Producten bekijken</Button>
+                        <Button onClick={close} variant="primary" size="md">Producten bekijken</Button>
                       </>
                     </LocalizedClientLink>
                   </div>

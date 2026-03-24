@@ -76,14 +76,14 @@ export default function LanguageDropdown() {
   }
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left z-40">
       <button
         ref={buttonRef}
         type="button"
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((s) => !s)}
-        className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 bg-white text-sm font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 bg-white text-sm font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 relative z-40"
       >
         <Flag code={current.code} />
         <span className="min-w-[72px] text-left">{current.label}</span>
@@ -112,7 +112,7 @@ export default function LanguageDropdown() {
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="language-menu"
-          className="absolute right-0 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md border bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-[9999]"
+          className="absolute right-0 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-xl ring-2 ring-gray-300 focus:outline-none z-40"
         >
           <div className="py-1">
             {languages.map((lang) => (
@@ -120,8 +120,8 @@ export default function LanguageDropdown() {
                 key={lang.code}
                 type="button"
                 onClick={() => handleSelect(lang.code)}
-                className={`flex w-full items-center gap-3 px-4 py-2 text-sm text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none ${
-                  lang.code === current.code ? "font-semibold" : ""
+                className={`flex w-full items-center gap-3 px-4 py-2 text-sm text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ${
+                  lang.code === current.code ? "font-semibold bg-gray-100" : ""
                 }`}
               >
                 <Flag code={lang.code} />

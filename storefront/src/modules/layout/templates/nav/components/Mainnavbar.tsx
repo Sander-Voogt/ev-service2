@@ -50,11 +50,11 @@ export default function MainNavBar() {
   return (
     <>
       <div className="flex items-center">
-        {/* Mobile menu button, visible only on mobile */}
+        {/* Mobile & Tablet menu button, visible only on mobile and tablet */}
         <button
           onClick={() => setIsMobileMenuOpen(true)}
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50 shrink-0"
-          aria-label="Open mobile menu"
+          className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-green-50 shrink-0 transition-all duration-200"
+          aria-label="Open navigation menu"
         >
           <IconHamburger />
         </button>
@@ -67,13 +67,13 @@ export default function MainNavBar() {
       <div
         className={`fixed inset-0 z-[90] bg-black bg-opacity-50 transition-opacity duration-300 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        } md:hidden`}
+        } lg:hidden`}
         onClick={() => setIsMobileMenuOpen(false)}
       ></div>
       <div
         className={`fixed top-0 left-0 w-[85%] max-w-sm h-full z-[100] bg-white transform transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } md:hidden`}
+        } lg:hidden`}
       >
         <MobileNavBar onClose={() => setIsMobileMenuOpen(false)} />
       </div>
@@ -82,7 +82,7 @@ export default function MainNavBar() {
 }
 
 const Navbar = () => (
-  <nav className="hidden md:flex items-center gap-8">
+  <nav className="hidden lg:flex items-center gap-8">
     <LocalizedClientLink href="/auto" className={navLink}>
       Automerken
     </LocalizedClientLink>

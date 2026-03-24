@@ -1,7 +1,8 @@
-import { Button, Text } from "@medusajs/ui"
+import { Text } from "@medusajs/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Button from "@modules/common/components/button"
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "./price"
 import { getProductsById } from "@lib/data/products"
@@ -33,54 +34,43 @@ export default async function ProductPreview({
   return (
     <LocalizedClientLink
       href={`/products/${product.handle}`}
-      className="group"
-      // onClick={() =>
-      //   sendGTMEvent({
-      //     event: "view_item",
-      //     ecommerce: {
-      //       currency: "EUR",
-      //       value: cheapestPrice,
-      //       items: [
-      //         {
-      //           item_id: product?.variants[0].sku,
-      //           item_name: product.title,
-      //           price: cheapestPrice,
-      //           quantity: 1,
-      //           item_variant: product?.variants[0].title,
-      //         },
-      //       ],
-      //     },
-      //   })
-      // }
+      className="group block"
     >
       <div
         data-testid="product-wrapper"
-        className="border border-solid border-gray bg-green-50 p-4"
+        className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-emerald-500"
       >
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="square"
-          isFeatured={isFeatured}
-        />
-        <div className="flex flex-col txt-compact-medium mt-4 justify-between">
-          <Text
-            className="text-ui-fg-subtle text-lg font-semibold"
-            data-testid="product-title"
-          >
-            {product.title}
-          </Text>
-          <div className="flex text-lg items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          </div>
+        <div className="aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 relative">
+          <Thumbnail
+            thumbnail={product.thumbnail}
+            images={product.images}
+            size="square"
+            isFeatured={isFeatured}
+          />
+          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"></div>
         </div>
-        <Button
-          variant="primary"
-          className="w-full h-10 mt-4"
-          data-testid="add-product-button"
-        >
-          Bekijken
-        </Button>
+        <div className="p-5">
+          <div className="flex flex-col gap-3">
+            <Text
+              className="text-gray-900 text-lg font-semibold group-hover:text-emerald-700 transition-colors duration-200"
+              data-testid="product-title"
+            >
+              {product.title}
+            </Text>
+            <div className="flex items-center gap-x-2 text-lg font-semibold text-emerald-700">
+              {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="mt-4"
+            data-testid="add-product-button"
+          >
+            Bekijken
+          </Button>
+        </div>
       </div>
     </LocalizedClientLink>
   )

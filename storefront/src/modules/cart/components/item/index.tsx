@@ -11,6 +11,7 @@ import LineItemUnitPrice from "@modules/common/components/line-item-unit-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Spinner from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
+import Button from "@modules/common/components/button"
 import { useState } from "react"
 
 type ItemProps = {
@@ -137,15 +138,17 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               </div>
             ) : (
               <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                <button
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => {
                     if (item.quantity > 1) {
                       changeQuantity(item.quantity - 1)
                     }
                   }}
                   disabled={item.quantity <= 1}
-                  className="w-9 h-9 flex items-center justify-center text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Verlaag aantal"
+                  className="border-r border-gray-200"
                 >
                   <svg
                     className="w-4 h-4"
@@ -160,22 +163,24 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                       d="M20 12H4"
                     />
                   </svg>
-                </button>
+                </Button>
                 <span
                   className="w-10 h-9 flex items-center justify-center text-sm font-semibold text-gray-900 border-x border-gray-200 bg-gray-50"
                   data-testid="product-quantity"
                 >
                   {item.quantity}
                 </span>
-                <button
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => {
                     if (item.quantity < maxQuantity) {
                       changeQuantity(item.quantity + 1)
                     }
                   }}
                   disabled={item.quantity >= maxQuantity}
-                  className="w-9 h-9 flex items-center justify-center text-gray-600 hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   aria-label="Verhoog aantal"
+                  className="border-l border-gray-200"
                 >
                   <svg
                     className="w-4 h-4"
@@ -190,7 +195,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                       d="M12 4v16m8-8H4"
                     />
                   </svg>
-                </button>
+                </Button>
               </div>
             )}
           </div>

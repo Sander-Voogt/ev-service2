@@ -1,7 +1,8 @@
 "use client"
 
-import { Button, Heading } from "@medusajs/ui"
+import { Heading } from "@medusajs/ui"
 
+import Button from "@modules/common/components/button"
 import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
 import DiscountCode from "@modules/checkout/components/discount-code"
@@ -40,10 +41,11 @@ const Summary = ({ cart }: SummaryProps) => {
         href={"/checkout?step=" + step}
         data-testid="checkout-button"
       >
-        <Button className="w-full h-10">Afrekenen</Button>
-        <Divider />
-
+        <Button variant="primary" size="md" fullWidth>
+          Afrekenen
+        </Button>
       </LocalizedClientLink>
+      <Divider />
     </div>
   )
 }

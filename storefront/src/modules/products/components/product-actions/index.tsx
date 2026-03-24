@@ -1,12 +1,12 @@
 "use client"
 
-import { Button } from "@medusajs/ui"
 import { isEqual } from "lodash"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { useIntersection } from "@lib/hooks/use-in-view"
 import Divider from "@modules/common/components/divider"
+import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 
 import MobileActions from "./mobile-actions"
@@ -144,8 +144,8 @@ export default function ProductActions({
 
   return (
     <>
-      <aside className="border rounded-xl p-5 bg-green-50 h-fit">
-        <h3 className="font-semibold text-lg mb-4">Kies je opties</h3>
+      <aside className="border border-gray-200 p-6 bg-white h-fit">
+        <h3 className="font-semibold text-lg mb-5 text-gray-900">Kies je opties</h3>
 
         <div>
           {(product.variants?.length ?? 0) > 1 && (
@@ -172,10 +172,11 @@ export default function ProductActions({
         <ProductPrice product={product} variant={selectedVariant} />
 
         <Button
+          variant="primary"
+          size="md"
+          fullWidth
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
-          // variant="primary"
-          className="bg-green-600 hover:bg-green-700 text-white font-medium w-full py-3 rounded-lg"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -186,13 +187,25 @@ export default function ProductActions({
             : "In winkelwagen"}
         </Button>
 
-        <ul className="text-xs text-gray-600 mt-4 space-y-1">
-          <li>⭐ Klanten beoordelen ons met 9.0</li>
-          <li>🚚 Gratis verzending vanaf €100,-</li>
-          <li>🔄 30 dagen retourrecht</li>
-          <li>🛡️ Minimaal 2 jaar garantie</li>
+        <ul className="text-xs text-gray-700 mt-5 space-y-2">
+          <li className="flex items-center gap-2">
+            <span>⭐</span>
+            <span>Klanten beoordelen ons met 9.0</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span>🚚</span>
+            <span>Gratis verzending vanaf €100,-</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span>🔄</span>
+            <span>30 dagen retourrecht</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span>🛡️</span>
+            <span>Minimaal 2 jaar garantie</span>
+          </li>
         </ul>
-        {/* <MobileActions
+        <MobileActions
           product={product}
           variant={selectedVariant}
           options={options}
@@ -202,7 +215,7 @@ export default function ProductActions({
           isAdding={isAdding}
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
-        /> */}
+        />
       </aside>
     </>
   )

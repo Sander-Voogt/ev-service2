@@ -1,8 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Button, clx } from "@medusajs/ui"
+import { clx } from "@medusajs/ui"
 import React, { Fragment, useMemo } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
+import Button from "@modules/common/components/button"
 import ChevronDown from "@modules/common/icons/chevron-down"
 import X from "@modules/common/icons/x"
 
@@ -67,14 +68,14 @@ const MobileActions: React.FC<MobileActionsProps> = ({
           leaveTo="opacity-0"
         >
           <div
-            className="bg-white flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-gray-200"
+            className="bg-white flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-gray-200 shadow-lg"
             data-testid="mobile-actions"
           >
             <div className="flex items-center gap-x-2">
-              <span data-testid="mobile-title">{product.title}</span>
+              <span data-testid="mobile-title" className="font-semibold text-gray-900">{product.title}</span>
               <span>—</span>
               {selectedPrice ? (
-                <div className="flex items-end gap-x-2 text-ui-fg-base">
+                <div className="flex items-end gap-x-2 text-gray-900 font-semibold">
                   {selectedPrice.price_type === "sale" && (
                     <p>
                       <span className="line-through text-small-regular">
@@ -84,7 +85,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   )}
                   <span
                     className={clx({
-                      "text-ui-fg-interactive":
+                      "text-rose-600":
                         selectedPrice.price_type === "sale",
                     })}
                   >
@@ -97,9 +98,9 @@ const MobileActions: React.FC<MobileActionsProps> = ({
             </div>
             <div className="grid grid-cols-2 w-full gap-x-4">
               <Button
-                onClick={open}
                 variant="secondary"
-                className="w-full"
+                size="md"
+                onClick={open}
                 data-testid="mobile-actions-button"
               >
                 <div className="flex items-center justify-between w-full">
@@ -112,9 +113,10 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 </div>
               </Button>
               <Button
+                variant="primary"
+                size="md"
                 onClick={handleAddToCart}
                 disabled={!inStock || !variant}
-                className="w-full"
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >

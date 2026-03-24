@@ -53,31 +53,21 @@ export default async function Footer() {
     });
 
   return (
-    <footer className="w-full bg-white text-green-900 border-t border-green-100 mt-20">
+    <footer className="w-full bg-white text-green-900 border-t border-green-100">
       <div className="max-w-screen-xl mx-auto px-4 py-12 md:py-16">
         {/* Desktop grid */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-green-100">
           {/* Company Info / Logo */}
           <div className="flex flex-col items-start gap-4 pr-8">
-            <Logo />
-            {/* <p className="text-sm text-green-700 mt-2">
-              Your partner in sustainable e-mobility. We offer a comprehensive
-              range of charging solutions and expert advice for your electric
-              vehicle.
-            </p> */}
+            <div className="transform hover:scale-105 transition-transform duration-200">
+              <Logo />
+            </div>
             <div className="flex flex-col gap-2 mt-4">
-              {/* <a
-                href="tel:0851304170"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
-              >
-                <IconPhone />
-                <span>085 130 4170</span>
-              </a> */}
               <a
                 href="mailto:klantenservice@evservice.eu"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-all duration-200 hover:translate-x-1 group"
               >
-                <IconMail />
+                <IconMail className="group-hover:scale-110 transition-transform duration-200" />
                 <span>klantenservice@evservice.eu</span>
               </a>
             </div>
@@ -87,28 +77,28 @@ export default async function Footer() {
             <span className="font-bold text-lg mb-4 block">Klantenservice</span>
             <ul className="space-y-2 text-sm">
               <li>
-                <LocalizedClientLink href="#about" className={navLink}>
+                <LocalizedClientLink href="#about" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Over EV Service
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#faq" className={navLink}>
+                <LocalizedClientLink href="#faq" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Veel gestelde vragen
                 </LocalizedClientLink>
               </li>
 
               <li>
-                <LocalizedClientLink href="#returns" className={navLink}>
+                <LocalizedClientLink href="#returns" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Retourneren
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="/blog" className={navLink}>
+                <LocalizedClientLink href="/blog" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Blog
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#contact" className={navLink}>
+                <LocalizedClientLink href="#contact" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Contact
                 </LocalizedClientLink>
               </li>
@@ -194,30 +184,51 @@ export default async function Footer() {
         {/* Bottom section with social media and payment icons */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8">
           {/* Social Media */}
-          <div className="flex items-center gap-4 text-sm text-green-700">
+          <div className="flex items-center gap-3">
             <a
-              href="#facebook"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 transition-colors"
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
+              title="Follow us on Facebook"
             >
-              f
+              <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
             </a>
             <a
-              href="#linkedin"
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 transition-colors"
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
+              title="Follow us on LinkedIn"
             >
-              in
+              <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.006 1.419-.103.249-.129.597-.129.946v5.44h-3.562s.048-8.811 0-9.728h3.562v1.381c.43-.666 1.199-1.616 2.922-1.616 2.135 0 3.753 1.395 3.753 4.402v5.561zM5.337 8.855c-1.144 0-1.915-.758-1.915-1.706 0-.968.77-1.706 1.906-1.706.887 0 1.915.738 1.915 1.706 0 .948-.769 1.706-1.906 1.706zm1.959 11.597H3.355V9.724h3.941v10.728zM22.224 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.224 0z"/>
+              </svg>
             </a>
           </div>
 
           {/* Payment Icons */}
           <div className="flex flex-wrap items-center justify-center gap-6">
             {paymentIcons.map((icon) => (
-              <img
+              <div
                 key={icon.alt}
-                src={icon.src}
-                alt={icon.alt}
-                className="h-6 opacity-60 hover:opacity-100 transition-opacity"
-              />
+                className="relative group"
+                title={`We accept ${icon.alt}`}
+              >
+                <img
+                  src={icon.src}
+                  alt={icon.alt}
+                  className="h-7 opacity-50 hover:opacity-100 transition-all duration-300 transform group-hover:scale-110"
+                  loading="lazy"
+                />
+                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+                  {icon.alt}
+                </span>
+              </div>
             ))}
           </div>
 

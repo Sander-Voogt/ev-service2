@@ -36,20 +36,9 @@ export default async function Nav() {
             <MainNavBar />
             <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
               <NavSub />
-              <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
-                {/* <div className="relative">
-                  <IconCart />
-                </div> */}
-                <div className="flex flex-col ml-1">
-                  {/* <span className="text-xs font-semibold text-green-900">
-                    Winkelwagen
-                  </span> */}
-                  <span className="text-xs text-green-default font-bold">
-                   
-                      <CartButton />
-                  </span>
-                </div>
-              </div>
+              <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-all duration-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-600" title="Winkelwagen">
+              <CartButton />
+            </div>
             </div>
           </div>
         </header>
@@ -76,34 +65,28 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
 
   return (
     <>
-      <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-sm text-green-900 border-b border-green-100 shadow-sm">
-        <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4">
-          <div className="flex items-center gap-4 hidden sm:flex">
-            {/* <a
-              href="tel:0851304170"
-              className="flex items-center gap-1 font-medium hover:text-green-default"
-            >
-              <IconPhone />
-              <span>085 130 4170</span>
-            </a> */}
+      <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-xs lg:text-sm text-green-900 border-b border-green-100 shadow-sm">
+        <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4 gap-2">
+          <div className="flex items-center gap-2 lg:gap-4 hidden sm:flex">
             <a
               href="mailto:klantenservice@evservice.eu"
-              className="flex items-center gap-1 font-medium hover:text-green-default"
+              className="flex items-center gap-1 font-medium hover:text-green-default transition-colors whitespace-nowrap"
             >
-              <IconMail />
-              <span>klantenservice@evservice.eu</span>
+              <IconMail className="shrink-0" />
+              <span className="hidden md:inline">klantenservice@evservice.eu</span>
+              <span className="md:hidden">Service</span>
             </a>
           </div>
-          <div className="flex items-center gap-2">
-            <LocalizedClientLink href="/klantenservice" className={navLink}>
+          <div className="flex items-center gap-1 lg:gap-2">
+            <LocalizedClientLink href="/klantenservice" className={`${navLink} hidden lg:block`}>
               Klantenservice
             </LocalizedClientLink>
             <a
               href="/account"
-              className="flex items-center gap-2 font-semibold hover:text-green-default"
+              className="flex items-center gap-1 font-semibold hover:text-green-default transition-colors whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 rounded px-1"
             >
-              <IconUser />
-              <span className="sm:inline">Login</span>
+              <IconUser className="shrink-0" />
+              <span className="hidden sm:inline">Login</span>
             </a>
             <LanguageDropdown />
           </div>

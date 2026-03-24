@@ -2,6 +2,7 @@
 
 import { useParams, usePathname } from "next/navigation"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Button from "@modules/common/components/button"
 import { HttpTypes } from "@medusajs/types"
 import { signout } from "@lib/data/customer"
 

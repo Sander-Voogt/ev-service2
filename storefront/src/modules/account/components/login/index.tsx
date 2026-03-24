@@ -1,7 +1,6 @@
 import { login } from "@lib/data/customer"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
-import ErrorMessage from "@modules/checkout/components/error-message"
-import { SubmitButton } from "@modules/checkout/components/submit-button"
+import Button from "@modules/common/components/button"
 import Input from "@modules/common/components/input"
 import { useActionState } from "react"
 
@@ -10,23 +9,23 @@ type Props = {
 }
 
 const Login = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useActionState(login, null)
+  const [message, formAction, isPending] = useActionState(login, null)
 
   return (
     <div
-      className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-8"
+      className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-6 max-w-md mx-auto"
       data-testid="login-page"
     >
       {/* Header */}
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+      <div className="text-center mb-6">
+        <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-8 h-8 text-gray-700"
+            className="w-7 h-7 text-gray-700"
           >
             <path
               strokeLinecap="round"
@@ -35,7 +34,7 @@ const Login = ({ setCurrentView }: Props) => {
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-neutral-900 mb-2">
+        <h1 className="text-xl font-bold text-neutral-900 mb-1">
           Welkom terug
         </h1>
         <p className="text-gray-600 text-sm">
@@ -44,7 +43,7 @@ const Login = ({ setCurrentView }: Props) => {
       </div>
 
       <form className="w-full" action={formAction}>
-        <div className="flex flex-col w-full gap-y-4">
+        <div className="flex flex-col w-full gap-y-3">
           <Input
             label="E-mailadres"
             name="email"
@@ -63,16 +62,28 @@ const Login = ({ setCurrentView }: Props) => {
             data-testid="password-input"
           />
         </div>
-        <ErrorMessage error={message} data-testid="login-error-message" />
-        <SubmitButton
+
+        {message && (
+          <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-600 text-sm animate-fade-in">
+            {message}
+          </div>
+        )}
+
+        <Button
+          variant="primary"
+          size="md"
+          fullWidth
+          type="submit"
+          disabled={isPending}
+          isLoading={isPending}
           data-testid="sign-in-button"
-          className="w-full mt-6 bg-gray-900 hover:bg-gray-800"
+          className="mt-4"
         >
           Inloggen
-        </SubmitButton>
+        </Button>
       </form>
 
-      <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+      <div className="mt-6 pt-4 border-t border-gray-200 text-center">
         <span className="text-gray-600 text-sm">
           Nog geen account?{" "}
           <button

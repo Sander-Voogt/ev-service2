@@ -1,17 +1,18 @@
 "use client"
 
-import { useFormStatus } from "react-dom"
+import Button, { ButtonProps } from "@modules/common/components/button"
 
-export default function SubmitButton() {
-  const { pending } = useFormStatus()
-
+export const SubmitButton = ({ children = "Opslaan", ...props }: Partial<ButtonProps>) => {
   return (
-    <button
-      disabled={pending}
-      className="px-6 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+    <Button
+      variant="primary"
+      size="md"
       type="submit"
+      {...props}
     >
-      {pending ? "Opslaan..." : "Opslaan"}
-    </button>
+      {children}
+    </Button>
   )
 }
+
+export default SubmitButton

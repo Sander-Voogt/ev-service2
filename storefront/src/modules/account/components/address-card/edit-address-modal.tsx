@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState, useActionState } from "react"
 import { PencilSquare as Edit, Trash } from "@medusajs/icons"
-import { Button, Heading, Text, clx } from "@medusajs/ui"
+import { Button as MedusaButton, Heading, Text, clx } from "@medusajs/ui"
+import Button from "@modules/common/components/button"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import CountrySelect from "@modules/checkout/components/country-select"
@@ -107,14 +108,16 @@ const EditAddress: React.FC<EditAddressProps> = ({
           </Text>
         </div>
         <div className="flex items-center gap-3 pt-4 border-t border-gray-200 mt-4">
-          <button
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={open}
+            className="flex-1"
             data-testid="address-edit-button"
           >
             <Edit className="w-4 h-4" />
             Bewerken
-          </button>
+          </Button>
           <button
             className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
             onClick={removeAddress}
@@ -223,7 +226,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
           </Modal.Body>
           <Modal.Footer>
             <div className="flex gap-3 mt-6">
-              <Button
+              <MedusaButton
                 type="reset"
                 variant="secondary"
                 onClick={close}
@@ -231,7 +234,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 data-testid="cancel-button"
               >
                 Annuleren
-              </Button>
+              </MedusaButton>
               <SubmitButton data-testid="save-button">Opslaan</SubmitButton>
             </div>
           </Modal.Footer>

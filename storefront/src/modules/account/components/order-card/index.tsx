@@ -2,6 +2,7 @@ import { useMemo } from "react"
 
 import Thumbnail from "@modules/products/components/thumbnail"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Button from "@modules/common/components/button"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 
@@ -93,7 +94,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
       <div className="flex justify-end pt-4 border-t border-gray-200">
         <LocalizedClientLink
           href={`/account/orders/details/${order.id}`}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-medium rounded-lg transition-all duration-200"
           data-testid="order-details-link"
         >
           Details bekijken

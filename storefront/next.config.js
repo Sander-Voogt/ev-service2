@@ -39,7 +39,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "form.evservice.eu",
       },
-
+      {
+        protocol: "https",
+        hostname: "bucket-production-6ff8.up.railway.app",
+      },
       {
         // Note: needed to serve images from /public folder
         protocol: process.env.NEXT_PUBLIC_BASE_URL?.startsWith("https")

@@ -1,4 +1,5 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Button from "@modules/common/components/button"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 
@@ -166,8 +167,10 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                             currency_code: order.currency_code,
                           })}
                         </span>
-                        <button
-                          className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors"
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-8 h-8 p-0"
                           data-testid="open-order-button"
                         >
                           <span className="sr-only">
@@ -176,7 +179,7 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                           </svg>
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>

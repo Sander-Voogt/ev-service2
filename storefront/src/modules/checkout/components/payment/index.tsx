@@ -4,6 +4,7 @@ import { isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
 import { initiatePaymentSession } from "@lib/data/cart"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
+import Button from "@modules/common/components/button"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import PaymentContainer from "@modules/checkout/components/payment-container"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
@@ -242,9 +243,11 @@ const Payment = ({
           )}
         </h2>
         {!isOpen && paymentReady && (
-          <button
+          <Button
             onClick={handleEdit}
-            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-x-1"
+            variant="ghost"
+            size="sm"
+            className="flex items-center gap-x-1"
             data-testid="edit-payment-button"
           >
             <svg
@@ -261,7 +264,7 @@ const Payment = ({
               />
             </svg>
             Bewerken
-          </button>
+          </Button>
         )}
       </div>
       <div>
@@ -335,14 +338,17 @@ const Payment = ({
             data-testid="payment-method-error-message"
           />
 
-          <button
+          <Button
             onClick={handleSubmit}
             disabled={isLoading || isSubmitDisabled()}
-            className="mt-6 w-full bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed rounded-lg py-3 font-medium uppercase tracking-wide transition-colors"
+            variant="primary"
+            size="lg"
+            fullWidth
+            isLoading={isLoading}
             data-testid="submit-payment-button"
           >
             {isLoading ? "Laden..." : "Verder"}
-          </button>
+          </Button>
         </div>
 
         <div className={isOpen ? "hidden" : "block"}>
