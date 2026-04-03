@@ -6,6 +6,7 @@ import { getCollectionByHandle } from "@lib/data/collections"
 import { getProductsList } from "@lib/data/products"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import { getRegion } from "@lib/data/regions"
+import SafeHtml from "@modules/common/components/safe-html"
 
 export async function generateStaticParams() {
   const response = await sdk.client.fetch(`/store/carbrand/models`)
@@ -112,9 +113,9 @@ export default async function ModelPage({
             {model.name} Opladen?
           </h1>
 
-          <div
+          <SafeHtml
             className="text-gray-200 mb-6 text-base leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: model?.ModelBannerDescription }}
+            html={model?.ModelBannerDescription}
           />
 
           <div className="flex justify-end space-x-4">
@@ -138,9 +139,9 @@ export default async function ModelPage({
       <h3 className="text-xl font-bold mb-2" id="laadkabels">
         Laadkabels voor {model.brand} {model.name}
       </h3>
-      <div
+      <SafeHtml
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: model?.ChargingCableDescription }}
+        html={model?.ChargingCableDescription}
       />
       <ul className="flex flex-col gap-x-6">
         <FeaturedProducts collection={laadkabels} region={region} />
@@ -149,9 +150,9 @@ export default async function ModelPage({
       <h3 className="text-xl font-bold mb-2" id="laadpalen">
         Laadpalen voor {model.brand} {model.name}
       </h3>
-      <div
+      <SafeHtml
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: model?.ChargingStationDescription }}
+        html={model?.ChargingStationDescription}
       />
       <ul className="flex flex-col gap-x-6">
         <FeaturedProducts collection={laadpalen} region={region} />
@@ -160,18 +161,18 @@ export default async function ModelPage({
       <h3 className="text-xl font-bold mb-2">
         Laad accesoires voor {model.brand} {model.name}
       </h3>
-      <div
+      <SafeHtml
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: model?.AccessoriesDescription }}
+        html={model?.AccessoriesDescription}
       />
       <ul className="flex flex-col gap-x-6">
         <FeaturedProducts collection={accessoires} region={region} />
       </ul>
       
 
-      <div
+      <SafeHtml
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: model?.description }}
+        html={model?.description}
       />
     </main>
   )

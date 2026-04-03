@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { useIntersection } from "@lib/hooks/use-in-view"
+import { Star, Truck, RefreshCw, Shield } from "lucide-react"
 import Divider from "@modules/common/components/divider"
 import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
@@ -189,19 +190,19 @@ export default function ProductActions({
 
         <ul className="text-xs text-gray-700 mt-5 space-y-2">
           <li className="flex items-center gap-2">
-            <span>⭐</span>
+            <Star className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
             <span>Klanten beoordelen ons met 9.0</span>
           </li>
           <li className="flex items-center gap-2">
-            <span>🚚</span>
+            <Truck className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
             <span>Gratis verzending vanaf €100,-</span>
           </li>
           <li className="flex items-center gap-2">
-            <span>🔄</span>
+            <RefreshCw className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
             <span>30 dagen retourrecht</span>
           </li>
           <li className="flex items-center gap-2">
-            <span>🛡️</span>
+            <Shield className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
             <span>Minimaal 2 jaar garantie</span>
           </li>
         </ul>

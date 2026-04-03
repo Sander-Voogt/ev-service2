@@ -1,3 +1,7 @@
+"use client"
+
+import DOMPurify from "dompurify"
+
 type Props = {
   html: {
     maindescription_html?: string
@@ -14,7 +18,7 @@ export default function ProductDescription({ html }: Props) {
         </h2>
     <div
       className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: html?.maindescription_html }}
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html.maindescription_html) }}
     />
     </section>
   )

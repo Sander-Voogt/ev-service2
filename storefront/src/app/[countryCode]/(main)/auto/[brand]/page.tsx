@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { sdk } from '@lib/config';
 import { string_to_slug } from './slugger';
 import Image from 'next/image';
+import SafeHtml from '@modules/common/components/safe-html';
 import './style.css';
 
 export async function generateStaticParams() {
@@ -40,10 +41,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
       </h1>
 
       {brand.description && (
-        <div
-          className="prose max-w-none mb-6"
-          dangerouslySetInnerHTML={{ __html: brand.description }}
-        />
+        <SafeHtml className="prose max-w-none mb-6" html={brand.description} />
       )}
 
       <ul className="grid gap-4 grid-cols-2 md:grid-cols-4">
@@ -70,10 +68,7 @@ export default async function BrandPage({ params }: { params: { brand: string } 
       </ul>
 
       {brand.BottomDescription && (
-        <div
-          className="prose max-w-none mt-6"
-          dangerouslySetInnerHTML={{ __html: brand.BottomDescription }}
-        />
+        <SafeHtml className="prose max-w-none mt-6" html={brand.BottomDescription} />
       )}
     </main>
   );

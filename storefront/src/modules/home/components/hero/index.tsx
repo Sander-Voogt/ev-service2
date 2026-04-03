@@ -2,12 +2,15 @@
 import { Button } from "@medusajs/ui"
 import { string_to_slug } from "app/[countryCode]/(main)/auto/[brand]/CarModelSearch";
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { HERO_CAROUSEL_INTERVAL_MS } from "@lib/site-config"
 
 const carMakes = ["Abarth", "Audi", "BMW", "Tesla"] as const;
 type CarMake = typeof carMakes[number];
 
 
 const Hero = ({models}: {models: Record<string, string>[]}) => {
+  const router = useRouter()
   const [selectedMake, setSelectedMake] = useState<CarMake>(carMakes[0]);
   const [selectedModel, setSelectedModel] = useState<string>('');
   const [brandmodels, setBrandModels] = useState<{
@@ -30,7 +33,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % carouselImages.length);
-    }, 4000);
+    }, HERO_CAROUSEL_INTERVAL_MS);
     return () => clearInterval(interval);
   }, []);
 
@@ -76,7 +79,9 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
       Vind de laadpaal voor uw auto
       </h2>
       <div className="relative">
+      <label htmlFor="car-make-select" className="sr-only">Selecteer automerk</label>
       <select
+        id="car-make-select"
         className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
         value={selectedMake}
         onChange={e => {
@@ -99,7 +104,9 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
       </div>
 
       <div className="relative mt-3">
+      <label htmlFor="car-model-select" className="sr-only">Selecteer model</label>
       <select
+        id="car-model-select"
         className="appearance-none w-full rounded-full border border-green-200 bg-white px-4 py-2 pr-10 text-green-900 shadow-sm focus:border-green-400 focus:ring-2 focus:ring-green-400 transition"
         value={selectedModel}
         onChange={e => setSelectedModel(e.target.value)}
@@ -122,7 +129,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
       className="w-full bg-green-600 text-white font-semibold rounded-lg py-2 hover:bg-green-700 transition-colors"
       variant="secondary"
       onClick={() => {
-        window.location.href = `/auto/${string_to_slug(selectedMake.toLowerCase())}/${string_to_slug(selectedModel.toLowerCase())}`;
+        router.push(`/auto/${string_to_slug(selectedMake.toLowerCase())}/${string_to_slug(selectedModel.toLowerCase())}`);
       }}
       >
       Toon producten
@@ -135,7 +142,7 @@ const Hero = ({models}: {models: Record<string, string>[]}) => {
         Laadpalen
       </h1>
       <p className="text-green-100 text-lg max-w-md">
-        Reliable charging solutions tailored to your vehicle brand and model.
+        Betrouwbare laadoplossingen afgestemd op uw automerk en model.
       </p>
     </div>
   </div>

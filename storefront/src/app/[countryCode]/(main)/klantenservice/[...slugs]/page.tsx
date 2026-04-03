@@ -1,6 +1,7 @@
 import { getPageBySlug, getSubPages, getRootCategories, GhostPage } from "lib/ghost";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import SafeHtml from "@modules/common/components/safe-html";
 import "../style.css";
 
 interface HelpdeskPageParams {
@@ -51,10 +52,7 @@ export default async function HelpdeskPage({ params }: HelpdeskPageParams) {
       <h1>{page.title}</h1>
 
       {/* ----- HTML content ----- */}
-      <div
-        className="page-content"
-        dangerouslySetInnerHTML={{ __html: page.html }}
-      />
+      <SafeHtml className="page-content" html={page.html} />
 
       {/* ----- Subpagina lijst ----- */}
       <div className="sub-pages mt-10">

@@ -12,6 +12,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Spinner from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
 import Button from "@modules/common/components/button"
+import { CART_MAX_QUANTITY, SITE_CONFIG } from "@lib/site-config"
 import { useState } from "react"
 
 type ItemProps = {
@@ -21,7 +22,6 @@ type ItemProps = {
 }
 
 const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
-  console.log("rendering item", item)
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -35,15 +35,14 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
     })
       .catch((err) => {
         console.log(err)
-        setError('Extra product niet meer in voorraad of limiet van product per winkelwagen bereikt. Neem contact op met info@richolland.nl als u meer van dit product wilt bestellen.')
+        setError(`Extra product niet meer in voorraad of limiet van product per winkelwagen bereikt. Neem contact op met ${SITE_CONFIG.email.info} als u meer van dit product wilt bestellen.`)
       })
       .finally(() => {
         setUpdating(false)
       })
   }
 
-  const maxQtyFromInventory = 10
-  const maxQuantity = item.variant?.manage_inventory ? 10 : maxQtyFromInventory
+  const maxQuantity = item.variant?.manage_inventory ? CART_MAX_QUANTITY : CART_MAX_QUANTITY
 
   if (type === "preview") {
     return (

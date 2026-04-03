@@ -55,13 +55,13 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <LocalizedClientLink
               href="/faq"
-              className="inline-flex items-center justify-center px-3 py-1.5 text-sm border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-medium rounded-lg transition-all duration-200"
+              className="inline-flex items-center justify-center px-3 py-1.5 text-sm border-2 border-green-700 text-green-700 hover:bg-green-50 font-medium rounded-lg transition-all duration-200"
             >
               FAQ
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/contact"
-              className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-emerald-700 hover:bg-emerald-800 text-white font-semibold rounded-lg transition-all duration-200"
+              className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-green-700 hover:bg-green-800 text-white font-semibold rounded-lg transition-all duration-200"
             >
               Contact
             </LocalizedClientLink>

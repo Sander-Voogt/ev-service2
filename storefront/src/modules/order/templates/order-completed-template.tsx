@@ -28,7 +28,6 @@ export async function OrderCompletedTemplate({
             level="h1"
             className="flex flex-col gap-y-3 text-ui-fg-base text-3xl mb-4"
           >
-            {/* <span>Thank you!</span> */}
             <span>Bestelling afgerond!</span>
           </Heading>
           <OrderDetails order={order} />

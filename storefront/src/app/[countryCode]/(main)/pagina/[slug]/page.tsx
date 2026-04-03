@@ -1,6 +1,7 @@
 import { getPageBySlug, getHelpdeskCategories, getInfoPages, getSubPages } from '@lib/ghost';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import SafeHtml from '@modules/common/components/safe-html';
 import './style.css'
 // 1. Statische Padgeneratie (Next.js generateStaticParams)
 // Dit zorgt ervoor dat Next.js alle hoofdcategorie-pagina's kent voor de build.
@@ -31,9 +32,9 @@ export default async function CategoryPage({ params }) {
       <h1>{pageContent.title}</h1>
 
       {/* 1. Hoofdcontent van de categoriepagina */}
-      <div 
-        className="page-content prose" style={{maxWidth: '80%'}}
-        dangerouslySetInnerHTML={{ __html: pageContent.html }} 
+      <SafeHtml
+        className="page-content prose max-w-[80%]"
+        html={pageContent.html}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import api from "@lib/ghost"
 import { notFound } from 'next/navigation' // <-- BELANGRIJKE IMPORT
+import SafeHtml from "@modules/common/components/safe-html"
 
 // GenerateStaticParams blijft ongewijzigd, omdat dit de data-ophaling is
 export async function generateStaticParams() {
@@ -78,9 +79,9 @@ export default async function BlogDetail({ params }: { params: any }) {
             </div>
           )}
 
-          <div
+          <SafeHtml
             className="prose prose-green prose-base sm:prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: replaceEvserviceUrls(post.html) }}
+            html={replaceEvserviceUrls(post.html)}
           />
         </article>
       </div>

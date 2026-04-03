@@ -12,7 +12,6 @@ const CartTemplate = ({
   cart: HttpTypes.StoreCart | null
   customer: HttpTypes.StoreCustomer | null
 }) => {
-  console.log("cart in template", cart?.items)
   return (
     <div className="py-8 sm:py-12 bg-gray-50 min-h-screen">
       <div className="content-container" data-testid="cart-container">

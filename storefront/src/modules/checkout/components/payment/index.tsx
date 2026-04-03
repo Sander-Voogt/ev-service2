@@ -48,19 +48,12 @@ const Payment = ({
     (group: any) => group.id === businessGroupId
   )
 
-  console.log("Is business customer:", isBusinessCustomer)
-
   // Filter betaalmethoden op basis van klanttype
   const filteredPaymentMethods = availablePaymentMethods.filter((method) => {
     if (method.id === "pp_system_default") {
       // Alleen zakelijke klanten mogen pp_system_default gebruiken
       return isBusinessCustomer
     }
-
-    // if (method.id === "pp_stripe_stripe") {
-    //   // Zakelijke klanten mogen pp_stripe_stripe **niet** gebruiken
-    //   return !isBusinessCustomer
-    // }
 
     // Alle andere betaalmethoden zijn voor iedereen beschikbaar
     return true
@@ -81,7 +74,6 @@ const Payment = ({
   }
 
   const handlePaymentMethodChange = async (value: string) => {
-    console.log("betaalmethode wijziging:", value)
     setSelectedPaymentMethod(value)
     setError(null)
 
@@ -177,9 +169,6 @@ const Payment = ({
   }, [filteredPaymentMethods, selectedPaymentMethod])
 
   useEffect(() => {
-    // console.log('dddd', activeSession['provider_id'] !== "pp_stripe_stripe", isStripeFunc(activeSession?.provider_id),
-    //   isOpen,
-    //   selectedPaymentMethod )
     if (
       !isStripeFunc(activeSession?.provider_id) &&
       isOpen &&
@@ -209,8 +198,6 @@ const Payment = ({
     selectedPaymentMethod !== "pp_system_default" &&
     selectedPaymentMethod !== "" &&
     stripeReady
-
-  console.log(availablePaymentMethods, filteredPaymentMethods)
 
   return (
     <div>

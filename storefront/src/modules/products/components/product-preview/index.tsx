@@ -2,12 +2,10 @@ import { Text } from "@medusajs/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import Button from "@modules/common/components/button"
 import Thumbnail from "../thumbnail"
 import PreviewPrice from "./price"
 import { getProductsById } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
-// import { sendGTMEvent } from "@next/third-parties/google"
 
 export default async function ProductPreview({
   product,
@@ -38,7 +36,7 @@ export default async function ProductPreview({
     >
       <div
         data-testid="product-wrapper"
-        className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-emerald-500"
+        className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-green-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500"
       >
         <div className="aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 relative">
           <Thumbnail
@@ -52,24 +50,21 @@ export default async function ProductPreview({
         <div className="p-5">
           <div className="flex flex-col gap-3">
             <Text
-              className="text-gray-900 text-lg font-semibold group-hover:text-emerald-700 transition-colors duration-200"
+              className="text-gray-900 text-lg font-semibold group-hover:text-green-700 transition-colors duration-200"
               data-testid="product-title"
             >
               {product.title}
             </Text>
-            <div className="flex items-center gap-x-2 text-lg font-semibold text-emerald-700">
+            <div className="flex items-center gap-x-2 text-lg font-semibold text-green-700">
               {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
             </div>
           </div>
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="mt-4"
+          <span
+            className="mt-4 block w-full text-center bg-green-700 text-white font-semibold rounded-lg px-6 py-3 text-lg group-hover:bg-green-800 transition-colors duration-200"
             data-testid="add-product-button"
           >
             Bekijken
-          </Button>
+          </span>
         </div>
       </div>
     </LocalizedClientLink>

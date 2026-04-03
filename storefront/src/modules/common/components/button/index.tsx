@@ -10,19 +10,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses = {
   primary: `
-    bg-emerald-700 hover:bg-emerald-800 text-white font-semibold
+    bg-green-700 hover:bg-green-800 text-white font-semibold
     active:scale-95
   `,
   secondary: `
-    bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-medium
+    bg-green-100 hover:bg-green-200 text-green-900 font-medium
     active:scale-95
   `,
   outline: `
-    border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-medium
+    border-2 border-green-700 text-green-700 hover:bg-green-50 font-medium
     active:scale-95
   `,
   ghost: `
-    text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50 font-medium
+    text-green-700 hover:text-green-800 hover:bg-green-50 font-medium
     active:scale-95
   `,
 }
@@ -54,7 +54,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={`
           inline-flex items-center justify-center gap-2
           rounded-lg font-medium
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
           disabled:opacity-70 disabled:cursor-not-allowed
           transition-all duration-200
           ${variantClasses[variant]}

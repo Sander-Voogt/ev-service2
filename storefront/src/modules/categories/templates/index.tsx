@@ -9,6 +9,7 @@ import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
 import ProductDescription from "@modules/common/components/rendertiptap"
+import SafeHtml from "@modules/common/components/safe-html"
 
 export default function CategoryTemplate({
   categories,
@@ -53,11 +54,9 @@ export default function CategoryTemplate({
           <h1 data-testid="category-page-title">{category.name}</h1>
         </div>
           <div className="mb-8 text-base-regular">
-            <div
+            <SafeHtml
               className="prose max-w-none"
-              dangerouslySetInnerHTML={{
-                __html: category?.metadata?.ModelBannerDescription?.html,
-              }}
+              html={category?.metadata?.ModelBannerDescription?.html}
             />
           </div>
         {category.category_children && (
@@ -82,11 +81,9 @@ export default function CategoryTemplate({
           />
         </Suspense>
         <div className="mb-8 text-base-regular">
-          <div
+          <SafeHtml
             className="prose max-w-none"
-            dangerouslySetInnerHTML={{
-              __html: category?.metadata?.maindescription?.html,
-            }}
+            html={category?.metadata?.maindescription?.html}
           />
         </div>
       </div>

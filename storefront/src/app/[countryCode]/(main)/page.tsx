@@ -12,6 +12,7 @@ import { sdk } from "@lib/config"
 import { getProductsList } from "@lib/data/products"
 import Image from "next/image"
 import api from "@lib/ghost"
+import { Lightbulb, Truck, ThumbsUp, Phone } from "lucide-react"
 
 
 export const metadata: Metadata = {
@@ -116,16 +117,16 @@ export default async function Home({
         <h2 className="text-2xl font-bold text-center mb-8">Waarom EService?</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
-            { title: "Gemak", desc: "Je eigen laadkabel thuis of op het werk...", icon: "💡" },
-            { title: "Snelle levering", desc: "Vandaag voor 22:00 besteld = morgen in huis.", icon: "🚚" },
-            { title: "Betrouwbaar", desc: "Gecertificeerde montage, 2 jaar garantie.", icon: "👍" },
-            { title: "Bereikbaar", desc: "Persoonlijk advies via telefoon of WhatsApp.", icon: "📞" },
+            { title: "Gemak", desc: "Je eigen laadkabel thuis of op het werk...", icon: <Lightbulb className="w-10 h-10" aria-hidden="true" /> },
+            { title: "Snelle levering", desc: "Vandaag voor 22:00 besteld = morgen in huis.", icon: <Truck className="w-10 h-10" aria-hidden="true" /> },
+            { title: "Betrouwbaar", desc: "Gecertificeerde montage, 2 jaar garantie.", icon: <ThumbsUp className="w-10 h-10" aria-hidden="true" /> },
+            { title: "Bereikbaar", desc: "Persoonlijk advies via telefoon of WhatsApp.", icon: <Phone className="w-10 h-10" aria-hidden="true" /> },
           ].map((item, idx) => (
             <div
               key={idx}
               className="border rounded-2xl text-center p-6 hover:shadow-md transition-shadow"
             >
-              <div className="text-4xl text-green-700 mb-3">{item.icon}</div>
+              <div className="flex justify-center text-green-700 mb-3">{item.icon}</div>
               <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
               <p className="text-gray-600 text-sm">{item.desc}</p>
             </div>

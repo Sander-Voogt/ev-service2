@@ -43,10 +43,10 @@ export function Pagination({
       disabled={p === page}
       className={`
         w-10 h-10 rounded-lg font-semibold transition-all duration-200
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
         ${p === page
-          ? 'bg-emerald-700 text-white cursor-default'
-          : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700'
+          ? 'bg-green-700 text-white cursor-default'
+          : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50 hover:text-green-700'
         }
       `}
     >
@@ -123,10 +123,10 @@ export function Pagination({
           disabled={page === 1}
           className={`
             h-10 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
             ${page === 1
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
-              : 'bg-emerald-700 text-white hover:bg-emerald-800'
+              : 'bg-green-700 text-white hover:bg-green-800'
             }
           `}
           title="Previous page"
@@ -148,10 +148,10 @@ export function Pagination({
           disabled={page === totalPages}
           className={`
             h-10 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
             ${page === totalPages
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
-              : 'bg-emerald-700 text-white hover:bg-emerald-800'
+              : 'bg-green-700 text-white hover:bg-green-800'
             }
           `}
           title="Next page"

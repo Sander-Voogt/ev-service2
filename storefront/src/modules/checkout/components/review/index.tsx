@@ -25,7 +25,6 @@ const Review = ({ cart }: { cart: any }) => {
     (s: any) => s.status === "pending"
   )
 
-  console.log("activeSession", activeSession)
   return (
     <div>
       <div className="flex flex-row items-center justify-between mb-6">

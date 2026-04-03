@@ -1,12 +1,12 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import {
-  IconPhone,
   IconMail,
   Logo,
   navLink,
 } from "@modules/common/components/reusable-nav-elements"
 import FooterSub from "./FooterSub"
 import api from "@lib/ghost";
+import { SITE_CONFIG } from "@lib/site-config"
 
 const paymentIcons = [
   {
@@ -36,15 +36,6 @@ const paymentIcons = [
 ]
 
 export default async function Footer() {
-  // const { collections } = await (
-  //   await import("@lib/data/collections")
-  // ).listCollections({ fields: "*products" });
-  // const productCategories = await (
-  //   await import("@lib/data/categories")
-  // ).listCategories();
-
-  // Accordion state for mobile
-
   const blogs = await api.posts.browse({
       // filter: 'tag:hash-helpdesk', // Filter op de 'helpdesk' tag
       // include: 'tags',
@@ -64,11 +55,11 @@ export default async function Footer() {
             </div>
             <div className="flex flex-col gap-2 mt-4">
               <a
-                href="mailto:klantenservice@evservice.eu"
+                href={`mailto:${SITE_CONFIG.email.customerService}`}
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-all duration-200 hover:translate-x-1 group"
               >
                 <IconMail className="group-hover:scale-110 transition-transform duration-200" />
-                <span>klantenservice@evservice.eu</span>
+                <span>{SITE_CONFIG.email.customerService}</span>
               </a>
             </div>
           </div>
@@ -123,26 +114,26 @@ export default async function Footer() {
           </div>
           {/* My Account */}
           <div>
-            <span className="font-bold text-lg mb-4 block">My Account</span>
+            <span className="font-bold text-lg mb-4 block">Mijn Account</span>
             <ul className="space-y-2 text-sm">
               <li>
-                <LocalizedClientLink href="#account" className={navLink}>
-                  My account
+                <LocalizedClientLink href="/account" className={navLink}>
+                  Mijn account
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#orders" className={navLink}>
-                  Orders
+                <LocalizedClientLink href="/account/orders" className={navLink}>
+                  Bestellingen
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#addresses" className={navLink}>
-                  Addresses
+                <LocalizedClientLink href="/account/addresses" className={navLink}>
+                  Adressen
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#cart" className={navLink}>
-                  Shopping cart
+                <LocalizedClientLink href="/cart" className={navLink}>
+                  Winkelwagen
                 </LocalizedClientLink>
               </li>
             </ul>
@@ -154,25 +145,13 @@ export default async function Footer() {
           {/* Company Info / Logo (always visible) */}
           <div className="flex flex-col items-start gap-4 pr-8 mb-6">
             <Logo />
-            {/* <p className="text-sm text-green-700 mt-2">
-              Your partner in sustainable e-mobility. We offer a comprehensive
-              range of charging solutions and expert advice for your electric
-              vehicle.
-            </p> */}
             <div className="flex flex-col gap-2 mt-4">
-              {/* <a
-                href="tel:0851304170"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
-              >
-                <IconPhone />
-                <span>085 130 4170</span>
-              </a> */}
               <a
-                href="mailto:klantenservice@evservice.eu"
+                href={`mailto:${SITE_CONFIG.email.customerService}`}
                 className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
               >
                 <IconMail />
-                <span>klantenservice@evservice.eu</span>
+                <span>{SITE_CONFIG.email.customerService}</span>
               </a>
             </div>
           </div>
@@ -239,17 +218,17 @@ export default async function Footer() {
             </div>
             <div className="order-1 md:order-2 flex gap-2">
               <LocalizedClientLink
-                href="#terms"
+                href="/pagina/algemene-voorwaarden"
                 className="hover:text-green-900"
               >
-                General Terms
+                Algemene voorwaarden
               </LocalizedClientLink>
               <span className="text-green-400">|</span>
               <LocalizedClientLink
-                href="#privacy"
+                href="/pagina/privacybeleid"
                 className="hover:text-green-900"
               >
-                Privacy Policy
+                Privacybeleid
               </LocalizedClientLink>
             </div>
           </div>

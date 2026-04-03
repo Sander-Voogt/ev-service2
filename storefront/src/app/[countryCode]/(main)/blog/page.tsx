@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import SafeHtml from "@modules/common/components/safe-html";
 import Modal from "../../../../modules/layout/components/floating-action-button";
 
 // Your existing type definitions
@@ -188,7 +189,7 @@ export default function BlogPage() {
                       </span>
                     ))}
                   </div>
-                  <p className="mt-4 text-gray-800" dangerouslySetInnerHTML={{ __html: post.excerpt ?? "" }} />
+                  <SafeHtml as="p" className="mt-4 text-gray-800" html={post.excerpt ?? ""} />
                 </div>
               </li>
             ))}

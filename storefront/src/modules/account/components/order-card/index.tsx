@@ -94,7 +94,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
       <div className="flex justify-end pt-4 border-t border-gray-200">
         <LocalizedClientLink
           href={`/account/orders/details/${order.id}`}
-          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-medium rounded-lg transition-all duration-200"
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm bg-green-100 hover:bg-green-200 text-green-900 font-medium rounded-lg transition-all duration-200"
           data-testid="order-details-link"
         >
           Details bekijken

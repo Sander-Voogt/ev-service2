@@ -297,9 +297,8 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
             <details className="w-full mt-2">
               <summary
                 className="py-2 text-base font-medium text-green-700 list-none flex items-center justify-between hover:bg-green-50"
-                onClick={onClose}
               >
-                Charging Cables
+                Laadkabels
                 <svg
                   width="12"
                   height="12"
@@ -312,39 +311,39 @@ const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
               </summary>
               <div className="flex flex-col pl-4 mt-2">
                 <LocalizedClientLink
-                  href="/charging-cables/type-2"
+                  href="/categories/laadkabel-type-2"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging cables type 2
+                  Laadkabel Type 2
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-cables/type-1"
+                  href="/categories/laadkabel-type-1"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging cables type 1
+                  Laadkabel Type 1
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-cables/mobile-car-chargers"
+                  href="/categories/mobiele-autoladers"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Mobile car chargers
+                  Mobiele autoladers
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-cables/accessories"
+                  href="/categories/laadkabel-accessoires"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Charging cable accessories
+                  Laadkabel accessoires
                 </LocalizedClientLink>
                 <LocalizedClientLink
-                  href="/charging-cables/extension-cables"
+                  href="/categories/laadkabel-verloopkabel"
                   className="py-2 text-sm text-green-900 hover:bg-green-50"
                   onClick={onClose}
                 >
-                  Extension cables
+                  Verloopkabels
                 </LocalizedClientLink>
               </div>
             </details>
