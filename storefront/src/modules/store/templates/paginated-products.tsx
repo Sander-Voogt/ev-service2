@@ -67,26 +67,50 @@ export default async function PaginatedProducts({
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
-    <>
-      <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
-        data-testid="products-list"
-      >
-        {products.map((p) => {
-          return (
-            <li key={p.id}>
-              <ProductPreview product={p} region={region} />
-            </li>
-          )
-        })}
-      </ul>
+    <div className="space-y-10">
+      {/* Premium header with stats */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-white rounded-3xl p-8 shadow-xl border border-gray-200">
+        <div>
+          <h3 className="text-3xl font-black text-gray-900 mb-2">Products</h3>
+          <p className="text-gray-600">
+            Showing <span className="font-black text-green-700">{count}</span> premium products
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full border border-green-200">
+            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
+            <span className="text-sm font-bold text-green-800">In Stock</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Premium product grid */}
+      <div>
+        <ul
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          data-testid="products-list"
+        >
+          {products.map((p) => {
+            return (
+              <li key={p.id}>
+                <ProductPreview product={p} region={region} />
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+
+      {/* Premium pagination */}
       {totalPages > 1 && (
-        <Pagination
-          data-testid="product-pagination"
-          page={page}
-          totalPages={totalPages}
-        />
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-8 border-2 border-green-200 shadow-xl">
+          <Pagination
+            data-testid="product-pagination"
+            page={page}
+            totalPages={totalPages}
+          />
+        </div>
       )}
-    </>
+    </div>
   )
 }
