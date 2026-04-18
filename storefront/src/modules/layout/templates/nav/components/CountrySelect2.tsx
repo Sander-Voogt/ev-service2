@@ -1,13 +1,19 @@
 "use client"
 import { updateRegion } from "@lib/data/cart"
 import React, { useState, useRef, useEffect } from "react"
+import { createPortal } from "react-dom"
+import { usePathname } from "next/navigation"
 
 export default function LanguageDropdown() {
   const [open, setOpen] = useState(false)
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 })
+  const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
+    setMounted(true)
     function onDocClick(e) {
       if (
         menuRef.current &&
@@ -51,20 +57,30 @@ export default function LanguageDropdown() {
     return null
   }
 
+  const ChevronIcon = ({ className }) => (
+    <svg
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-9" />
+    </svg>
+  )
+
   const languages = [
     { code: "nl", label: "Nederland", href: "/nl" },
     { code: "be", label: "België", href: "/be" },
   ]
 
-  const pathname =
-    typeof window !== "undefined" ? window.location.pathname : "/"
-  const currentCode = pathname.startsWith("/be") ? "be" : "nl"
+  // Fix hydration error by using Next.js pathname and mounted state
+  const currentCode = mounted && pathname ? (pathname.startsWith("/be") ? "be" : "nl") : "nl"
   const current = languages.find((l) => l.code === currentCode) || languages[0]
 
   const handleSelect = async (countryCode) => {
     setOpen(false)
-    const pathname = window.location.pathname
-    // Verwijder de oude landcode
+    // Use Next.js pathname instead of window.location
     const relativePath = pathname.replace(/^\/(nl|be)/, "").replace(/^\//, "")
 
     try {
@@ -75,61 +91,117 @@ export default function LanguageDropdown() {
     }
   }
 
+  // Calculate menu position when opening
+  const updateMenuPosition = () => {
+    if (buttonRef.current && open) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setMenuPosition({
+        top: rect.bottom + 8,
+        left: rect.right - 224, // Width of menu (w-56 = 14rem = 224px)
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (open) {
+      updateMenuPosition()
+      // Update position on scroll and resize
+      window.addEventListener('scroll', updateMenuPosition)
+      window.addEventListener('resize', updateMenuPosition)
+      return () => {
+        window.removeEventListener('scroll', updateMenuPosition)
+        window.removeEventListener('resize', updateMenuPosition)
+      }
+    }
+  }, [open])
+
   return (
-    <div className="relative inline-block text-left z-40">
+    <div className="relative inline-block text-left">
       <button
         ref={buttonRef}
         type="button"
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((s) => !s)}
-        className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 bg-white text-sm font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 relative z-40"
+        className="inline-flex items-center gap-2 rounded-xl border-2 border-green-200 px-3 py-2 bg-white text-sm font-semibold shadow-sm hover:shadow-lg hover:border-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 relative transition-all duration-200 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50"
       >
-        <Flag code={current.code} />
-        <span className="min-w-[72px] text-left">{current.label}</span>
-        <svg
-          className={`h-4 w-4 transform transition-transform ${
+        <div className="w-6 h-5 rounded overflow-hidden border border-gray-200 shadow-sm">
+          <Flag code={current.code} />
+        </div>
+        <span className="min-w-[72px] text-left text-gray-700">{current.label}</span>
+        <ChevronIcon
+          className={`h-4 w-4 transform transition-transform duration-300 text-green-700 ${
             open ? "rotate-180" : "rotate-0"
           }`}
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            d="M5 8l5 5 5-5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        />
       </button>
 
-      {open && (
+      {open && typeof document !== "undefined" && createPortal(
         <div
-          ref={menuRef}
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="language-menu"
-          className="absolute right-0 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md border border-gray-200 bg-white shadow-xl ring-2 ring-gray-300 focus:outline-none z-40"
+          className="fixed inset-0 z-[9999] pointer-events-none"
+          style={{ top: 0, left: 0 }}
         >
-          <div className="py-1">
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                type="button"
-                onClick={() => handleSelect(lang.code)}
-                className={`flex w-full items-center gap-3 px-4 py-2 text-sm text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ${
-                  lang.code === current.code ? "font-semibold bg-gray-100" : ""
-                }`}
-              >
-                <Flag code={lang.code} />
-                <span className="truncate">{lang.label}</span>
-              </button>
-            ))}
+          <div
+            ref={menuRef}
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="language-menu"
+            className="pointer-events-auto absolute rounded-2xl border-2 border-green-100 bg-white/95 backdrop-blur-xl shadow-3xl ring-2 ring-green-200 focus:outline-none w-56 animate-in fade-in slide-in-from-top-2 duration-200"
+            style={{
+              top: `${menuPosition.top}px`,
+              left: `${menuPosition.left}px`,
+            }}
+          >
+            {/* Header */}
+            <div className="px-4 py-3 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+              <p className="text-sm font-bold text-gray-900">Kies uw land</p>
+              <p className="text-xs text-gray-600">Selecteer uw regio voor taal en valuta</p>
+            </div>
+
+            {/* Menu items */}
+            <div className="py-2">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  type="button"
+                  onClick={() => handleSelect(lang.code)}
+                  className={`flex w-full items-center gap-3 px-4 py-3 text-sm text-left transition-all duration-200 mx-2 rounded-xl ${
+                    lang.code === current.code
+                      ? "bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold shadow-md"
+                      : "text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-green-700 font-semibold"
+                  } focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600`}
+                >
+                  <div className={`w-8 h-6 rounded overflow-hidden border shadow-sm ${
+                    lang.code === current.code ? "border-white/30" : "border-gray-200"
+                  }`}>
+                    <Flag code={lang.code} />
+                  </div>
+                  <div className="flex-1">
+                    <span className="block">{lang.label}</span>
+                    {lang.code === currentCode && (
+                      <span className={`text-xs ${
+                        lang.code === current.code ? "text-green-100" : "text-green-600"
+                      }`}>• Huidige selectie</span>
+                    )}
+                  </div>
+                  {lang.code === currentCode && (
+                    <svg className="w-5 h-5 text-green-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="px-4 py-2 border-t border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+              <p className="text-xs text-center text-gray-600">
+                <span className="font-semibold text-green-700">{current.label}</span> geselecteerd
+              </p>
+            </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

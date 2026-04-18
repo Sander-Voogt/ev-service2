@@ -46,46 +46,52 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
   if (type === "preview") {
     return (
-      <div className="flex items-center gap-x-3 py-3">
-        <LocalizedClientLink
-          href={`/products/${item.product_handle}`}
-          className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
-        >
-          <Thumbnail
-            thumbnail={item.thumbnail}
-            images={item.variant?.product?.images}
-            size="square"
-          />
-        </LocalizedClientLink>
-        <div className="flex-1 min-w-0">
-          <Text
-            className="text-sm font-medium text-gray-900 truncate"
-            data-testid="product-title"
+      <tr className="border-b border-gray-100 last:border-0">
+        <td className="py-3 px-2">
+          <LocalizedClientLink
+            href={`/products/${item.product_handle}`}
+            className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-50"
           >
-            {item.product_title}
-          </Text>
-          <LineItemOptions
-            variant={item.variant}
-            data-testid="product-variant"
-          />
-        </div>
-        <div className="flex flex-col items-end flex-shrink-0">
-          <span className="text-xs text-gray-500">{item.quantity}x</span>
-          <LineItemPrice
-            item={item}
-            style="tight"
-            currencyCode={currencyCode}
-          />
-        </div>
-      </div>
+            <Thumbnail
+              thumbnail={item.thumbnail}
+              images={item.variant?.product?.images}
+              size="square"
+            />
+          </LocalizedClientLink>
+        </td>
+        <td className="py-3 px-2">
+          <div className="flex-1 min-w-0">
+            <Text
+              className="text-sm font-medium text-gray-900 truncate"
+              data-testid="product-title"
+            >
+              {item.product_title}
+            </Text>
+            <LineItemOptions
+              variant={item.variant}
+              data-testid="product-variant"
+            />
+          </div>
+        </td>
+        <td className="py-3 px-2 text-right">
+          <div className="flex flex-col items-end flex-shrink-0">
+            <span className="text-xs text-gray-500">{item.quantity}x</span>
+            <LineItemPrice
+              item={item}
+              style="tight"
+              currencyCode={currencyCode}
+            />
+          </div>
+        </td>
+      </tr>
     )
   }
 
   return (
-    <div className="flex gap-x-4 p-4 sm:p-6" data-testid="product-row">
+    <div className="flex gap-x-6 p-6 sm:p-8 hover:bg-gradient-to-r hover:from-green-50/50 hover:to-transparent transition-all duration-300 group" data-testid="product-row">
       <LocalizedClientLink
         href={`/products/${item.product_handle}`}
-        className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-gray-50 hover:opacity-90 transition-opacity"
+        className="flex-shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-green-50 hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-2 border-gray-100 group-hover:border-green-200"
       >
         <Thumbnail
           thumbnail={item.thumbnail}
@@ -96,13 +102,13 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
 
       <div className="flex flex-1 flex-col justify-between min-w-0">
         <div className="flex items-start justify-between gap-x-4">
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <LocalizedClientLink
               href={`/products/${item.product_handle}`}
-              className="hover:underline"
+              className="group/link"
             >
               <Text
-                className="text-sm sm:text-base font-semibold text-gray-900 truncate"
+                className="text-base sm:text-lg font-black text-gray-900 group-hover/link:text-green-700 transition-colors duration-300"
                 data-testid="product-title"
               >
                 {item.product_title}
@@ -111,15 +117,18 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
             <LineItemOptions
               variant={item.variant}
               data-testid="product-variant"
+              className="text-sm text-gray-500 mt-1"
             />
           </div>
           <div className="flex-shrink-0 text-right">
-            <LineItemPrice
-              item={item}
-              style="tight"
-              currencyCode={currencyCode}
-            />
-            <div className="hidden sm:block">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-700 text-white px-4 py-2 rounded-xl shadow-lg">
+              <LineItemPrice
+                item={item}
+                style="tight"
+                currencyCode={currencyCode}
+              />
+            </div>
+            <div className="hidden sm:block mt-2 text-xs text-gray-500">
               <LineItemUnitPrice
                 item={item}
                 style="tight"
@@ -129,14 +138,14 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex items-center gap-x-2">
+        <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center gap-x-3">
             {updating ? (
-              <div className="flex items-center justify-center w-24 h-9">
+              <div className="flex items-center justify-center w-32 h-12 bg-green-50 rounded-xl">
                 <Spinner />
               </div>
             ) : (
-              <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+              <div className="flex items-center bg-white rounded-xl overflow-hidden shadow-lg border-2 border-green-200">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -147,14 +156,14 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   }}
                   disabled={item.quantity <= 1}
                   aria-label="Verlaag aantal"
-                  className="border-r border-gray-200"
+                  className="border-r border-green-200 px-4 py-3 hover:bg-green-50 transition-colors disabled:opacity-50"
                 >
                   <svg
-                    className="w-4 h-4"
+                    className="w-5 h-5 text-green-700"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                   >
                     <path
                       strokeLinecap="round"
@@ -164,7 +173,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   </svg>
                 </Button>
                 <span
-                  className="w-10 h-9 flex items-center justify-center text-sm font-semibold text-gray-900 border-x border-gray-200 bg-gray-50"
+                  className="w-14 h-12 flex items-center justify-center text-lg font-black text-green-700 bg-green-50"
                   data-testid="product-quantity"
                 >
                   {item.quantity}
@@ -179,14 +188,14 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   }}
                   disabled={item.quantity >= maxQuantity}
                   aria-label="Verhoog aantal"
-                  className="border-l border-gray-200"
+                  className="border-l border-green-200 px-4 py-3 hover:bg-green-50 transition-colors disabled:opacity-50"
                 >
                   <svg
-                    className="w-4 h-4"
+                    className="w-5 h-5 text-green-700"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                   >
                     <path
                       strokeLinecap="round"
@@ -201,9 +210,12 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           <DeleteButton
             id={item.id}
             data-testid="product-delete-button"
-            className="text-gray-400 hover:text-red-500 transition-colors"
+            className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-3 rounded-xl transition-all duration-300 font-semibold text-sm border border-red-200 hover:border-red-300 hover:shadow-md group"
           >
-            <span className="text-xs hidden sm:inline">Verwijderen</span>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            <span className="hidden sm:inline">Verwijderen</span>
           </DeleteButton>
         </div>
         <ErrorMessage error={error} data-testid="product-error-message" />

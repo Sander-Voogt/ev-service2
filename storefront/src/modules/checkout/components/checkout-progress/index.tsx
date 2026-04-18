@@ -17,7 +17,7 @@ const CheckoutProgress = () => {
   const currentIndex = stepOrder.indexOf(currentStep)
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-sm border border-gray-100 py-5 px-4 sm:px-8">
+    <div className="w-full">
       <div className="flex items-center justify-between max-w-xl mx-auto">
         {steps.map((step, index) => {
           const isCompleted = index < currentIndex
@@ -26,28 +26,28 @@ const CheckoutProgress = () => {
 
           return (
             <div key={step.key} className="flex items-center flex-1 last:flex-none">
-              <div className="flex flex-col items-center gap-1.5">
+              <div className="flex flex-col items-center gap-2">
                 <div
                   className={`
-                    w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300
-                    ${isCompleted ? "bg-green-600 text-white shadow-sm" : ""}
-                    ${isActive ? "bg-gray-900 text-white shadow-md ring-4 ring-gray-900/10" : ""}
-                    ${isUpcoming ? "bg-gray-100 text-gray-400" : ""}
+                    w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-lg
+                    ${isCompleted ? "bg-gradient-to-br from-green-500 to-emerald-600 text-white transform scale-110" : ""}
+                    ${isActive ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white transform scale-110 ring-4 ring-green-200" : ""}
+                    ${isUpcoming ? "bg-white border-2 border-gray-200 text-gray-400" : ""}
                   `}
                 >
                   {isCompleted ? (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d={step.icon} />
                     </svg>
                   )}
                 </div>
                 <span
                   className={`
-                    text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-colors duration-200
+                    text-xs sm:text-sm font-black whitespace-nowrap transition-colors duration-300
                     ${isCompleted ? "text-green-700" : ""}
                     ${isActive ? "text-gray-900" : ""}
                     ${isUpcoming ? "text-gray-400" : ""}
@@ -57,11 +57,11 @@ const CheckoutProgress = () => {
                 </span>
               </div>
               {index < steps.length - 1 && (
-                <div className="flex-1 mx-2 sm:mx-4 mb-5">
-                  <div className="h-0.5 rounded-full bg-gray-100 overflow-hidden">
+                <div className="flex-1 mx-3 sm:mx-6 mb-8">
+                  <div className="h-1 rounded-full bg-gray-200 overflow-hidden">
                     <div
-                      className={`h-full rounded-full transition-all duration-500 ease-out ${
-                        index < currentIndex ? "bg-green-500 w-full" : "bg-transparent w-0"
+                      className={`h-full rounded-full transition-all duration-700 ease-out ${
+                        index < currentIndex ? "bg-gradient-to-r from-green-500 to-emerald-600 w-full" : "bg-transparent w-0"
                       }`}
                     />
                   </div>
