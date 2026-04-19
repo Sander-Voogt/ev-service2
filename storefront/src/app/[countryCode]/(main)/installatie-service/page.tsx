@@ -1,377 +1,276 @@
 "use client"
 import Script from "next/script"
+import Link from "next/link"
+import { Lightbulb, Wrench, Settings, CheckCircle, Award, Users, Zap, ChevronRight, Phone } from "lucide-react"
 
 export default function EVServicePage() {
   return (
-    <main className="flex flex-col items-center">
-      {/* === Hero Section === */}
-      <section className="relative w-full h-[70vh] flex items-center justify-center text-center text-white">
-        <img
-          src="https://images.unsplash.com/photo-1581090464472-1e7b3f9c7f7d"
-          alt="EV laadpaal"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 max-w-4xl px-6">
-          <p className="text-sm text-gray-200 mb-2">
-            Home / Installatie Service
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-3">
-            Laadoplossingen voor Bedrijven en VvE’s
+    <div className="relative min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-emerald-800 to-green-900">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-20 left-20 w-64 h-64 bg-green-400 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-20 right-20 w-80 h-80 bg-emerald-400 rounded-full blur-3xl animate-pulse delay-1000" />
+          </div>
+        </div>
+
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl mb-8 shadow-2xl">
+            <Zap className="w-10 h-10 text-white" />
+          </div>
+          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">
+            Laadoplossingen voor{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-200">
+              Bedrijven & VvE's
+            </span>
           </h1>
-          <p className="text-lg mb-4">
-            Load balancing & Smart Charging voor uw laadinfrastructuur.
+          <p className="text-xl text-green-100 max-w-3xl mx-auto mb-10 leading-relaxed">
+            Load balancing & Smart Charging voor uw laadinfrastructuur. Van advies tot installatie en beheer.
           </p>
-          <p className="mb-6">Heb je vragen? Neem contact op.</p>
-          <a href="/offerte-aanvragen">
-            <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/offerte-aanvragen"
+              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-2xl font-bold hover:from-green-700 hover:to-emerald-800 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+            >
               Offerte aanvragen
-            </button>
-          </a>
+              <ChevronRight className="w-5 h-5" />
+            </Link>
+            <a
+              href="tel:+31201234567"
+              className="inline-flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/30 transition-all duration-300 border border-white/30"
+            >
+              <Phone className="w-5 h-5" />
+              Bel ons direct
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* === Onze Services === */}
-      <section className="max-w-6xl w-full px-6 py-16">
-        <h2 className="text-2xl font-semibold text-center mb-10">
-          Onze Services
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6">
+      {/* Services Section */}
+      <section className="content-container py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
+            Onze Services
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Complete ontzorging van A tot Z voor uw laadinfrastructuur
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
           {[
             {
-              title: "Advies",
+              title: "Advies op Maat",
               desc: "Laat ons je begeleiden bij het opzetten van uw laadinfrastructuur en ontdek hoe u Smart Charging optimaal benut.",
-              icon: "💡",
+              icon: Lightbulb,
+              color: "from-amber-500 to-orange-600",
+              features: ["Gratis locatiescan", "Load balancing advies", "Subsidie begeleiding"]
             },
             {
               title: "Installatie",
               desc: "Vertrouw op onze expertise bij de installatie van uw laadstations. Wij werken samen met gecertificeerde installateurs.",
-              icon: "🔧",
+              icon: Wrench,
+              color: "from-blue-500 to-indigo-600",
+              features: ["Gecertificeerde installateurs", "2 jaar garantie", "Naadloze integratie"]
             },
             {
               title: "Support & Beheer",
               desc: "Kies voor gemoedsrust met onze supportdienst. Wij monitoren, onderhouden en ondersteunen op afstand.",
-              icon: "🛠️",
-            },
-          ].map((s, i) => (
+              icon: Settings,
+              color: "from-green-500 to-emerald-600",
+              features: ["24/7 monitoring", "Proactief onderhoud", "Eén aanspreekpunt"]
+            }
+          ].map((service, idx) => (
             <div
-              key={i}
-              className="p-6 border rounded-xl shadow-sm hover:shadow-md bg-white transition"
+              key={idx}
+              className="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-gray-100"
             >
-              <div className="text-4xl mb-3">{s.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
-              <p className="text-gray-600 text-sm">{s.desc}</p>
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+              <div className="relative p-8">
+                <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                  <service.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-4">{service.title}</h3>
+                <p className="text-gray-600 leading-relaxed mb-6">{service.desc}</p>
+                <ul className="space-y-3">
+                  {service.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-center gap-3 text-sm text-gray-700">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-10">
-          <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-            Offerte aanvragen
-          </button>
+
+        <div className="text-center mt-12">
+          <Link
+            href="/offerte-aanvragen"
+            className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-2xl font-bold hover:from-green-700 hover:to-emerald-800 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+          >
+            Vraag gratis adviesgesprek aan
+          </Link>
         </div>
       </section>
 
-      {/* === Waarom kiezen voor EV Service === */}
-      <section className="w-full bg-gray-50 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-semibold mb-8">
-            Waarom kiezen voor EV Service?
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <ul className="space-y-5">
-              {[
-                { title: "Alle kennis op één plek" },
-                { title: "Eén vast aanspreekpunt" },
-                { title: "Onafhankelijk" },
-                { title: "Gecertificeerde installateurs" },
-                { title: "De beste after-sales service" },
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="text-green-600 text-xl">✔</span>
-                  <div>
-                    <p className="font-medium">{item.title}</p>
-                    <p className="text-gray-600 text-sm">
-                      
-                    </p>
+      {/* Why Choose Us Section */}
+      <section className="bg-gradient-to-br from-gray-50 to-green-50 py-20">
+        <div className="content-container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-8">
+                Waarom kiezen voor EV Service?
+              </h2>
+              <div className="space-y-6">
+                {[
+                  { title: "Alle kennis op één plek", desc: "Van technisch advies tot subsidiebegeleiding" },
+                  { title: "Eén vast aanspreekpunt", desc: "Persoonlijke contact, altijd dezelfde specialist" },
+                  { title: "Onafhankelijk advies", desc: "We kiezen de beste oplossing, niet een merk" },
+                  { title: "Gecertificeerde installateurs", desc: "Kwaliteit gegarandeerd, vakkundige installatie" },
+                  { title: "De beste after-sales service", desc: "Ook na oplevering staan we voor u klaar" }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-4 group">
+                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-colors">
+                      <CheckCircle className="w-6 h-6 text-green-700" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1">{item.title}</h3>
+                      <p className="text-gray-600">{item.desc}</p>
+                    </div>
                   </div>
-                </li>
-              ))}
-            </ul>
-            <img
-              src="https://images.unsplash.com/photo-1603791452906-c06d02d8c2b6"
-              alt="EV installatie"
-              className="rounded-xl shadow-md object-cover h-80 w-full"
-            />
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-3xl blur-3xl" />
+              <div className="relative bg-white rounded-3xl p-8 shadow-2xl">
+                <div className="grid grid-cols-2 gap-6">
+                  {[
+                    { number: "500+", label: "Installaties" },
+                    { number: "98%", label: "Tevreden klanten" },
+                    { number: "15+", label: "Jaar ervaring" },
+                    { number: "24/7", label: "Support" }
+                  ].map((stat, idx) => (
+                    <div key={idx} className="text-center p-4">
+                      <div className="text-3xl font-black text-green-700 mb-1">{stat.number}</div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* === Over Ons === */}
-      <section className="max-w-6xl w-full px-6 py-16">
-        <h2 className="text-2xl font-semibold mb-4">
-          Laadpaal Installatie: Uw Partner in Smart Charging
-        </h2>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          Bent u een zakelijke klant die één of meerdere laadpalen wil plaatsen
-          bij uw bedrijf of een VvE die laadpunten wil implementeren? Wij
-          begeleiden u van advies tot oplevering.
-        </p>
-        <p className="text-gray-700 leading-relaxed">
-          Onze EV Service Backoffice helpt u bij het beheer en onderhoud van uw
-          laadinfrastructuur. Wij zorgen ervoor dat alles soepel verloopt.
-        </p>
+      {/* About Section */}
+      <section className="content-container py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-8 shadow-lg">
+            <Award className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-4xl font-black text-gray-900 mb-6">
+            Laadpaal Installatie: Uw Partner in Smart Charging
+          </h2>
+          <p className="text-lg text-gray-600 leading-relaxed mb-8">
+            Bent u een zakelijke klant die één of meerdere laadpalen wil plaatsen bij uw bedrijf of een VvE die laadpunten wil implementeren? Wij begeleiden u van advies tot oplevering. Onze EV Service Backoffice helpt u bij het beheer en onderhoud van uw laadinfrastructuur.
+          </p>
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-100">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Meerdere merken laadpalen op één locatie? Dat kan!</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Als u uw bestaande laadplein wilt uitbreiden, bieden wij gespecialiseerde smart charging-modules om optimaal gebruik te maken van uw eigen energiebronnen en actieve load balancing toe te passen.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* === FAQ === */}
-      <section className="w-full bg-gray-50 py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-2xl font-semibold text-center mb-8">
-            Veelgestelde Vragen
-          </h2>
-          <div className="space-y-4">
+      {/* FAQ Section */}
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20">
+        <div className="content-container">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">
+              Veelgestelde Vragen
+            </h2>
+            <p className="text-lg text-gray-300">
+              Antwoorden op de meest gestelde vragen over onze diensten
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
             {[
-              "Zijn er subsidies of financiële regelingen beschikbaar?",
-              "Komen jullie langs op de situatie te meten?",
-              "Helpen jullie met een laadplan voor mijn bedrijf?",
-              "Wat is jullie werkgebied?",
-            ].map((q, idx) => (
+              {
+                q: "Zijn er subsidies of financiële regelingen beschikbaar?",
+                a: "Zeker! Bedrijven kunnen profiteren van belastingvoordelen zoals de KIA (Kleinschaligheidsinvesteringsaftrek) en MIA (Milieu-investeringsaftrek). Sinds 2024 zijn er ook subsidiemogelijkheden beschikbaar voor VvE's."
+              },
+              {
+                q: "Komen jullie langs op de situatie te meten?",
+                a: "Ja, we komen altijd langs om de situatie ter plaatse te beoordelen. Een fysieke inspectie is essentieel om een nauwkeurig advies te geven en de meest geschikte laadoplossing te kunnen aanbieden."
+              },
+              {
+                q: "Helpen jullie met een laadplan voor mijn bedrijf?",
+                a: "Ja, we helpen bij het opstellen van een laadbeleid dat voldoet aan uw bedrijfs- of VvE-behoeften, inclusief kostenverdeling en gebruik."
+              },
+              {
+                q: "Wat is jullie werkgebied?",
+                a: "Ons werkgebied omvat voornamelijk de Randstad (Amsterdam, Utrecht, Rotterdam, etc.). Voor interessante projecten schuiven we soms onze grenzen op."
+              }
+            ].map((faq, idx) => (
               <details
                 key={idx}
-                className="border rounded-lg bg-white p-4 cursor-pointer group"
+                className="group bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden"
               >
-                <summary className="font-medium group-open:text-green-600">
-                  {q}
+                <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-white/5 transition-colors">
+                  <span className="text-lg font-semibold text-white pr-4">{faq.q}</span>
+                  <ChevronRight className="w-5 h-5 text-green-400 flex-shrink-0 group-open:rotate-90 transition-transform" />
                 </summary>
-                <p className="text-gray-600 mt-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-300 leading-relaxed">{faq.a}</p>
+                </div>
               </details>
             ))}
           </div>
 
-          <div className="flex justify-center mt-10">
-            <a href="/offerte-aanvragen">
-            <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg text-white font-medium">
-              Offerte aanvragen
-            </button>
-          </a>
+          <div className="text-center mt-12">
+            <p className="text-gray-300 mb-6">Niet gevonden wat u zocht?</p>
+            <Link
+              href="/klantenservice"
+              className="inline-flex items-center justify-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-2xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-xl"
+            >
+              Neem contact op
+            </Link>
           </div>
         </div>
       </section>
-    </main>
+
+      {/* CTA Section */}
+      <section className="content-container py-20">
+        <div className="relative bg-gradient-to-br from-green-600 via-emerald-700 to-green-800 rounded-[3rem] p-12 lg:p-16 shadow-3xl overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl" />
+          </div>
+
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl font-black text-white mb-6">
+              Klaar om te beginnen?
+            </h2>
+            <p className="text-xl text-green-100 mb-10">
+              Vraag vandaag nog een vrijblijvende offerte aan en ontdek wat wij voor u kunnen betekenen.
+            </p>
+            <Link
+              href="/offerte-aanvragen"
+              className="inline-flex items-center justify-center gap-3 bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 text-lg"
+            >
+              Offerte aanvragen
+              <ChevronRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
-
-// export default function InstallatieService() {
-//   return (
-//     <>
-//       <div className="content-container prose">
-//         <h1>Onze Services</h1>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/calculator.svg" />
-//         <h2>Advies</h2>
-//         <p>
-//           Laat ons u begeleiden bij het opzetten van uw (zakelijke)
-//           laadinfrastructuur en ontdek hoe u middels{" "}
-//           <strong>Smart Charging</strong> optimaal gebruik kunt maken van uw
-//           stroomaansluiting.
-//         </p>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/headphones.svg" />
-//         <h2>Installatie</h2>
-//         <p>
-//           Vertrouw op onze expertise bij de installatie van uw
-//           laadinfrastructuur. We werken samen met een select aantal vaste
-//           installatiepartners voor een naadloze en betrouwbare service.
-//         </p>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/tools_cross.svg" />
-//         <h2>Support &amp; Beheer</h2>
-//         <p>
-//           Kies voor gemoedsrust met onze Support &amp; Beheer service. Onze
-//           eigen backoffice monitort proactief uw laadinfrastructuur. Bij EV
-//           Service heeft u altijd één betrouwbaar aanspreekpunt voor onderhoud en
-//           beheer.
-//         </p>
-//         <p>
-//           <a
-//             target="_blank"
-//             rel="noopener noreferrer nofollow"
-//             href="https://www.evservice.eu/offerte-aanvragen"
-//           >
-//             {" "}
-//             Offerte aanvragen
-//           </a>
-//         </p>
-//         <h1>Waarom kiezen voor EV Service?</h1>
-//         <ul>
-//           <li>
-//             <p></p>
-//           </li>
-//         </ul>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/24-hours.svg" />
-//         <h5>Alle kennis op één plek</h5>
-//         <p>
-//           Met diepgaande technische kennis biedt EV Service oplossingen; Ook
-//           voor complexe configuraties en elektrotechnische installaties.
-//         </p>
-//         <ul>
-//           <li>
-//             <p></p>
-//           </li>
-//         </ul>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/calender.svg" />
-//         <h5>Eén vast aanspreekpunt</h5>
-//         <p>
-//           Jouw toegewijde contactpersoon staat altijd klaar voor persoonlijke
-//           ondersteuning via telefoon of app bij vragen of problemen.
-//         </p>
-//         <ul>
-//           <li>
-//             <p></p>
-//           </li>
-//         </ul>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/dollar-symbol.svg" />
-//         <h5>Onafhankelijk</h5>
-//         <p>
-//           Als onafhankelijke partner kiezen we de beste oplossing, los van
-//           merkvoorkeur, om te voldoen aan jouw specifieke behoeften.
-//         </p>
-//         <ul>
-//           <li>
-//             <p></p>
-//           </li>
-//         </ul>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/machanic.svg" />
-//         <h5>Gecertificeerde installateurs</h5>
-//         <p>
-//           Onze installatiepartners zijn gecertificeerd en hebben de expertise om
-//           de hoogste kwaliteitsnormen te waarborgen bij installaties.
-//         </p>
-//         <ul>
-//           <li>
-//             <p></p>
-//           </li>
-//         </ul>
-//         <img src="https://www.evservice.eu/Themes/Traction/Content/img/quote_page/tools.svg" />
-//         <h5>De beste after sales service</h5>
-//         <p>
-//           EV Service staat bekend om haar uitstekende after-sales service,
-//           waardoor je kunt rekenen op blijvende ondersteuning.
-//         </p>
-//         <h1>Laadpaal Installatie: Uw Partner in Smart Charging</h1>
-//         <p>
-//           Bent u een zakelijke klant die één of meerdere laadpalen wil plaatsen
-//           bij uw bedrijf of een VVE die laadpunten wil installeren in een
-//           centrale parkeergarage? Onze Smart Charging Consultants staan voor u
-//           klaar!
-//         </p>
-//         <h2>Over Ons</h2>
-//         <p>
-//           Bij ons vindt u alle kennis op één plek, inclusief Dynamic Load
-//           Management en Smart Charging. Of u nu één laadpunt wilt implementeren
-//           of een volledig laadplein bij uw bedrijfspand of VVE, wij hebben de
-//           expertise om u te voorzien van advies en doeltreffende oplossingen.
-//           Wij begeleiden u vanaf het ontwerp tot de oplevering van uw laadpunt
-//           of laadplein. Ook na oplevering staan we voor u klaar voor beheer en
-//           onderhoud.
-//         </p>
-//         <h2>Meerdere merken laadpalen op één locatie: Dat kan!</h2>
-//         <p>
-//           Als u uw bestaande laadplein wilt uitbreiden, bieden wij
-//           gespecialiseerde smart charging-modules om optimaal gebruik te maken
-//           van uw eigen energiebronnen en actieve load balancing toe te passen om
-//           overbelasting van uw hoofdzekeringen te voorkomen. Dit stelt u in
-//           staat om laadpunten van verschillende merken met elkaar te verbinden
-//           en efficiënt gebruik te maken van uw stroom.
-//         </p>
-//         <h2>EV Service Backoffice: Vereenvoudig Uw Laadinfrastructuur</h2>
-//         <p>
-//           Onze EV Service Backoffice is een krachtig hulpmiddel dat speciaal is
-//           ontwikkeld om het beheer en de financiële processen met betrekking tot
-//           laadpalen voor elektrische voertuigen te vereenvoudigen. Dit maakt
-//           openbaar laden mogelijk zonder dat u hier omkijken naar heeft. U heeft
-//           toegang tot ons portaal om uw eigen laadsessies te bekijken.
-//         </p>
-//         <p>
-//           Daarnaast stelt het ons in staat om uw laadinfrastructuur op afstand
-//           te monitoren en beheren. Hierdoor kunnen we in veel gevallen eventuele
-//           problemen op afstand oplossen.
-//         </p>
-//         <h2>Persoonlijke after sales</h2>
-//         <p>
-//           Ook na de ingebruikname van uw laadstation zijn wij er om al uw vragen
-//           te beantwoorden, ongeacht wanneer ze zich voordoen. Of het nu gaat om
-//           het gebruik van uw laadstation, storingen, of uitbreidingen, wij staan
-//           voor u klaar.
-//         </p>
-//         <h1>Veelgestelde Vragen</h1>
-//         <ul>
-//           <li>
-//             <p>
-//               Zijn er subsidies of financiële stimuleringsregelingen beschikbaar
-//               voor de installatie van laadinfrastructuur?
-//             </p>
-//             <p>
-//               Zeker! Bedrijven kunnen profiteren van belastingvoordelen zoals de
-//               KIA (Kleinschaligheidsinvesteringsaftrek) en MIA
-//               (Milieu-investeringsaftrek). Sinds 2024 zijn er ook
-//               subsidiemogelijkheden beschikbaar voor VVE's om de kosten voor de
-//               aanleg van laadinfrastructuur te verlagen.
-//             </p>
-//           </li>
-//           <li>
-//             <p>Komen jullie langs om de situatie op te nemen?</p>
-//             <p>
-//               Ja, we komen altijd langs om de situatie ter plaatse te
-//               beoordelen. Een fysieke inspectie is essentieel om een nauwkeurig
-//               advies te geven en de meest geschikte laadoplossing voor uw
-//               specifieke situatie te kunnen aanbieden. Onze experts zorgen
-//               ervoor dat de installatie voldoet aan uw behoeften en de beste
-//               locatie wordt bepaald voor de laadpalen. Dit stelt ons in staat om
-//               een optimale laadinfrastructuur te realiseren die aan al uw wensen
-//               voldoet.
-//             </p>
-//           </li>
-//           <li>
-//             <p>
-//               Kan EV Service helpen met het opstellen van een laadbeleid voor
-//               mijn bedrijf of VVE?
-//             </p>
-//             <p>
-//               Ja, we kunnen helpen bij het opstellen van een laadbeleid dat
-//               voldoet aan uw bedrijfs- of VVE-behoeften, inclusief
-//               kostenverdeling en gebruik.
-//             </p>
-//           </li>
-//           <li>
-//             <p>Wat is jullie werkgebied?</p>
-//             <p>
-//               Ons werkgebied omvat voornamelijk de Randstad, waaronder steden
-//               als Amsterdam, Almere, Amersfoort, Utrecht en Rotterdam. Hier
-//               hebben we een sterke aanwezigheid en voeren we regelmatig
-//               installaties uit. Echter, voor interessante projecten schuiven we
-//               soms onze grenzen op en werken we ook buiten de Randstad. We
-//               streven ernaar om onze expertise en diensten beschikbaar te maken
-//               waar dat nodig is, zodat we aan de vraag van onze klanten kunnen
-//               voldoen.
-//             </p>
-//           </li>
-//         </ul>
-//       </div>
-//       <div className="flex flex-row max-w-7xl mx-auto">
-//         <iframe
-//           style={{ border: "none", width: "100%", height: "800px" }}
-//           id="my-form-9dbnns"
-//           src="https://form.evservice.eu/forms/ev-service-offerte-3pstb8"
-//         ></iframe>
-//         <Script
-//           src="https://form.evservice.eu/widgets/iframe.min.js"
-//           strategy="afterInteractive"
-//           onLoad={() => {
-//             if (typeof window !== "undefined" && window.initEmbed) {
-//               window.initEmbed("my-form-9dbnns")
-//             }
-//           }}
-//         />
-//       </div>
-//     </>
-//   )
-// }
