@@ -64,11 +64,11 @@ const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
 
       {/* Premium footer with trust signals */}
       {items && items.length > 0 && (
-        <div className="px-8 py-6 bg-gradient-to-r from-green-50 to-emerald-50 border-t border-green-200">
+        <div className="px-8 py-6 bg-gradient-to-r from-green-50 to-emerald-50 border-t border-border-base">
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
             <div className="flex items-center gap-2 text-gray-700">
               <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-green-700" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-jade" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                   <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
                 </svg>
@@ -77,7 +77,7 @@ const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-green-700" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-jade" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                 </svg>
               </div>
@@ -85,7 +85,7 @@ const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-green-700" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-jade" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                   <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
                 </svg>

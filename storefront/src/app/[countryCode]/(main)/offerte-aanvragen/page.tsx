@@ -1,75 +1,80 @@
 import Link from "next/link"
 import Script from "next/script"
-import { FileText, ChevronRight, Phone, Mail } from "lucide-react"
+import { ChevronRight, Phone, Mail, Clock } from "lucide-react"
 
 export default function Offerte() {
   return (
-    <div className="relative min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[40vh] min-h-[350px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-emerald-800 to-green-900">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-20 left-20 w-64 h-64 bg-green-400 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-20 right-20 w-80 h-80 bg-emerald-400 rounded-full blur-3xl animate-pulse delay-1000" />
-          </div>
-        </div>
-
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl mb-8 shadow-2xl">
-            <FileText className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">
-            Offerte Aanvragen
-          </h1>
-          <p className="text-xl text-green-100 max-w-2xl mx-auto leading-relaxed">
-            Vul het formulier in en ontvang binnen 24 uur een vrijblijvende offerte op maat.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Options Bar */}
-      <section className="relative z-20 -mt-8 px-6">
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-6 md:p-8 grid md:grid-cols-3 gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <Phone className="w-7 h-7 text-green-700" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Bel ons direct</p>
-              <a href="tel:+31201234567" className="text-lg font-bold text-gray-900 hover:text-green-700 transition-colors">
-                +31 20 123 4567
-              </a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <Mail className="w-7 h-7 text-blue-700" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">E-mail ons</p>
-              <a href="mailto:info@evservice.eu" className="text-lg font-bold text-gray-900 hover:text-green-700 transition-colors">
-                info@evservice.eu
-              </a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <FileText className="w-7 h-7 text-purple-700" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Reactietijd</p>
-              <p className="text-lg font-bold text-gray-900">
-                Binnen 24 uur
-              </p>
-            </div>
+    <div className="bg-white">
+      {/* Header */}
+      <section className="bg-[#0f1d24] text-white">
+        <div className="content-container py-10 sm:py-14">
+          <div className="max-w-[640px]">
+            <span className="eyebrow text-[#B0CB31]">Offerte</span>
+            <h1 className="display-lg mt-1 text-white">Vraag je offerte aan</h1>
+            <p className="lede mt-2.5 text-white/75">
+              Vul het formulier in en ontvang binnen 24 uur een vrijblijvende
+              offerte op maat.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Form Section */}
-      <section className="content-container py-16">
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+      {/* Contact strip */}
+      <section className="border-b border-border-soft bg-white">
+        <div className="content-container py-5">
+          <div className="grid sm:grid-cols-3 gap-3">
+            <a
+              href="tel:+31850479240"
+              className="flex items-center gap-3 surface-panel p-3.5 hover:border-jade/40 hover:bg-white transition-all"
+            >
+              <span className="w-9 h-9 rounded-md bg-jade/10 text-jade flex items-center justify-center flex-shrink-0">
+                <Phone className="w-4 h-4" strokeWidth={1.75} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-[11.5px] uppercase tracking-wider font-semibold text-text-muted">
+                  Bel ons
+                </p>
+                <p className="text-[13.5px] font-semibold text-text-base truncate">
+                  +31 (0)85 - 0479240
+                </p>
+              </div>
+            </a>
+            <a
+              href="mailto:info@evservice.eu"
+              className="flex items-center gap-3 surface-panel p-3.5 hover:border-jade/40 hover:bg-white transition-all"
+            >
+              <span className="w-9 h-9 rounded-md bg-jade/10 text-jade flex items-center justify-center flex-shrink-0">
+                <Mail className="w-4 h-4" strokeWidth={1.75} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-[11.5px] uppercase tracking-wider font-semibold text-text-muted">
+                  E-mail
+                </p>
+                <p className="text-[13.5px] font-semibold text-text-base truncate">
+                  info@evservice.eu
+                </p>
+              </div>
+            </a>
+            <div className="flex items-center gap-3 surface-panel p-3.5">
+              <span className="w-9 h-9 rounded-md bg-jade/10 text-jade flex items-center justify-center flex-shrink-0">
+                <Clock className="w-4 h-4" strokeWidth={1.75} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-[11.5px] uppercase tracking-wider font-semibold text-text-muted">
+                  Reactietijd
+                </p>
+                <p className="text-[13.5px] font-semibold text-text-base">
+                  Binnen 24 uur
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Form */}
+      <section className="content-container py-8 sm:py-10">
+        <div className="surface-card overflow-hidden">
           <iframe
             id="markt-parasolnl-offerte-aanvraag-hfhk31"
             src="https://form.evservice.eu/forms/ev-service-offerte-3pstb8"
@@ -78,39 +83,44 @@ export default function Offerte() {
         </div>
       </section>
 
-      {/* Info Cards */}
-      <section className="bg-gradient-to-br from-gray-50 to-green-50 py-16">
-        <div className="content-container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
-              Wat kunnen we voor u betekenen?
+      {/* Info cards */}
+      <section className="bg-page-soft border-t border-border-soft">
+        <div className="content-container section-pad">
+          <div className="max-w-[640px] mb-6">
+            <span className="eyebrow">Mogelijkheden</span>
+            <h2 className="display-md mt-1.5 text-text-base">
+              Wat kunnen we voor je betekenen?
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-3 gap-3">
             {[
               {
                 title: "Laadpalen voor thuis",
-                desc: "Vind de perfecte laadpaal voor uw situatie"
+                desc: "De juiste laadpaal voor jouw woonsituatie.",
               },
               {
                 title: "Zakelijke laadoplossingen",
-                desc: "Complete infrastructuur voor uw bedrijf"
+                desc: "Complete infrastructuur voor jouw bedrijf.",
               },
               {
                 title: "Advies op maat",
-                desc: "Persoonlijk advies van onze experts"
-              }
-            ].map((item, idx) => (
-              <div key={idx} className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
-                <h3 className="text-xl font-black text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 mb-6">{item.desc}</p>
+                desc: "Persoonlijk advies van onze specialisten.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="surface-card p-5">
+                <h3 className="text-[14px] font-semibold text-text-base">
+                  {item.title}
+                </h3>
+                <p className="text-[13px] text-text-muted mt-1.5 leading-relaxed">
+                  {item.desc}
+                </p>
                 <Link
                   href="/installatie-service"
-                  className="inline-flex items-center gap-2 text-green-700 font-semibold hover:text-green-800 transition-colors"
+                  className="btn-link text-[12.5px] mt-3"
                 >
                   Meer informatie
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             ))}
@@ -118,7 +128,6 @@ export default function Offerte() {
         </div>
       </section>
 
-      {/* Script initialization */}
       <Script
         src="https://form.evservice.eu/widgets/iframe.min.js"
         strategy="afterInteractive"

@@ -9,7 +9,7 @@ const SignInPrompt = () => {
           Heeft u al een account?
         </Heading>
         <Text className="text-sm text-gray-600 mt-1">
-          <span className="font-semibold text-green-700">Login</span> om sneller af te rekenen en uw bestellingen te bekijken
+          <span className="font-semibold text-jade">Login</span> om sneller af te rekenen en uw bestellingen te bekijken
         </Text>
       </div>
       <div>

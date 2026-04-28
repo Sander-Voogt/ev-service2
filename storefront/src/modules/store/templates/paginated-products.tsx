@@ -29,33 +29,17 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
 }) {
-  const queryParams: PaginatedProductsParams = {
-    limit: 12,
-  }
+  const queryParams: PaginatedProductsParams = { limit: 12 }
 
-  if (collectionId) {
-    queryParams["collection_id"] = [collectionId]
-  }
-
-  if (categoryId) {
-    queryParams["category_id"] = [categoryId]
-  }
-
-  if (productsIds) {
-    queryParams["id"] = productsIds
-  }
-
-  if (sortBy === "created_at") {
-    queryParams["order"] = "created_at"
-  }
+  if (collectionId) queryParams["collection_id"] = [collectionId]
+  if (categoryId) queryParams["category_id"] = [categoryId]
+  if (productsIds) queryParams["id"] = productsIds
+  if (sortBy === "created_at") queryParams["order"] = "created_at"
 
   const region = await getRegion(countryCode)
+  if (!region) return null
 
-  if (!region) {
-    return null
-  }
-
-  let {
+  const {
     response: { products, count },
   } = await getProductsListWithSort({
     page,
@@ -67,43 +51,35 @@ export default async function PaginatedProducts({
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
-    <div className="space-y-10">
-      {/* Premium header with stats */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 bg-white rounded-3xl p-8 shadow-xl border border-gray-200">
-        <div>
-          <h3 className="text-3xl font-black text-gray-900 mb-2">Products</h3>
-          <p className="text-gray-600">
-            Showing <span className="font-black text-green-700">{count}</span> premium products
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <p className="text-[13px] text-text-muted">
+          <span className="font-semibold text-text-base">{count}</span>{" "}
+          {count === 1 ? "product" : "producten"}
+        </p>
+      </div>
+
+      {products.length === 0 ? (
+        <div className="surface-panel py-16 text-center">
+          <p className="text-[14px] text-text-muted">
+            Geen producten gevonden.
           </p>
         </div>
-
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full border border-green-200">
-            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
-            <span className="text-sm font-bold text-green-800">In Stock</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Premium product grid */}
-      <div>
+      ) : (
         <ul
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4"
           data-testid="products-list"
         >
-          {products.map((p) => {
-            return (
-              <li key={p.id}>
-                <ProductPreview product={p} region={region} />
-              </li>
-            )
-          })}
+          {products.map((p) => (
+            <li key={p.id}>
+              <ProductPreview product={p} region={region} />
+            </li>
+          ))}
         </ul>
-      </div>
+      )}
 
-      {/* Premium pagination */}
       {totalPages > 1 && (
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-8 border-2 border-green-200 shadow-xl">
+        <div className="pt-6 border-t border-border-soft">
           <Pagination
             data-testid="product-pagination"
             page={page}

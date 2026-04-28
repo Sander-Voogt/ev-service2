@@ -25,7 +25,7 @@ const Hits = ({
   return (
     <div
       className={clx(
-        "transition-[height,max-height,opacity] duration-500 ease-in-out",
+        "transition-[height,max-height,opacity] duration-300 ease-in-out",
         className,
         {
           "max-h-full opacity-100": !!query,
@@ -33,18 +33,15 @@ const Hits = ({
         }
       )}
     >
-      <div className="space-y-8">
+      <div className="space-y-3">
         {hits.length > 0 && (
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-black text-gray-900">
-              Search Results
-              <span className="text-green-700 ml-2">({hits.length})</span>
-            </h3>
-          </div>
+          <p className="text-[12px] uppercase tracking-wider font-semibold text-text-muted">
+            Resultaten ({hits.length})
+          </p>
         )}
 
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
           data-testid="search-results"
         >
           {hits.slice(0, 6).map((hit, index) => (
@@ -60,7 +57,7 @@ const Hits = ({
         </div>
 
         {hits.length > 0 && (
-          <div className="pt-6 border-t-2 border-gray-200">
+          <div className="pt-3 border-t border-border-soft">
             <ShowAll />
           </div>
         )}

@@ -1,100 +1,98 @@
-"use client" // include with Next.js 13+
+"use client"
 
-import { sdk } from "@lib/config"
-import { POST } from "app/api/wachtwoordreset/route"
 import { useMemo, useState } from "react"
+import { Lock } from "lucide-react"
 
 export default function ResetPassword() {
   const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState("")
-  // for other than Next.js
-  const searchParams = useMemo(() => {
-    if (typeof window === "undefined") {
-      return
-    }
+  const [message, setMessage] = useState<string | null>(null)
+  const [isError, setIsError] = useState(false)
 
+  const searchParams = useMemo(() => {
+    if (typeof window === "undefined") return
     return new URLSearchParams(window.location.search)
   }, [])
-  const token = useMemo(() => {
-    return searchParams?.get("token")
-  }, [searchParams])
-  const email = useMemo(() => {
-    return searchParams?.get("email")
-  }, [searchParams])
+  const token = useMemo(() => searchParams?.get("token"), [searchParams])
+  const email = useMemo(() => searchParams?.get("email"), [searchParams])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!token) {
-      return
-    }
-    if (!password) {
-      alert("Password is required")
-      return
-    }
+    if (!token || !password) return
+
     setLoading(true)
+    setMessage(null)
 
     fetch("/api/setpassword", {
       method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        token: token,
-      }),
+      body: JSON.stringify({ email, password, token }),
     })
       .then(() => {
-        alert("Wachtwoord gewijzigd. U kunt nu inloggen met uw nieuwe wachtwoord")
+        setIsError(false)
+        setMessage(
+          "Wachtwoord gewijzigd. U kunt nu inloggen met uw nieuwe wachtwoord."
+        )
       })
       .catch((error) => {
-        alert(`Wachtwoord kan niet worden gereset: ${error.message}`)
+        setIsError(true)
+        setMessage(`Wachtwoord kan niet worden gereset: ${error.message}`)
       })
-      .finally(() => {
-        setLoading(false)
-      })
+      .finally(() => setLoading(false))
   }
 
   return (
-    <form
-  onSubmit={handleSubmit}
-  className="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow p-6 space-y-4 border border-gray-100"
->
-  <h2 className="text-2xl font-semibold text-gray-800 text-center">
-    Nieuw wachtwoord instellen
-  </h2>
+    <div className="bg-page-soft min-h-[80vh]">
+      <div className="content-container py-10 sm:py-14 max-w-[440px]">
+        <form onSubmit={handleSubmit} className="surface-card p-6 sm:p-7">
+          <div className="text-center mb-5">
+            <div className="w-11 h-11 rounded-full bg-jade/10 text-jade flex items-center justify-center mx-auto mb-3">
+              <Lock className="w-5 h-5" strokeWidth={1.75} />
+            </div>
+            <h1 className="display-sm text-text-base">Nieuw wachtwoord instellen</h1>
+            <p className="text-[13px] text-text-muted mt-1">
+              Voer een nieuw wachtwoord in om je account te beveiligen.
+            </p>
+          </div>
 
-  <div className="flex flex-col space-y-2">
-    <label
-      htmlFor="password"
-      className="text-sm font-medium text-gray-700"
-    >
-      Nieuw wachtwoord
-    </label>
-    <input
-      id="password"
-      type="password"
-      placeholder="••••••••"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
-      required
-    />
-  </div>
+          <div className="space-y-1.5">
+            <label
+              htmlFor="password"
+              className="text-[12px] font-medium text-text-muted"
+            >
+              Nieuw wachtwoord
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input-base"
+              required
+            />
+          </div>
 
-  <button
-    type="submit"
-    disabled={loading}
-    className={`w-full py-2 rounded-lg text-white font-medium transition-colors
-      ${loading
-        ? "bg-[#22c55e] cursor-not-allowed"
-        : "bg-[#22c55e] hover:bg-[#22c55e]"}
-    `}
-  >
-    {loading ? "Bezig met resetten..." : "Reset wachtwoord"}
-  </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full mt-4"
+          >
+            {loading ? "Bezig met resetten..." : "Reset wachtwoord"}
+          </button>
 
-  <p className="text-sm text-gray-500 text-center">
-    Voer een nieuw wachtwoord in om je account te beveiligen.
-  </p>
-</form>
-
+          {message && (
+            <div
+              className={`mt-4 p-2.5 rounded-md text-[12.5px] ${
+                isError
+                  ? "bg-[#fef2f2] border border-[#fecaca] text-[#b91c1c]"
+                  : "bg-[#f1f8e9] border border-jade/30 text-text-base"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   )
 }

@@ -91,7 +91,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
     <div className="flex gap-x-6 p-6 sm:p-8 hover:bg-gradient-to-r hover:from-green-50/50 hover:to-transparent transition-all duration-300 group" data-testid="product-row">
       <LocalizedClientLink
         href={`/products/${item.product_handle}`}
-        className="flex-shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-green-50 hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-2 border-gray-100 group-hover:border-green-200"
+        className="flex-shrink-0 w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-green-50 hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-2 border-gray-100 group-hover:border-border-base"
       >
         <Thumbnail
           thumbnail={item.thumbnail}
@@ -108,7 +108,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               className="group/link"
             >
               <Text
-                className="text-base sm:text-lg font-black text-gray-900 group-hover/link:text-green-700 transition-colors duration-300"
+                className="text-base sm:text-lg font-black text-gray-900 group-hover/link:text-jade transition-colors duration-300"
                 data-testid="product-title"
               >
                 {item.product_title}
@@ -145,7 +145,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                 <Spinner />
               </div>
             ) : (
-              <div className="flex items-center bg-white rounded-xl overflow-hidden shadow-lg border-2 border-green-200">
+              <div className="flex items-center bg-white rounded-xl overflow-hidden shadow-lg border-2 border-border-base">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -156,10 +156,10 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   }}
                   disabled={item.quantity <= 1}
                   aria-label="Verlaag aantal"
-                  className="border-r border-green-200 px-4 py-3 hover:bg-green-50 transition-colors disabled:opacity-50"
+                  className="border-r border-border-base px-4 py-3 hover:bg-jade/10 transition-colors disabled:opacity-50"
                 >
                   <svg
-                    className="w-5 h-5 text-green-700"
+                    className="w-5 h-5 text-jade"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -173,7 +173,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   </svg>
                 </Button>
                 <span
-                  className="w-14 h-12 flex items-center justify-center text-lg font-black text-green-700 bg-green-50"
+                  className="w-14 h-12 flex items-center justify-center text-lg font-black text-jade bg-green-50"
                   data-testid="product-quantity"
                 >
                   {item.quantity}
@@ -188,10 +188,10 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   }}
                   disabled={item.quantity >= maxQuantity}
                   aria-label="Verhoog aantal"
-                  className="border-l border-green-200 px-4 py-3 hover:bg-green-50 transition-colors disabled:opacity-50"
+                  className="border-l border-border-base px-4 py-3 hover:bg-jade/10 transition-colors disabled:opacity-50"
                 >
                   <svg
-                    className="w-5 h-5 text-green-700"
+                    className="w-5 h-5 text-jade"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

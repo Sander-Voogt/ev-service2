@@ -1,6 +1,7 @@
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import MainNavBar from "./components/Mainnavbar"
+import ThemeToggle from "@modules/common/components/theme-toggle"
 import { listRegions } from "@lib/data/regions"
 import { retrieveCustomer } from "@lib/data/customer"
 import { StoreRegion } from "@medusajs/types"
@@ -28,18 +29,18 @@ export default async function Nav() {
 
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 bg-white shadow-md">
+    <div className="sticky top-0 inset-x-0 z-50 shadow-md" style={{ backgroundColor: "var(--page-bg)" }}>
             <TopBar/>
 
       <InfoBar currentRegion={regions[0]} customer={customer} />
 
       <div className="sticky top-0 inset-x-0 z-50">
-        <header className="bg-white">
+        <header style={{ backgroundColor: "var(--page-bg)", borderBottom: "1px solid var(--border-soft)" }}>
           <div className="max-w-screen-xl mx-auto flex items-center justify-between py-5 px-4 gap-4 md:gap-8">
             <MainNavBar />
-            <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+            <div className="flex items-center gap-x-4 h-full flex-1 basis-0 justify-end">
               <NavSub />
-              <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-all duration-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-600" title="Winkelwagen">
+              <div className="flex items-center gap-2 px-2 py-1 rounded-lg border hover:shadow transition-all duration-200 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-jade" style={{ borderColor: "var(--border)", backgroundColor: "var(--surface)" }} title="Winkelwagen">
               <CartButton />
             </div>
             </div>
@@ -68,12 +69,19 @@ const InfoBar = ({ currentRegion, customer }: { currentRegion?: StoreRegion, cus
 
   return (
     <>
-      <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-xs lg:text-sm text-green-900 border-b border-green-100 shadow-sm">
+      <div
+        className="w-full text-xs lg:text-sm shadow-sm"
+        style={{
+          backgroundColor: "var(--page-bg-tinted)",
+          color: "var(--text)",
+          borderBottom: "1px solid var(--border-soft)",
+        }}
+      >
         <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4 gap-2">
           <div className="flex items-center gap-2 lg:gap-4 hidden sm:flex">
             <a
               href="mailto:klantenservice@evservice.eu"
-              className="flex items-center gap-1 font-medium hover:text-green-default transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 font-medium hover:text-jade transition-colors whitespace-nowrap"
             >
               <IconMail className="shrink-0" />
               <span className="hidden md:inline">klantenservice@evservice.eu</span>
@@ -89,12 +97,13 @@ const InfoBar = ({ currentRegion, customer }: { currentRegion?: StoreRegion, cus
             ) : (
               <a
                 href="/account"
-                className="flex items-center gap-1 font-semibold hover:text-green-default transition-colors whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 rounded px-1"
+                className="flex items-center gap-1 font-semibold hover:text-jade transition-colors whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-jade rounded px-1"
               >
                 <IconUser className="shrink-0" />
                 <span className="hidden sm:inline">Login</span>
               </a>
             )}
+            <ThemeToggle size="sm" />
             <LanguageDropdown />
           </div>
         </div>

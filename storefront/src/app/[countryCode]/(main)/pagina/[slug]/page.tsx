@@ -1,41 +1,30 @@
-import { getPageBySlug, getHelpdeskCategories, getInfoPages, getSubPages } from '@lib/ghost';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import SafeHtml from '@modules/common/components/safe-html';
-import './style.css'
-// 1. Statische Padgeneratie (Next.js generateStaticParams)
-// Dit zorgt ervoor dat Next.js alle hoofdcategorie-pagina's kent voor de build.
-export const dynamic = "force-static";
-export async function generateStaticParams() {
-  const categories = await getInfoPages();
+import { getPageBySlug, getInfoPages } from "@lib/ghost"
+import { notFound } from "next/navigation"
+import SafeHtml from "@modules/common/components/safe-html"
 
-  // Retourneer een array van slug-objecten
-  return categories.map((category) => ({
-    slug: category.slug,
-  }));
+export const dynamic = "force-static"
+
+export async function generateStaticParams() {
+  const categories = await getInfoPages()
+  return categories.map((category) => ({ slug: category.slug }))
 }
 
-// 2. De Categorie Pagina Component
-export default async function CategoryPage({ params }) {
-  const categorySlug = params.slug;
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+  const pageContent = await getPageBySlug(params.slug)
 
-  // Haal de hoofdinhoud van de categoriepagina op
-  const pageContent = await getPageBySlug(categorySlug);
-  
-
-  if (!pageContent) {
-    notFound(); // Toon de 404 pagina als de categorie niet bestaat
-  }
+  if (!pageContent) notFound()
 
   return (
-    <div className="content-container prose">
-      <h1>{pageContent.title}</h1>
-
-      {/* 1. Hoofdcontent van de categoriepagina */}
-      <SafeHtml
-        className="page-content prose max-w-[80%]"
-        html={pageContent.html}
-      />
+    <div className="bg-white">
+      <div className="content-container-narrow py-6 sm:py-10">
+        <article>
+          <h1 className="display-lg text-text-base mb-5">{pageContent.title}</h1>
+          <SafeHtml
+            className="prose prose-sm sm:prose-base max-w-none"
+            html={pageContent.html}
+          />
+        </article>
+      </div>
     </div>
-  );
+  )
 }

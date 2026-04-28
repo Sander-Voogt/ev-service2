@@ -55,5 +55,5 @@ export const Logo = () => (
   <img src="/img/ev-service-logo.png" alt="logo evservice" width={'150'}/>
 );
 
-// Utility style
-export const navLink = "font-semibold text-green-900 hover:text-green-700 transition-colors";
+// Utility style — theme-aware (uses CSS var --text in globals.css)
+export const navLink = "font-semibold text-text-base hover:text-jade transition-colors";

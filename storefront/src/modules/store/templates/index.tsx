@@ -19,22 +19,35 @@ const StoreTemplate = ({
   const sort = sortBy || "created_at"
 
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
-      data-testid="category-container"
-    >
-      <RefinementList sortBy={sort} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
+    <div className="bg-surface">
+      <div
+        className="content-container py-6 sm:py-8"
+        data-testid="category-container"
+      >
+        <header className="mb-6 max-w-[760px]">
+          <span className="eyebrow">Webshop</span>
+          <h1 className="display-lg mt-1 text-text-base" data-testid="store-page-title">
+            Alle producten
+          </h1>
+          <p className="lede mt-2.5">
+            Het volledige assortiment laadkabels, laadpalen en accessoires.
+          </p>
+        </header>
+
+        <div className="grid lg:grid-cols-12 gap-6">
+          <aside className="lg:col-span-3">
+            <RefinementList sortBy={sort} />
+          </aside>
+          <div className="lg:col-span-9">
+            <Suspense fallback={<SkeletonProductGrid />}>
+              <PaginatedProducts
+                sortBy={sort}
+                page={pageNumber}
+                countryCode={countryCode}
+              />
+            </Suspense>
+          </div>
         </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            countryCode={countryCode}
-          />
-        </Suspense>
       </div>
     </div>
   )

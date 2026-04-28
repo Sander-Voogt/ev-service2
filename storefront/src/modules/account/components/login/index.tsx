@@ -3,6 +3,7 @@ import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Button from "@modules/common/components/button"
 import Input from "@modules/common/components/input"
 import { useActionState } from "react"
+import { User } from "lucide-react"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -12,38 +13,19 @@ const Login = ({ setCurrentView }: Props) => {
   const [message, formAction, isPending] = useActionState(login, null)
 
   return (
-    <div
-      className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-6 max-w-md mx-auto"
-      data-testid="login-page"
-    >
-      {/* Header */}
+    <div className="surface-feature p-7 sm:p-8" data-testid="login-page">
       <div className="text-center mb-6">
-        <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-7 h-7 text-gray-700"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-            />
-          </svg>
+        <div className="w-12 h-12 rounded-full bg-jade/10 text-jade flex items-center justify-center mx-auto mb-3.5">
+          <User className="w-[22px] h-[22px]" strokeWidth={1.75} />
         </div>
-        <h1 className="text-xl font-bold text-neutral-900 mb-1">
-          Welkom terug
-        </h1>
-        <p className="text-gray-600 text-sm">
-          Log in om de prijzen te zien en een bestelling te plaatsen.
+        <h1 className="display-md text-text-base">Welkom terug</h1>
+        <p className="text-[13.5px] text-text-muted mt-1.5 leading-relaxed">
+          Log in om je prijzen en bestellingen te zien.
         </p>
       </div>
 
-      <form className="w-full" action={formAction}>
-        <div className="flex flex-col w-full gap-y-3">
+      <form action={formAction}>
+        <div className="flex flex-col gap-y-2.5">
           <Input
             label="E-mailadres"
             name="email"
@@ -64,7 +46,7 @@ const Login = ({ setCurrentView }: Props) => {
         </div>
 
         {message && (
-          <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-600 text-sm animate-fade-in">
+          <div className="mt-3 p-2.5 bg-[#fef2f2] border border-[#fecaca] rounded-md text-[12.5px] text-[#b91c1c] animate-fade-in">
             {message}
           </div>
         )}
@@ -83,24 +65,23 @@ const Login = ({ setCurrentView }: Props) => {
         </Button>
       </form>
 
-      <div className="mt-6 pt-4 border-t border-gray-200 text-center">
-        <span className="text-gray-600 text-sm">
+      <div className="mt-6 pt-5 border-t border-border-soft text-center space-y-2">
+        <p className="text-[13px] text-text-muted">
           Nog geen account?{" "}
           <button
             onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
-            className="text-gray-900 font-medium hover:underline"
+            className="text-jade font-medium hover:underline"
             data-testid="register-button"
           >
             Registreren
           </button>
-        </span>
-        <br/>
+        </p>
         <a
           href="/wachtwoord-vergeten"
-          className="text-gray-900 font-medium hover:underline"
+          className="block text-[12.5px] text-text-muted hover:text-jade hover:underline"
           data-testid="forgot-password-link"
         >
-          Wachtwoord vergeten
+          Wachtwoord vergeten?
         </a>
       </div>
     </div>

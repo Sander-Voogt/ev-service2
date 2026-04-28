@@ -10,6 +10,9 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="nl" data-mode="light">
+      <head>
+        <script src="/theme-init.js" />
+      </head>
       <GoogleTagManager gtmId="GTM-KPNGTRPD" />
       <link rel="alternate" href={`${process.env.NEXT_PUBLIC_BASE_URL}/nl/`} hrefLang="nl-nl" />
       <link rel="alternate" href={`${process.env.NEXT_PUBLIC_BASE_URL}/be/`} hrefLang="nl-be" />

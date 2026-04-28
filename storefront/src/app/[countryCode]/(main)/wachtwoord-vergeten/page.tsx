@@ -1,82 +1,102 @@
-"use client" // include with Next.js 13+
+"use client"
 
-import { sdk } from "@lib/config"
 import { useState } from "react"
+import { KeyRound } from "lucide-react"
 
 export default function RequestResetPassword() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState<string | null>(null)
+  const [isError, setIsError] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!email) {
-      alert("Email is required")
-      return
-    }
+    if (!email) return
+
     setLoading(true)
+    setMessage(null)
 
     fetch("/api/wachtwoordreset", {
       method: "POST",
-      body: JSON.stringify({ email: email }),
+      body: JSON.stringify({ email }),
     })
       .then((res) => {
         if (res.ok) {
-          setMessage("Reset link is verstuurd naar emailadres.")
+          setIsError(false)
+          setMessage("Resetlink is verstuurd naar je e-mailadres.")
         } else {
-          setMessage("Reset link kan niet worden verstuurd. Neem contact op via klantenservice@evservice.eu")
+          setIsError(true)
+          setMessage(
+            "Resetlink kan niet worden verstuurd. Neem contact op via klantenservice@evservice.eu."
+          )
         }
       })
-      .catch((error) => {
-        alert(error.message)
+      .catch(() => {
+        setIsError(true)
+        setMessage("Er is iets misgegaan. Probeer het opnieuw.")
       })
-      .finally(() => {
-        setLoading(false)
-      })
+      .finally(() => setLoading(false))
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow p-6 space-y-4 border border-gray-100"
-    >
-      <h2 className="text-2xl font-semibold text-gray-800 text-center">
-        Wachtwoord Reset
-      </h2>
+    <div className="bg-page-soft min-h-[80vh]">
+      <div className="content-container py-10 sm:py-14 max-w-[440px]">
+        <form onSubmit={handleSubmit} className="surface-card p-6 sm:p-7">
+          <div className="text-center mb-5">
+            <div className="w-11 h-11 rounded-full bg-jade/10 text-jade flex items-center justify-center mx-auto mb-3">
+              <KeyRound className="w-5 h-5" strokeWidth={1.75} />
+            </div>
+            <h1 className="display-sm text-text-base">Wachtwoord vergeten</h1>
+            <p className="text-[13px] text-text-muted mt-1">
+              Vul je e-mailadres in en we sturen je een resetlink.
+            </p>
+          </div>
 
-      <div className="flex flex-col space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-gray-700">
-          E-mailadres
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="jouw@email.nl"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-800 placeholder-gray-400"
-          required
-        />
+          <div className="space-y-1.5">
+            <label
+              htmlFor="email"
+              className="text-[12px] font-medium text-text-muted"
+            >
+              E-mailadres
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="jouw@email.nl"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-base"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full mt-4"
+          >
+            {loading ? "Verzenden..." : "Vraag resetlink aan"}
+          </button>
+
+          {message && (
+            <div
+              className={`mt-4 p-2.5 rounded-md text-[12.5px] ${
+                isError
+                  ? "bg-[#fef2f2] border border-[#fecaca] text-[#b91c1c]"
+                  : "bg-[#f1f8e9] border border-jade/30 text-text-base"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+
+          <p className="text-[12px] text-text-muted text-center mt-4">
+            <a href="/account" className="text-jade hover:underline">
+              Terug naar inloggen
+            </a>
+          </p>
+        </form>
       </div>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className={`w-full py-2 rounded-lg text-white font-medium transition-colors
-      ${
-        loading
-          ? "bg-[#22c55e] cursor-not-allowed"
-          : "bg-[#22c55e] hover:bg-[#22c55e]"
-      }
-    `}
-      >
-        {loading ? "Verzenden..." : "Vraag resetlink aan"}
-      </button>
-      {message && <p className="bg-[#22c55e] bg-[#22c55eb1] p-4 my-6 border-green-600 rounded-lg text-white">{message}</p>}
-      <p className="text-sm text-gray-500 text-center">
-        Vul je e-mailadres in om een link te ontvangen waarmee je je wachtwoord
-        kunt resetten.
-      </p>
-    </form>
+    </div>
   )
 }

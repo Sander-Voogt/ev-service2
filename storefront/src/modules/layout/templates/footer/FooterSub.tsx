@@ -15,7 +15,7 @@ export default function FooterSub(){
     return(
         <>
         {/* Accordion Section: Customer Service */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("customer")}
@@ -23,7 +23,7 @@ export default function FooterSub(){
             >
               Customer service
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "customer" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "customer" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -69,7 +69,7 @@ export default function FooterSub(){
           </div>
 
           {/* Accordion Section: Electric Driving */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("electric")}
@@ -77,7 +77,7 @@ export default function FooterSub(){
             >
               Electric Driving
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "electric" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "electric" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -104,7 +104,7 @@ export default function FooterSub(){
           </div>
 
           {/* Accordion Section: My Account */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("account")}
@@ -112,7 +112,7 @@ export default function FooterSub(){
             >
               My Account
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "account" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "account" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

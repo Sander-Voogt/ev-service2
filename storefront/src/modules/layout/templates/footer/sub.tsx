@@ -53,14 +53,14 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-white text-green-900 border-t border-green-100 mt-20">
+    <footer className="w-full bg-white text-text-base border-t border-border-base mt-20">
       <div className="max-w-screen-xl mx-auto px-4 py-12 md:py-16">
         {/* Desktop grid */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-green-100">
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-border-base">
           {/* Company Info / Logo */}
           <div className="flex flex-col items-start gap-4 pr-8">
             <Logo />
-            {/* <p className="text-sm text-green-700 mt-2">
+            {/* <p className="text-sm text-jade mt-2">
               Your partner in sustainable e-mobility. We offer a comprehensive
               range of charging solutions and expert advice for your electric
               vehicle.
@@ -68,14 +68,14 @@ export default function Footer() {
             <div className="flex flex-col gap-2 mt-4">
               {/* <a
                 href="tel:0851304170"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+                className="flex items-center gap-2 text-sm text-jade hover:text-jade transition-colors"
               >
                 <IconPhone />
                 <span>085 130 4170</span>
               </a> */}
               <a
                 href="mailto:info@evservice.com"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+                className="flex items-center gap-2 text-sm text-jade hover:text-jade transition-colors"
               >
                 <IconMail />
                 <span>info@evservice.com</span>
@@ -162,11 +162,11 @@ export default function Footer() {
         </div>
 
         {/* Mobile accordion */}
-        <div className="md:hidden pb-12 border-b border-green-100">
+        <div className="md:hidden pb-12 border-b border-border-base">
           {/* Company Info / Logo (always visible) */}
           <div className="flex flex-col items-start gap-4 pr-8 mb-6">
             <Logo />
-            {/* <p className="text-sm text-green-700 mt-2">
+            {/* <p className="text-sm text-jade mt-2">
               Your partner in sustainable e-mobility. We offer a comprehensive
               range of charging solutions and expert advice for your electric
               vehicle.
@@ -174,14 +174,14 @@ export default function Footer() {
             <div className="flex flex-col gap-2 mt-4">
               {/* <a
                 href="tel:0851304170"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+                className="flex items-center gap-2 text-sm text-jade hover:text-jade transition-colors"
               >
                 <IconPhone />
                 <span>085 130 4170</span>
               </a> */}
               <a
                 href="mailto:info@evservice.com"
-                className="flex items-center gap-2 text-sm text-green-700 hover:text-green-900 transition-colors"
+                className="flex items-center gap-2 text-sm text-jade hover:text-jade transition-colors"
               >
                 <IconMail />
                 <span>info@evservice.com</span>
@@ -190,7 +190,7 @@ export default function Footer() {
           </div>
 
           {/* Accordion Section: Customer Service */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("customer")}
@@ -198,7 +198,7 @@ export default function Footer() {
             >
               Customer service
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "customer" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "customer" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -244,7 +244,7 @@ export default function Footer() {
           </div>
 
           {/* Accordion Section: Electric Driving */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("electric")}
@@ -252,7 +252,7 @@ export default function Footer() {
             >
               Electric Driving
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "electric" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "electric" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -279,7 +279,7 @@ export default function Footer() {
           </div>
 
           {/* Accordion Section: My Account */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-border-base">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("account")}
@@ -287,7 +287,7 @@ export default function Footer() {
             >
               My Account
               <svg
-                className={`transform transition-transform w-5 h-5 text-green-700 ${openAccordion === "account" ? "rotate-180" : "rotate-0"}`}
+                className={`transform transition-transform w-5 h-5 text-jade ${openAccordion === "account" ? "rotate-180" : "rotate-0"}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -326,7 +326,7 @@ export default function Footer() {
         {/* Bottom section with social media and payment icons */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8">
           {/* Social Media */}
-          <div className="flex items-center gap-4 text-sm text-green-700">
+          <div className="flex items-center gap-4 text-sm text-jade">
             <a
               href="#facebook"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-green-50 hover:bg-green-100 transition-colors"
@@ -349,16 +349,16 @@ export default function Footer() {
           </div>
 
           {/* Legal Links & Copyright */}
-          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-xs text-green-600">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-xs text-text-muted">
             <div className="order-2 md:order-1">
               Copyright © {new Date().getFullYear()} EV Service.
             </div>
             <div className="order-1 md:order-2 flex gap-2">
-              <LocalizedClientLink href="#terms" className="hover:text-green-900">
+              <LocalizedClientLink href="#terms" className="hover:text-jade">
                 General Terms
               </LocalizedClientLink>
-              <span className="text-green-400">|</span>
-              <LocalizedClientLink href="#privacy" className="hover:text-green-900">
+              <span className="text-text-subtle">|</span>
+              <LocalizedClientLink href="#privacy" className="hover:text-jade">
                 Privacy Policy
               </LocalizedClientLink>
             </div>

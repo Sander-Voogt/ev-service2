@@ -1,6 +1,5 @@
 import React from "react"
 import AccountNav from "../components/account-nav"
-import Button from "@modules/common/components/button"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
@@ -13,7 +12,6 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   customer,
   children,
 }) => {
-  // If no customer, render a simple centered layout for login/register
   if (!customer) {
     return (
       <div className="bg-white" data-testid="account-page">
@@ -23,46 +21,43 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   }
 
   return (
-    <div className="bg-gray-50 min-h-[80vh]" data-testid="account-page">
-      <div className="content-container py-8 sm:py-12">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900">Mijn Account</h1>
-          <p className="text-gray-600 mt-1">
-            Welkom terug, <span className="text-gray-900 font-medium">{customer.first_name}</span>
+    <div className="bg-page-soft min-h-[80vh]" data-testid="account-page">
+      <div className="content-container py-6 sm:py-10">
+        <header className="mb-7">
+          <span className="eyebrow-muted">Mijn Account</span>
+          <h1 className="display-lg mt-2 text-text-base">
+            Welkom terug, {customer.first_name}
+          </h1>
+          <p className="lede mt-2 max-w-[480px]">
+            Beheer je profiel, adressen en bestellingen op één plek.
           </p>
-        </div>
+        </header>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 sm:gap-6 lg:gap-8">
-          {/* Sidebar Navigation */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5">
+          <div className="lg:sticky lg:top-24 lg:self-start">
             <AccountNav customer={customer} />
           </div>
 
-          {/* Content Area */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8">
-            {children}
-          </div>
+          <div className="surface-card p-4 sm:p-6">{children}</div>
         </div>
 
-        {/* Help Section */}
-        <div className="mt-8 sm:mt-10 lg:mt-12 p-4 sm:p-6 bg-white rounded-xl border border-gray-200 text-center">
-          <h3 className="text-lg font-semibold text-neutral-900 mb-2">Hulp nodig?</h3>
-          <p className="text-gray-600 text-sm mb-4">
-            Bekijk onze FAQ of neem contact met ons op.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <div className="mt-8 surface-tinted p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h3 className="text-[15px] font-semibold text-text-base">
+              Hulp nodig?
+            </h3>
+            <p className="text-[13.5px] text-text-muted mt-1">
+              Bekijk onze klantenservice of neem contact met ons op.
+            </p>
+          </div>
+          <div className="flex gap-2">
             <LocalizedClientLink
-              href="/faq"
-              className="inline-flex items-center justify-center px-3 py-1.5 text-sm border-2 border-green-700 text-green-700 hover:bg-green-50 font-medium rounded-lg transition-all duration-200"
+              href="/klantenservice"
+              className="btn-secondary"
             >
-              FAQ
+              Klantenservice
             </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/contact"
-              className="inline-flex items-center justify-center px-3 py-1.5 text-sm bg-green-700 hover:bg-green-800 text-white font-semibold rounded-lg transition-all duration-200"
-            >
+            <LocalizedClientLink href="/contact" className="btn-primary">
               Contact
             </LocalizedClientLink>
           </div>

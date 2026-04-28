@@ -1,6 +1,5 @@
 import { XMarkMini } from "@medusajs/icons"
 import { FormEvent } from "react"
-import { useRouter } from "next/navigation"
 
 import SearchBoxWrapper, {
   ControlledSearchBoxProps,
@@ -18,52 +17,42 @@ const ControlledSearchBox = ({
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     event.stopPropagation()
-
-    if (onSubmit) {
-      onSubmit(event)
-    }
-
-    if (inputRef.current) {
-      inputRef.current.blur()
-    }
+    if (onSubmit) onSubmit(event)
+    if (inputRef.current) inputRef.current.blur()
   }
 
   const handleReset = (event: FormEvent) => {
     event.preventDefault()
     event.stopPropagation()
-
     onReset(event)
-
-    if (inputRef.current) {
-      inputRef.current.focus()
-    }
+    if (inputRef.current) inputRef.current.focus()
   }
 
   return (
     <div {...props} className="w-full">
       <form action="" noValidate onSubmit={handleSubmit} onReset={handleReset}>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-2">
           <input
             ref={inputRef}
             data-testid="search-input"
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="off"
-            placeholder={placeholder || "Search for products..."}
+            placeholder={placeholder || "Zoek naar laadkabels, laadpalen..."}
             spellCheck={false}
             type="search"
             value={value}
             onChange={onChange}
-            className="text-xl h-12 placeholder:text-white/70 placeholder:transition-colors focus:outline-none flex-1 bg-transparent font-semibold text-white"
+            className="text-[14px] h-9 placeholder:text-[#8a9aa3] focus:outline-none flex-1 bg-transparent text-text-base"
           />
           {value && (
             <button
               onClick={handleReset}
               type="button"
-              className="items-center justify-center text-white hover:text-white/90 focus:outline-none gap-x-3 px-6 py-3 text-base font-bold flex bg-white/20 hover:bg-white/30 rounded-2xl transition-all duration-300 backdrop-blur-sm"
+              className="inline-flex items-center justify-center text-text-muted hover:text-text-base focus:outline-none gap-1 px-2 py-1 text-[12px] rounded-md hover:bg-[#f0f3f5] transition-colors"
             >
               <XMarkMini />
-              <span>Clear</span>
+              <span>Wissen</span>
             </button>
           )}
         </div>
@@ -73,17 +62,9 @@ const ControlledSearchBox = ({
 }
 
 const SearchBox = () => {
-  const router = useRouter()
-
   return (
     <SearchBoxWrapper>
-      {(props) => {
-        return (
-          <>
-            <ControlledSearchBox {...props} />
-          </>
-        )
-      }}
+      {(props) => <ControlledSearchBox {...props} />}
     </SearchBoxWrapper>
   )
 }

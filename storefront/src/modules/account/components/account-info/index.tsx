@@ -77,7 +77,7 @@ const AccountInfo = ({
       {/* Success message */}
       <Disclosure>
         <Disclosure.Panel static className={panelClass(!!isSuccess)} data-testid="success-message">
-          <div className="flex items-center gap-2 mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center gap-2 mt-4 p-3 bg-green-50 border border-border-base rounded-lg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -88,7 +88,7 @@ const AccountInfo = ({
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="text-sm text-green-700">{label} succesvol bijgewerkt</span>
+            <span className="text-sm text-jade">{label} succesvol bijgewerkt</span>
           </div>
         </Disclosure.Panel>
       </Disclosure>

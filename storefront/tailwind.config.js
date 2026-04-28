@@ -45,7 +45,22 @@ module.exports = {
         charcoal: '#233D4D',
         jade: '#32AD6A',
         pear: '#D2DC52',
-        yellowgreen: '#B0CB31'
+        yellowgreen: '#B0CB31',
+        // Theme-aware tokens (driven by CSS vars in globals.css)
+        page: 'var(--page-bg)',
+        'page-soft': 'var(--page-bg-soft)',
+        'page-tinted': 'var(--page-bg-tinted)',
+        surface: 'var(--surface)',
+        'surface-soft': 'var(--surface-soft)',
+        'surface-tinted': 'var(--surface-tinted)',
+        'surface-feature': 'var(--surface-feature)',
+        'border-base': 'var(--border)',
+        'border-strong': 'var(--border-strong)',
+        'border-soft': 'var(--border-soft)',
+        'text-base': 'var(--text)',
+        'text-muted': 'var(--text-muted)',
+        'text-subtle': 'var(--text-subtle)',
+        'accent-soft': 'var(--accent-soft)',
       },
       borderRadius: {
         none: "0px",

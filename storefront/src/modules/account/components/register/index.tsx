@@ -6,6 +6,7 @@ import { LOGIN_VIEW } from "@modules/account/templates/login-template"
 import Button from "@modules/common/components/button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { signup } from "@lib/data/customer"
+import { UserPlus } from "lucide-react"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -15,28 +16,20 @@ const Register = ({ setCurrentView }: Props) => {
   const [message, formAction, isPending] = useActionState(signup, null)
 
   return (
-    <div
-      className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 p-6 max-w-md mx-auto"
-      data-testid="register-page"
-    >
-      {/* Header */}
+    <div className="surface-feature p-7 sm:p-8" data-testid="register-page">
       <div className="text-center mb-6">
-        <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-gray-700">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-          </svg>
+        <div className="w-12 h-12 rounded-full bg-jade/10 text-jade flex items-center justify-center mx-auto mb-3.5">
+          <UserPlus className="w-[22px] h-[22px]" strokeWidth={1.75} />
         </div>
-        <h1 className="text-xl font-bold text-neutral-900 mb-1">
-          Registreren bij RIC Holland
-        </h1>
-        <p className="text-gray-600 text-sm">
-          Maak een account aan om toegang te krijgen tot groothandelsprijzen.
+        <h1 className="display-md text-text-base">Account aanmaken</h1>
+        <p className="text-[13.5px] text-text-muted mt-1.5 leading-relaxed">
+          Maak een account voor toegang tot zakelijke prijzen.
         </p>
       </div>
 
-      <form className="w-full flex flex-col" action={formAction}>
-        <div className="flex flex-col w-full gap-y-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <form action={formAction} className="flex flex-col">
+        <div className="flex flex-col gap-y-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <Input
               label="Bedrijfsnaam"
               name="company"
@@ -44,14 +37,9 @@ const Register = ({ setCurrentView }: Props) => {
               autoComplete="organization"
               data-testid="company-input"
             />
-            <Input
-              label="KVK nummer"
-              name="kvk"
-              required
-              data-testid="kvk-input"
-            />
+            <Input label="KVK nummer" name="kvk" required data-testid="kvk-input" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <Input
               label="Voornaam"
               name="first_name"
@@ -91,24 +79,25 @@ const Register = ({ setCurrentView }: Props) => {
             data-testid="password-input"
           />
         </div>
+
         {message && (
-          <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-600 text-sm animate-fade-in">
+          <div className="mt-3 p-2.5 bg-[#fef2f2] border border-[#fecaca] rounded-md text-[12.5px] text-[#b91c1c] animate-fade-in">
             {message}
           </div>
         )}
 
-        <p className="text-center text-gray-500 text-xs mt-4">
+        <p className="text-center text-[11.5px] text-text-muted mt-3 leading-relaxed">
           Door te registreren gaat u akkoord met onze{" "}
           <LocalizedClientLink
             href="/privacy-policy"
-            className="text-gray-900 hover:underline"
+            className="text-text-base hover:underline"
           >
             Privacy Policy
           </LocalizedClientLink>{" "}
           en{" "}
           <LocalizedClientLink
             href="/pagina/algemene-voorwaarden"
-            className="text-gray-900 hover:underline"
+            className="text-text-base hover:underline"
           >
             Algemene voorwaarden
           </LocalizedClientLink>
@@ -129,16 +118,16 @@ const Register = ({ setCurrentView }: Props) => {
         </Button>
       </form>
 
-      <div className="mt-6 pt-4 border-t border-gray-200 text-center">
-        <span className="text-gray-600 text-sm">
+      <div className="mt-6 pt-5 border-t border-border-soft text-center">
+        <p className="text-[13px] text-text-muted">
           Heeft u al een account?{" "}
           <button
             onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
-            className="text-gray-900 font-medium hover:underline"
+            className="text-jade font-medium hover:underline"
           >
             Inloggen
           </button>
-        </span>
+        </p>
       </div>
     </div>
   )

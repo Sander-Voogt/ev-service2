@@ -1,89 +1,173 @@
 import { getHelpdeskCategories } from "@lib/ghost"
 import Link from "next/link"
-import './style.css'
+import Image from "next/image"
+import {
+  Truck,
+  RefreshCcw,
+  Wrench,
+  ShieldCheck,
+  ArrowRight,
+  Mail,
+  Phone,
+  MessageCircle,
+} from "lucide-react"
 
 export default async function HelpdeskIndexPage() {
   const categories = await getHelpdeskCategories()
 
-  if (!categories.length) {
-    return <div>Geen hoofdcategorieën gevonden.</div>
-  }
+  const quicklinks = [
+    {
+      icon: Truck,
+      label: "Waar is mijn pakket?",
+      href: "/klantenservice/bezorgen",
+    },
+    {
+      icon: RefreshCcw,
+      label: "Status van mijn retour",
+      href: "/returnrequest/history",
+    },
+    {
+      icon: RefreshCcw,
+      label: "Iets retourneren",
+      href: "/klantenservice/retour-instructies",
+    },
+    {
+      icon: Wrench,
+      label: "Technische vraag",
+      href: "/klantenservice/ondersteuning",
+    },
+    {
+      icon: ShieldCheck,
+      label: "Garantie & reparatie",
+      href: "/klantenservice/garantie-reparatie",
+    },
+  ]
 
   return (
-    <div className="content-container">
-      <h1 className="text-2xl font-semibold">Klantenservice</h1>
-      <ul className="grid grid-cols-2 ">
-        {categories.map((category) => (
-          <div
-            className="flex flex-row items-center py-4 m-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-            key={category.id}
-          >
-            <img
-              src={category.feature_image}
-              alt=""
-              width={"40px"}
-              className="m-4"
-            />
-            <Link href={`/klantenservice/${category.slug}`}>
-              <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                {" "}
-                {category.title}
-              </h5>
-            </Link>
+    <div className="bg-white">
+      <div className="content-container py-6 sm:py-10">
+        <header className="mb-8 max-w-[640px]">
+          <span className="eyebrow">Klantenservice</span>
+          <h1 className="display-lg mt-1 text-text-base">
+            Hoe kunnen we je helpen?
+          </h1>
+          <p className="lede mt-2.5">
+            Vind snel een antwoord, of neem direct contact met ons op.
+          </p>
+        </header>
+
+        {/* Quicklinks */}
+        <section className="mb-10">
+          <p className="eyebrow-muted mb-3">Veelgestelde vragen</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {quicklinks.map((q) => (
+              <Link
+                key={q.label}
+                href={q.href}
+                className="group surface-card p-4 hover:border-jade/40 hover:shadow-sm transition-all"
+              >
+                <span className="inline-flex w-8 h-8 rounded-md bg-jade/10 text-jade items-center justify-center mb-2.5">
+                  <q.icon className="w-4 h-4" strokeWidth={1.75} />
+                </span>
+                <p className="text-[13px] font-medium text-text-base leading-snug group-hover:text-jade">
+                  {q.label}
+                </p>
+              </Link>
+            ))}
           </div>
-        ))}
-      </ul>
-      <div className="kb-contact-us">
-    <div className="kb-contact-content">
-        <div className="kb-contact-header">
-            <strong>Hallo</strong>
-            <span className="kb-contact-header-subtitle">Hoe kan ik je helpen?</span>
-        </div>
-        <div className="kb-contact-form">
-            <div className="kb-contact-question-wrapper">
-                <input type="text" className="kb-contact-question" id="kb-contact-question" name="kb-contact-question" placeholder="Typ je vraag of bericht" />
+        </section>
+
+        {/* Categories */}
+        {categories.length > 0 && (
+          <section className="mb-10">
+            <p className="eyebrow-muted mb-3">Onderwerpen</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {categories.map((category) => (
+                <Link
+                  key={category.id}
+                  href={`/klantenservice/${category.slug}`}
+                  className="group surface-card p-4 flex items-center gap-3 hover:border-jade/40 hover:shadow-sm transition-all"
+                >
+                  {(category as any).feature_image ? (
+                    <div className="w-10 h-10 rounded-md overflow-hidden bg-page-soft flex-shrink-0 flex items-center justify-center">
+                      <Image
+                        src={(category as any).feature_image}
+                        alt=""
+                        width={28}
+                        height={28}
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <span className="w-10 h-10 rounded-md bg-jade/10 text-jade flex items-center justify-center flex-shrink-0">
+                      <Wrench className="w-4 h-4" strokeWidth={1.75} />
+                    </span>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-[14px] font-semibold text-text-base group-hover:text-jade transition-colors line-clamp-1">
+                      {category.title}
+                    </h3>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-[#a5b3bb] group-hover:text-jade group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                </Link>
+              ))}
             </div>
-            <div className="kb-contact-button-wrapper">
-                <button className="kb-contact-button button-1 add-to-cart-button" id="kb-contact-button">Start je gesprek</button>
+          </section>
+        )}
+
+        {/* Contact strip */}
+        <section className="surface-panel p-5 sm:p-6">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div>
+              <span className="eyebrow">Contact</span>
+              <h2 className="display-sm mt-1.5 text-text-base">
+                Niets gevonden?
+              </h2>
+              <p className="text-[13px] text-text-muted mt-1">
+                Onze klantenservice helpt je graag verder.
+              </p>
             </div>
-        </div>
-        <div className="kb-contact-quicklinks-grid">
-            <div className="kb-contact-quicklink">
-                <a href="/klantenservice/bezorgen">
-                    <div className="kb-contact-quicklink-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"></path></svg></div>
-                    <div className="kb-contact-quicklink-text">Waar is mijn pakketje?</div>
-                </a>
-            </div>
-            <div className="kb-contact-quicklink">
-                <a href="/returnrequest/history">
-                    <div className="kb-contact-quicklink-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"></path></svg></div>
-                    <div className="kb-contact-quicklink-text">Wat is de status van mijn retourzending?</div>
-                </a>
-            </div>
-            <div className="kb-contact-quicklink">
-                <a href="/klantenservice/retour-instructies">
-                    <div className="kb-contact-quicklink-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"></path></svg></div>
-                    <div className="kb-contact-quicklink-text">Ik wil iets retourneren?</div>
-                </a>
-            </div>
-            <div className="kb-contact-quicklink">
-                <a href="/klantenservice/ondersteuning">
-                    <div className="kb-contact-quicklink-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"></path></svg></div>
-                    <div className="kb-contact-quicklink-text">Ik heb een technische vraag?</div>
-                </a>
-            </div>
-            <div className="kb-contact-quicklink">
-                <a href="/klantenservice/garantie-reparatie">
-                    <div className="kb-contact-quicklink-icon"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><path d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z"></path></svg></div>
-                    <div className="kb-contact-quicklink-text">Mijn product werkt niet (meer), wat nu?</div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div className="kb-contact-img">
-        <img src="/img/mascotte.png"/>
-    </div>
-</div>
+            {[
+              {
+                icon: Phone,
+                label: "Telefoon",
+                value: "+31 (0)85 - 0479240",
+                href: "tel:+31850479240",
+              },
+              {
+                icon: Mail,
+                label: "E-mail",
+                value: "klantenservice@evservice.eu",
+                href: "mailto:klantenservice@evservice.eu",
+              },
+              {
+                icon: MessageCircle,
+                label: "WhatsApp",
+                value: "Stuur een bericht",
+                href: "https://wa.me/31850479240",
+              },
+            ].map((c) => (
+              <a
+                key={c.label}
+                href={c.href}
+                className="surface-card p-4 hover:border-jade/40 hover:shadow-sm transition-all flex items-start gap-3"
+              >
+                <span className="w-9 h-9 rounded-md bg-jade/10 text-jade flex items-center justify-center flex-shrink-0">
+                  <c.icon className="w-4 h-4" strokeWidth={1.75} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[12px] uppercase tracking-wider font-semibold text-text-muted">
+                    {c.label}
+                  </p>
+                  <p className="text-[13.5px] font-medium text-text-base truncate mt-0.5">
+                    {c.value}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

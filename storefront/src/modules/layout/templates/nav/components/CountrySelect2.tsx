@@ -123,14 +123,14 @@ export default function LanguageDropdown() {
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((s) => !s)}
-        className="inline-flex items-center gap-2 rounded-xl border-2 border-green-200 px-3 py-2 bg-white text-sm font-semibold shadow-sm hover:shadow-lg hover:border-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 relative transition-all duration-200 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50"
+        className="inline-flex items-center gap-2 rounded-xl border-2 border-border-base px-3 py-2 bg-white text-sm font-semibold shadow-sm hover:shadow-lg hover:border-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 relative transition-all duration-200 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50"
       >
         <div className="w-6 h-5 rounded overflow-hidden border border-gray-200 shadow-sm">
           <Flag code={current.code} />
         </div>
         <span className="min-w-[72px] text-left text-gray-700">{current.label}</span>
         <ChevronIcon
-          className={`h-4 w-4 transform transition-transform duration-300 text-green-700 ${
+          className={`h-4 w-4 transform transition-transform duration-300 text-jade ${
             open ? "rotate-180" : "rotate-0"
           }`}
         />
@@ -146,14 +146,14 @@ export default function LanguageDropdown() {
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="language-menu"
-            className="pointer-events-auto absolute rounded-2xl border-2 border-green-100 bg-white/95 backdrop-blur-xl shadow-3xl ring-2 ring-green-200 focus:outline-none w-56 animate-in fade-in slide-in-from-top-2 duration-200"
+            className="pointer-events-auto absolute rounded-2xl border-2 border-border-base bg-white/95 backdrop-blur-xl shadow-3xl ring-2 ring-green-200 focus:outline-none w-56 animate-in fade-in slide-in-from-top-2 duration-200"
             style={{
               top: `${menuPosition.top}px`,
               left: `${menuPosition.left}px`,
             }}
           >
             {/* Header */}
-            <div className="px-4 py-3 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+            <div className="px-4 py-3 border-b border-border-base bg-gradient-to-r from-green-50 to-emerald-50">
               <p className="text-sm font-bold text-gray-900">Kies uw land</p>
               <p className="text-xs text-gray-600">Selecteer uw regio voor taal en valuta</p>
             </div>
@@ -168,7 +168,7 @@ export default function LanguageDropdown() {
                   className={`flex w-full items-center gap-3 px-4 py-3 text-sm text-left transition-all duration-200 mx-2 rounded-xl ${
                     lang.code === current.code
                       ? "bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold shadow-md"
-                      : "text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-green-700 font-semibold"
+                      : "text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-jade font-semibold"
                   } focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600`}
                 >
                   <div className={`w-8 h-6 rounded overflow-hidden border shadow-sm ${
@@ -194,9 +194,9 @@ export default function LanguageDropdown() {
             </div>
 
             {/* Footer */}
-            <div className="px-4 py-2 border-t border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+            <div className="px-4 py-2 border-t border-border-base bg-gradient-to-r from-green-50 to-emerald-50">
               <p className="text-xs text-center text-gray-600">
-                <span className="font-semibold text-green-700">{current.label}</span> geselecteerd
+                <span className="font-semibold text-jade">{current.label}</span> geselecteerd
               </p>
             </div>
           </div>

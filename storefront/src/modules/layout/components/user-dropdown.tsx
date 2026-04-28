@@ -89,7 +89,7 @@ const UserDropdown = ({ customer }: UserDropdownProps) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 font-semibold text-gray-700 hover:text-green-700 transition-all duration-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 rounded-lg px-3 py-2 bg-white hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 border-2 border-gray-200 hover:border-green-300 shadow-sm hover:shadow-md"
+        className="flex items-center gap-2 font-semibold text-gray-700 hover:text-jade transition-all duration-200 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 rounded-lg px-3 py-2 bg-white hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 border-2 border-gray-200 hover:border-green-300 shadow-sm hover:shadow-md"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
@@ -100,15 +100,15 @@ const UserDropdown = ({ customer }: UserDropdownProps) => {
           {displayName}
         </span>
         <ChevronIcon className={clx(
-          "w-4 h-4 transition-transform duration-300 text-green-700",
+          "w-4 h-4 transition-transform duration-300 text-jade",
           isOpen && "rotate-180"
         )} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-3xl border-2 border-green-100 py-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-3xl border-2 border-border-base py-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
           {/* User info header */}
-          <div className="px-4 py-3 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+          <div className="px-4 py-3 border-b border-border-base bg-gradient-to-r from-green-50 to-emerald-50">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-md">
                 {displayName.charAt(0).toUpperCase()}
@@ -141,7 +141,7 @@ const UserDropdown = ({ customer }: UserDropdownProps) => {
               >
                 <div className={clx(
                   "p-1.5 rounded-lg transition-colors duration-200",
-                  item.isLogout ? "bg-red-100 text-red-600" : "bg-green-100 text-green-700"
+                  item.isLogout ? "bg-red-100 text-red-600" : "bg-green-100 text-jade"
                 )}>
                   {item.icon}
                 </div>
@@ -151,9 +151,9 @@ const UserDropdown = ({ customer }: UserDropdownProps) => {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-green-100 bg-gradient-to-r from-green-50 to-emerald-50">
+          <div className="px-4 py-2 border-t border-border-base bg-gradient-to-r from-green-50 to-emerald-50">
             <p className="text-xs text-center text-gray-600">
-              Ingelogd als <span className="font-semibold text-green-700">{displayName}</span>
+              Ingelogd als <span className="font-semibold text-jade">{displayName}</span>
             </p>
           </div>
         </div>

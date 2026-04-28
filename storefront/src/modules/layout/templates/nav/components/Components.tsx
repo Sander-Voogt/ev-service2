@@ -57,7 +57,7 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       <button
         onClick={onClose}
         aria-label="Close mobile menu"
-        className="p-2 text-green-default hover:text-green-900 transition-colors"
+        className="p-2 text-green-default hover:text-text-base transition-colors"
       >
         <IconClose />
       </button>
@@ -66,7 +66,7 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       {/* Main Nav Links */}
       <LocalizedClientLink
         href="/auto"
-        className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors"
+        className="py-4 px-2 text-xl font-semibold text-text-base border-b border-gray-100 hover:bg-jade/10 transition-colors"
       >
         Car Brands
       </LocalizedClientLink>
@@ -74,7 +74,7 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       {/* Nested Details/Dropdowns */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-light transition-colors">
+          <summary className="py-4 px-2 text-xl font-semibold text-text-base list-none flex items-center justify-between border-b border-gray-100 hover:bg-jade/10 transition-colors">
             Charging
             <svg
               width="20"
@@ -188,19 +188,19 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       {/* Remaining Top-Level Links */}
       <LocalizedClientLink
         href="#charging-installation"
-        className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors"
+        className="py-4 px-2 text-xl font-semibold text-text-base border-b border-gray-100 hover:bg-jade/10 transition-colors"
       >
         Charging station installation
       </LocalizedClientLink>
       <LocalizedClientLink
         href="/blog"
-        className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors"
+        className="py-4 px-2 text-xl font-semibold text-text-base border-b border-gray-100 hover:bg-jade/10 transition-colors"
       >
         Blog
       </LocalizedClientLink>
       <LocalizedClientLink
         href="#selection-aid"
-        className="py-4 px-2 text-xl font-semibold text-green-900 border-b border-gray-100 hover:bg-green-light transition-colors"
+        className="py-4 px-2 text-xl font-semibold text-text-base border-b border-gray-100 hover:bg-jade/10 transition-colors"
       >
         Customer Service
       </LocalizedClientLink>
@@ -208,7 +208,7 @@ export const MobileNavBar = ({ onClose }: { onClose: () => void }) => (
       {/* Commercial Dropdown */}
       <div className="relative w-full">
         <details className="w-full">
-          <summary className="py-4 px-2 text-xl font-semibold text-green-900 list-none flex items-center justify-between border-b border-gray-100 hover:bg-green-light transition-colors">
+          <summary className="py-4 px-2 text-xl font-semibold text-text-base list-none flex items-center justify-between border-b border-gray-100 hover:bg-jade/10 transition-colors">
             Commercial
             <svg
               width="20"
@@ -261,7 +261,7 @@ export const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => 
   }
 
   return (
-    <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-green-200 bg-white hover:shadow transition-shadow">
+    <div className="flex items-center gap-2 px-2 py-1 rounded-lg border border-border-base bg-white hover:shadow transition-shadow">
       <div className="relative">
         <IconCart />
         {totalItems > 0 && (
@@ -271,7 +271,7 @@ export const CartSummary = ({ cart }: { cart?: HttpTypes.StoreCart | null }) => 
         )}
       </div>
       <div className="flex flex-col ml-1">
-        <span className="text-xs font-semibold text-green-900">Winkelwagen</span>
+        <span className="text-xs font-semibold text-text-base">Winkelwagen</span>
         <span className="text-xs text-green-default font-bold">
           €{totalAmount}
         </span>

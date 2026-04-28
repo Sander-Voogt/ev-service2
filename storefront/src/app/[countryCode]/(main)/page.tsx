@@ -2,34 +2,36 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import {
-  getCollectionByHandle,
-  getCollectionsWithProducts,
-  retrieveCollection,
-} from "@lib/data/collections"
+import { getCollectionByHandle } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { sdk } from "@lib/config"
 import { getProductsList } from "@lib/data/products"
 import Image from "next/image"
+import Link from "next/link"
 import api from "@lib/ghost"
-import { Lightbulb, Truck, ThumbsUp, Phone, Zap, Shield, Award } from "lucide-react"
-
+import Reveal from "@modules/common/components/reveal"
+import {
+  Truck,
+  ShieldCheck,
+  Headphones,
+  Wrench,
+  ArrowRight,
+  Star,
+  CircleCheck,
+  Cable,
+  Plug,
+  Building2,
+} from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "EV Service - Laadkabels en Laadpalen voor elektrische auto's | Laadkabel type 2 | Laadkabel Auto | Laadpaal",
+  title:
+    "EV Service - Laadkabels en Laadpalen voor elektrische auto's | Laadkabel type 2 | Laadkabel Auto | Laadpaal",
   description:
     "Laadkabels & Laadpalen. Groot assortiment, alles voor je elektrische auto. Vakkundige laadpaal installatie mogelijk.",
 }
 
-type Brand = {
-  name: string
-  image?: string
-  description?: string
-}
-
-type ApiResponse = {
-  brands: Brand[]
-}
+type Brand = { name: string; image?: string; description?: string }
+type ApiResponse = { brands: Brand[] }
 
 export default async function Home({
   params: { countryCode },
@@ -42,364 +44,445 @@ export default async function Home({
     countryCode,
   })
   const region = await getRegion(countryCode)
-
   const models: ApiResponse = await sdk.client.fetch(`/store/carbrand/models`)
 
-  if (!collections || !region) {
-    return null
-  }
+  if (!collections || !region) return null
 
-   const posts = await api.posts.browse({ limit: "3" })
+  const posts = await api.posts.browse({ limit: "3" })
+
+  const usps = [
+    {
+      icon: Truck,
+      title: "Snelle levering",
+      desc: "Voor 22:00 besteld, morgen geleverd in NL & BE.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "2 jaar garantie",
+      desc: "Op alle laadkabels, laadpalen en accessoires.",
+    },
+    {
+      icon: Wrench,
+      title: "Installatie service",
+      desc: "Vakkundige montage door erkende installateurs.",
+    },
+    {
+      icon: Headphones,
+      title: "Persoonlijk advies",
+      desc: "Bel, mail of WhatsApp — wij denken met je mee.",
+    },
+  ]
+
+  const productLinks = [
+    {
+      icon: Cable,
+      title: "Laadkabels per merk",
+      desc: "Voor élke EV — direct het juiste model.",
+      href: "/auto",
+    },
+    {
+      icon: Plug,
+      title: "Laadpalen voor thuis",
+      desc: "Slim laden in je eigen oprit.",
+      href: "/categories/laadpalen",
+    },
+    {
+      icon: Wrench,
+      title: "Installatie service",
+      desc: "Erkende installateurs door heel NL & BE.",
+      href: "/installatie-service",
+    },
+    {
+      icon: Building2,
+      title: "Zakelijk laden",
+      desc: "Oplossingen voor bedrijf, vloot en VvE.",
+      href: "/zakelijk",
+    },
+  ]
+
+  const promiseBullets = [
+    "Technische ondersteuning per WhatsApp, telefoon en e-mail",
+    "Complete installatie door erkende monteurs",
+    "Onderhoud en service na plaatsing",
+    "2 jaar garantie op alle producten",
+  ]
+
+  const features = [
+    {
+      icon: CircleCheck,
+      title: "Slim assortiment",
+      desc: "500+ producten, geselecteerd op kwaliteit en compatibiliteit.",
+    },
+    {
+      icon: Truck,
+      title: "Snel in huis",
+      desc: "Voor 22:00 besteld op werkdagen, morgen geleverd.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Zekerheid",
+      desc: "2 jaar garantie en duidelijke retourvoorwaarden.",
+    },
+    {
+      icon: Headphones,
+      title: "Echte mensen",
+      desc: "Persoonlijk advies via telefoon, e-mail of WhatsApp.",
+    },
+  ]
+
+  const reviews = [
+    {
+      name: "Hubertus",
+      score: "9/10",
+      text: "Prompt geleverd, alles perfect in orde.",
+    },
+    {
+      name: "Jenny",
+      score: "9/10",
+      text: "Snelle oplossing, goede service.",
+    },
+    {
+      name: "Chanyanut",
+      score: "8/10",
+      text: "Alles in orde, duidelijke communicatie.",
+    },
+  ]
 
   return (
     <>
       <Hero models={models.brands} />
-      <ul className="flex flex-col gap-x-6">
-        <FeaturedProducts collection={response} region={region} />
-      </ul>
 
-      <div className="relative">
-        {/* Animated background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-green-50/50 via-white to-green-50/30" />
-
-        <div className="relative content-container flex flex-col space-y-32 py-20">
-
-          {/* 1️⃣ Premium Products & Services */}
-          <section className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Enhanced services card */}
-              <div className="group relative bg-gradient-to-br from-white via-green-50/30 to-emerald-50/30 backdrop-blur-xl rounded-[2.5rem] p-10 shadow-2xl hover:shadow-3xl border border-green-100 overflow-hidden transition-all duration-500 hover:-translate-y-2">
-                {/* Animated background elements */}
-                <div className="absolute inset-0">
-                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-green-400/20 rounded-full blur-3xl group-hover:bg-green-400/30 transition-all duration-500" />
-                  <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-emerald-400/20 rounded-full blur-3xl group-hover:bg-emerald-400/30 transition-all duration-500" />
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                        Products & Services
-                      </h3>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-4">
-                    {[
-                      { text: "Laadkabels voor alle elektrische auto's", icon: "⚡" },
-                      { text: "Laadpaal zelf installeren? Wij helpen je", icon: "🔧" },
-                      { text: "Professionele installatieservice", icon: "👷" },
-                      { text: "Gratis advies op maat", icon: "💬" }
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-center gap-4 group/item">
-                        <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center text-xl group-hover/item:scale-110 group-hover/item:from-green-200 group-hover/item:to-emerald-200 transition-all duration-300">
-                          {item.icon}
-                        </div>
-                        <span className="flex-1 text-lg font-semibold text-gray-900 group-hover/item:text-green-700 group-hover/item:translate-x-2 transition-all duration-300">
-                          {item.text}
-                          <svg className="w-5 h-5 inline-block ml-2 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Enhanced image card */}
-              <div className="relative group rounded-[2.5rem] overflow-hidden h-[500px] shadow-3xl hover:shadow-4xl transition-all duration-500 hover:-translate-y-2">
-                <Image
-                  src="/img/image.png"
-                  alt="Installatieservice"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-10">
-                  <div className="space-y-4">
-                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full border border-white/30">
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                      <span className="font-bold">Premium Service</span>
-                    </div>
-                    <h3 className="text-4xl font-black text-white leading-tight">
-                      Jouw laadpaal vakkundig geïnstalleerd
-                    </h3>
-                    <p className="text-xl text-white/90">
-                      met onze installatieservice
-                    </p>
-                    <button className="bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-2xl font-bold hover:from-green-700 hover:to-emerald-800 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-                      Learn More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 2️⃣ Premium Features Grid */}
-          <section className="container mx-auto px-4">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-5xl font-black bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-                Why Choose Us
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Discover what makes us the preferred choice for EV charging solutions
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  title: "Smart Solutions",
-                  desc: "Intelligent charging systems for modern needs",
-                  icon: <Lightbulb className="w-8 h-8" />,
-                  color: "from-amber-500 to-orange-600",
-                  stats: "500+"
-                },
-                {
-                  title: "Express Delivery",
-                  desc: "Order before 22:00, delivered tomorrow",
-                  icon: <Truck className="w-8 h-8" />,
-                  color: "from-blue-500 to-indigo-600",
-                  stats: "24h"
-                },
-                {
-                  title: "Certified Quality",
-                  desc: "Professional installation, 2-year warranty",
-                  icon: <Shield className="w-8 h-8" />,
-                  color: "from-green-500 to-emerald-600",
-                  stats: "100%"
-                },
-                {
-                  title: "Expert Support",
-                  desc: "Personal advice via phone and WhatsApp",
-                  icon: <Phone className="w-8 h-8" />,
-                  color: "from-purple-500 to-pink-600",
-                  stats: "24/7"
-                }
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="group relative bg-white rounded-[2rem] p-8 shadow-xl hover:shadow-3xl border border-gray-100 transition-all duration-500 hover:-translate-y-3 overflow-hidden"
-                >
-                  {/* Animated gradient background */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-
-                  <div className="relative z-10">
-                    {/* Icon container */}
-                    <div className={`w-20 h-20 bg-gradient-to-br ${item.color} rounded-3xl flex items-center justify-center text-white mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                      {item.icon}
-                    </div>
-
-                    {/* Stats badge */}
-                    <div className="absolute top-6 right-6 bg-gray-100 rounded-full px-3 py-1 text-xs font-black text-gray-900">
-                      {item.stats}
-                    </div>
-
-                    <h4 className="text-2xl font-black text-gray-900 mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-gray-900 group-hover:to-gray-600 transition-all duration-300">
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed mb-6">
-                      {item.desc}
-                    </p>
-
-                    {/* Learn more link */}
-                    <a href="#" className="inline-flex items-center gap-2 text-gray-900 font-bold group/link hover:text-green-700 transition-colors">
-                      <span>Learn more</span>
-                      <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 3️⃣ Premium Service Promise */}
-          <section className="container mx-auto px-4">
-            <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-[3rem] p-12 lg:p-16 shadow-3xl overflow-hidden">
-              {/* Animated background elements */}
-              <div className="absolute inset-0">
-                <div className="absolute top-0 left-0 w-96 h-96 bg-green-500/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl" />
-              </div>
-
-              <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
-                <div className="flex-1 space-y-8">
-                  <div>
-                    <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 mb-6">
-                      <Award className="w-5 h-5 text-green-400" />
-                      <span className="text-white font-bold">Our Promise</span>
-                    </div>
-                    <h2 className="text-5xl font-black text-white leading-tight mb-6">
-                      Premium Service Guaranteed
-                    </h2>
-                    <p className="text-xl text-gray-300 leading-relaxed">
-                      Our technical specialists provide support via WhatsApp, email, and phone. Your satisfaction is our commitment.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {[
-                      { title: "Technical Support", icon: "🔧" },
-                      { title: "Full Installation", icon: "⚡" },
-                      { title: "Maintenance", icon: "🛠️" }
-                    ].map((item, idx) => (
-                      <div key={idx} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className="text-3xl group-hover:scale-110 transition-transform">{item.icon}</span>
-                          <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex-1 relative h-[500px]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-3xl blur-3xl" />
-                  <Image
-                    src="/img/zaptec-UHNdOFqNhNQ-unsplash.jpg"
-                    alt="Service team"
-                    fill
-                    className="object-cover rounded-3xl shadow-2xl relative z-10 hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 4️⃣ Premium Blog Section */}
-          <section className="container mx-auto px-4">
-            <div className="flex justify-between items-end mb-12">
-              <div>
-                <h2 className="text-5xl font-black bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
-                  Latest Insights
-                </h2>
-                <p className="text-xl text-gray-600">
-                  Stay updated with the latest EV news and tips
-                </p>
-              </div>
-              <button className="hidden md:flex items-center gap-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white px-8 py-4 rounded-2xl font-bold hover:from-green-700 hover:to-emerald-800 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
-                <span>View All Articles</span>
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {posts.map((i) => (
-                <article key={i.id} className="group relative bg-white rounded-[2rem] overflow-hidden shadow-xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2 border border-gray-100">
-                  {/* Image container */}
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={i.feature_image ?? 'https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png'}
-                      alt="Blog afbeelding"
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-full text-xs font-black shadow-lg">
-                      NEW
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-8 space-y-4">
-                    <h4 className="text-2xl font-black text-gray-900 group-hover:text-green-700 transition-colors duration-300 leading-tight">
-                      {i.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed line-clamp-3">
-                      {i.excerpt}
-                    </p>
-                    <a href={`/blog/${i.slug}`} className="inline-flex items-center gap-2 text-green-700 font-black group/link hover:text-green-800 transition-colors">
-                      <span>Read Article</span>
-                      <svg className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-
-                  {/* Decorative corner */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-green-500/20 to-transparent rounded-tr-[2rem]" />
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {/* 5️⃣ Premium Reviews Section */}
-          <section className="container mx-auto px-4 pb-16">
-            <div className="relative bg-gradient-to-br from-green-600 via-emerald-700 to-green-800 rounded-[3rem] p-12 lg:p-16 shadow-3xl overflow-hidden">
-              {/* Animated background */}
-              <div className="absolute inset-0">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl animate-pulse delay-1000" />
-              </div>
-
-              <div className="relative z-10 text-center space-y-12">
-                <div className="space-y-6">
-                  <div className="inline-flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/30">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                        </svg>
-                      ))}
-                    </div>
-                    <span className="text-white font-black text-lg">595 Reviews</span>
-                  </div>
-
-                  <h3 className="text-5xl lg:text-6xl font-black text-white leading-tight">
-                    Rated{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-200">
-                      9.0/10
-                    </span>
-                  </h3>
-                  <p className="text-xl text-green-100">
-                    Based on 595 independent reviews on Kiyoh
+      {/* USP strip — soft band that bridges hero to content */}
+      <section className="bg-page-soft border-b border-border-soft">
+        <div className="content-container py-6">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5 lg:divide-x lg:divide-border-soft">
+            {usps.map((u, i) => (
+              <Reveal
+                key={u.title}
+                as="li"
+                variant="up"
+                delay={i * 80}
+                className={`flex items-start gap-3 ${i > 0 ? "lg:pl-8" : ""}`}
+              >
+                <span className="flex-shrink-0 w-9 h-9 rounded-full bg-jade/10 text-jade flex items-center justify-center transition-transform duration-300 hover:scale-110 hover:bg-jade hover:text-white">
+                  <u.icon className="w-[18px] h-[18px]" strokeWidth={1.75} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[13.5px] font-semibold text-text-base">
+                    {u.title}
+                  </p>
+                  <p className="text-[12.5px] text-text-muted leading-snug mt-0.5">
+                    {u.desc}
                   </p>
                 </div>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-                <div className="grid md:grid-cols-3 gap-8 mt-16">
-                  {[
-                    { name: "Hubertus Heijlenis", score: "9/10", text: "Prompt geleverd, alles perfect in orde. Excellent service!" },
-                    { name: "Jenny", score: "9/10", text: "Snelle oplossing, goede service. Highly recommend!" },
-                    { name: "Chanyanut", score: "8/10", text: "Alles in orde, duidelijke communicatie. Great experience!" }
-                  ].map((r, idx) => (
-                    <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 text-left hover:bg-white/20 transition-all duration-300 group">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="font-black text-white text-lg">{r.score}</span>
+      {/* Featured products — white */}
+      <FeaturedProducts collection={response} region={region} />
+
+      {/* Producten & Service duo — tinted band */}
+      <section className="bg-page-tinted">
+        <div className="content-container section-pad">
+          <div className="grid lg:grid-cols-12 gap-6">
+            {/* Left: link rows */}
+            <Reveal variant="left" className="lg:col-span-7 surface-feature p-7 sm:p-9">
+              <span className="eyebrow">Producten &amp; Service</span>
+              <h2 className="display-lg mt-2 text-text-base">
+                Vind precies wat je zoekt — voor élke EV.
+              </h2>
+              <p className="lede mt-3 max-w-[520px]">
+                Kies je startpunt. Wij brengen je naar de juiste laadkabel,
+                laadpaal of installatieoptie.
+              </p>
+
+              <ul className="mt-6 divide-y divide-border-soft border-t border-border-soft">
+                {productLinks.map((p, i) => (
+                  <li key={p.title}>
+                    <Link
+                      href={p.href}
+                      className="group flex items-center gap-4 py-4 px-1 -mx-1 rounded-md hover:bg-page-soft hover:px-3 transition-all duration-300"
+                    >
+                      <span className="flex-shrink-0 w-10 h-10 rounded-full bg-jade/10 text-jade flex items-center justify-center transition-all duration-300 group-hover:bg-jade group-hover:text-white group-hover:scale-110">
+                        <p.icon className="w-[18px] h-[18px]" strokeWidth={1.75} />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[14.5px] font-semibold text-text-base group-hover:text-jade transition-colors">
+                          {p.title}
+                        </p>
+                        <p className="text-[13px] text-text-muted mt-0.5">
+                          {p.desc}
+                        </p>
                       </div>
-                      <p className="text-white/90 text-base mb-4 leading-relaxed">{r.text}</p>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center text-white font-black">
-                          {r.name.charAt(0)}
-                        </div>
-                        <p className="text-green-200 font-bold text-sm">{r.name}</p>
-                      </div>
-                    </div>
+                      <ArrowRight className="w-4 h-4 text-[#8a9aa3] group-hover:text-jade group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
+            {/* Right: image card */}
+            <Reveal variant="right" delay={120} className="lg:col-span-5 relative rounded-[16px] overflow-hidden border border-border-soft min-h-[360px] group">
+              <Image
+                src="/img/image.png"
+                alt="Installatieservice"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0f1d24]/85 via-[#0f1d24]/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <span className="eyebrow-dark">Premium service</span>
+                <p className="display-sm mt-1.5 text-white max-w-[260px]">
+                  Jouw laadpaal vakkundig geïnstalleerd.
+                </p>
+                <Link
+                  href="/installatie-service"
+                  className="btn-primary mt-4 shine-on-hover"
+                >
+                  Vraag installatie aan
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Waarom EV Service — page bg */}
+      <section className="bg-page">
+        <div className="content-container section-pad">
+          <Reveal variant="up" className="section-header text-center mx-auto items-center max-w-[640px]">
+            <span className="eyebrow">Waarom EV Service</span>
+            <h2 className="display-lg">
+              Specialisten in laadoplossingen.
+            </h2>
+            <p className="lede mt-1">
+              We selecteren elk product op kwaliteit en compatibiliteit. En als
+              er iets is, helpen echte mensen je verder.
+            </p>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {features.map((item, i) => (
+              <Reveal
+                key={item.title}
+                variant="up"
+                delay={i * 100}
+                className="surface-card-bar surface-card-hover p-6 pt-7 group"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex w-11 h-11 rounded-[12px] bg-jade/10 text-jade items-center justify-center transition-all duration-300 group-hover:bg-jade group-hover:text-white group-hover:scale-110 group-hover:rotate-[-6deg]">
+                    <item.icon className="w-5 h-5" strokeWidth={2} />
+                  </span>
+                  <span className="text-[10px] font-bold tracking-[0.18em] text-text-subtle">
+                    0{i + 1}
+                  </span>
+                </div>
+                <h3 className="text-[15.5px] font-semibold text-text-base leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-[13.5px] text-text-muted leading-relaxed mt-2">
+                  {item.desc}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Onze servicebelofte — soft band, image-right */}
+      <section className="bg-page-soft border-y border-border-soft">
+        <div className="content-container section-pad">
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
+            <Reveal variant="left" className="lg:col-span-6 order-2 lg:order-1">
+              <span className="eyebrow">Onze belofte</span>
+              <h2 className="display-lg mt-2 text-text-base">
+                Van advies tot installatie — alles uit één hand.
+              </h2>
+              <p className="lede mt-4 max-w-[520px]">
+                Onze technische specialisten denken met je mee, voor en na de
+                aankoop. Of het nu om een kabel of een complete laadpaal-
+                installatie gaat.
+              </p>
+
+              <ul className="mt-6 space-y-3">
+                {promiseBullets.map((t) => (
+                  <li key={t} className="flex items-start gap-3">
+                    <CircleCheck
+                      className="w-[18px] h-[18px] text-jade flex-shrink-0 mt-0.5"
+                      strokeWidth={2}
+                    />
+                    <span className="text-[14px] text-text-base leading-relaxed">
+                      {t}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href="/installatie-service" className="btn-primary shine-on-hover">
+                  Installatie aanvragen
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link href="/contact" className="btn-secondary">
+                  Vraag advies
+                </Link>
+              </div>
+            </Reveal>
+
+            <Reveal variant="right" delay={120} className="lg:col-span-6 order-1 lg:order-2 relative rounded-[16px] overflow-hidden border border-border-soft aspect-[4/3] group">
+              <Image
+                src="/img/zaptec-UHNdOFqNhNQ-unsplash.jpg"
+                alt="Service team"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog — tinted band */}
+      {posts && posts.length > 0 && (
+        <section className="bg-page-tinted">
+          <div className="content-container section-pad">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <span className="eyebrow">Kennisbank</span>
+                <h2 className="display-lg mt-2">Lees meer over laden.</h2>
+              </div>
+              <Link href="/blog" className="btn-link hidden sm:inline-flex">
+                Alle artikelen
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5">
+              {posts.map((p, i) => (
+                <Reveal
+                  key={p.id}
+                  variant="up"
+                  delay={i * 120}
+                  as="div"
+                >
+                <Link
+                  href={`/blog/${p.slug}`}
+                  className="group surface-card surface-card-hover overflow-hidden block"
+                >
+                  <div className="relative aspect-[16/10] bg-page-soft overflow-hidden">
+                    <Image
+                      src={
+                        p.feature_image ??
+                        "https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png"
+                      }
+                      alt={p.title ?? ""}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#8a9aa3]">
+                      Artikel
+                    </span>
+                    <h3 className="text-[15px] font-semibold text-text-base leading-snug group-hover:text-jade transition-colors line-clamp-2 mt-1.5">
+                      {p.title}
+                    </h3>
+                    {p.excerpt && (
+                      <p className="text-[13.5px] text-text-muted mt-2 line-clamp-2 leading-relaxed">
+                        {p.excerpt}
+                      </p>
+                    )}
+                    <span className="btn-link text-[12.5px] mt-4 group-hover:gap-2.5 transition-all">
+                      Lees artikel
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Reviews — soft band with dark mini-card anchor */}
+      <section className="bg-page-soft border-t border-border-soft">
+        <div className="content-container section-pad">
+          <div className="grid lg:grid-cols-12 gap-6 items-stretch">
+            {/* Score panel — dark accent card */}
+            <Reveal variant="left" className="lg:col-span-5">
+              <div className="h-full rounded-[20px] bg-[#0f1d24] text-white p-7 sm:p-9 flex flex-col">
+                <span className="eyebrow-dark">Reviews</span>
+                <h2 className="display-lg mt-2.5 text-white">
+                  Beoordeeld met een{" "}
+                  <span className="text-[#B0CB31]">9.0 / 10</span>
+                </h2>
+                <p className="lede mt-3 text-white/70 max-w-[360px]">
+                  Op basis van 595 onafhankelijke reviews op Kiyoh.
+                </p>
+                <div className="flex items-center gap-1 mt-5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-[18px] h-[18px] text-[#B0CB31] fill-[#B0CB31]"
+                    />
                   ))}
+                  <span className="ml-2.5 text-[13px] text-white/80">
+                    595 reviews
+                  </span>
+                </div>
+                <div className="mt-auto pt-7">
+                  <a
+                    href="https://www.kiyoh.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-link-dark text-[13px]"
+                  >
+                    Lees alle reviews op Kiyoh
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
+            </Reveal>
+
+            {/* Review cards */}
+            <div className="lg:col-span-7 grid sm:grid-cols-3 gap-4">
+              {reviews.map((r, i) => (
+                <Reveal
+                  key={r.name}
+                  variant="up"
+                  delay={i * 100 + 200}
+                  className="surface-card-accent p-5 pl-6 flex flex-col surface-card-hover"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-3.5 h-3.5 text-jade fill-jade"
+                        />
+                      ))}
+                    </div>
+                    <span className="pill-success">{r.score}</span>
+                  </div>
+                  <p className="text-[14px] text-text-base leading-relaxed flex-1">
+                    “{r.text}”
+                  </p>
+                  <p className="text-[11px] text-[#8a9aa3] mt-4 uppercase tracking-[0.12em] font-semibold">
+                    — {r.name}
+                  </p>
+                </Reveal>
+              ))}
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }

@@ -43,10 +43,10 @@ export function Pagination({
       disabled={p === page}
       className={`
         w-10 h-10 rounded-lg font-semibold transition-all duration-200
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-jade
         ${p === page
           ? 'bg-green-700 text-white cursor-default'
-          : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50 hover:text-green-700'
+          : 'bg-surface border-2 border-gray-200 text-text-base hover:border-jade hover:bg-jade/10 hover:text-jade'
         }
       `}
     >
@@ -56,7 +56,7 @@ export function Pagination({
 
   // Function to render ellipsis
   const renderEllipsis = (key: string) => (
-    <span key={key} className="px-2 py-2 text-gray-500">
+    <span key={key} className="px-2 py-2 text-text-muted">
       ...
     </span>
   )
@@ -110,7 +110,7 @@ export function Pagination({
     <div className="w-full mt-12" data-testid={dataTestid}>
       {/* Product Counter */}
       {totalProducts && (
-        <div className="text-center text-sm text-gray-600 mb-6">
+        <div className="text-center text-sm text-text-muted mb-6">
           Showing {startProduct}-{endProduct} of {totalProducts} products
         </div>
       )}
@@ -123,9 +123,9 @@ export function Pagination({
           disabled={page === 1}
           className={`
             h-10 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-jade
             ${page === 1
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
+              ? 'bg-gray-100 text-text-subtle cursor-not-allowed opacity-50'
               : 'bg-green-700 text-white hover:bg-green-800'
             }
           `}
@@ -148,9 +148,9 @@ export function Pagination({
           disabled={page === totalPages}
           className={`
             h-10 px-4 rounded-lg font-semibold transition-all duration-200 flex items-center gap-2
-            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-jade
             ${page === totalPages
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
+              ? 'bg-gray-100 text-text-subtle cursor-not-allowed opacity-50'
               : 'bg-green-700 text-white hover:bg-green-800'
             }
           `}
