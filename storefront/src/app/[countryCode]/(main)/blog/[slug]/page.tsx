@@ -14,7 +14,7 @@ export async function generateStaticParams() {
     return [] 
   }
 }
-
+export const dynamic = "force-dynamic";
 export default async function BlogDetail({ params }: { params: any }) {
   let post
 

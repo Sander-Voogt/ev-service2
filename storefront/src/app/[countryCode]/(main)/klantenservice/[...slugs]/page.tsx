@@ -17,7 +17,7 @@ export async function generateStaticParams(): Promise<{ slugs: string[] }[]> {
     slugs: [root.slug]
   }));
 }
-
+export const dynamic = "force-dynamic"; // force server-side rendering
 export default async function HelpdeskPage({ params }: HelpdeskPageParams) {
   const slugs = params.slugs;
   const currentSlug = slugs[slugs.length - 1];
