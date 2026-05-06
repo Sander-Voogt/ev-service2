@@ -68,18 +68,18 @@ export default async function Footer() {
             <span className="font-bold text-lg mb-4 block">Klantenservice</span>
             <ul className="space-y-2 text-sm">
               <li>
-                <LocalizedClientLink href="#about" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/nl/klantenservice/bedrijfsgegevens" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Over EV Service
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#faq" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/nl/klantenservice" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Veel gestelde vragen
                 </LocalizedClientLink>
               </li>
 
               <li>
-                <LocalizedClientLink href="#returns" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/nl/klantenservice/retourneren-en-annuleren" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Retourneren
                 </LocalizedClientLink>
               </li>
@@ -89,7 +89,7 @@ export default async function Footer() {
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="#contact" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/klantenservice/bedrijfsgegevens" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Contact
                 </LocalizedClientLink>
               </li>
@@ -122,12 +122,12 @@ export default async function Footer() {
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="/account/orders" className={navLink}>
+                <LocalizedClientLink href="/account/" className={navLink}>
                   Bestellingen
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="/account/addresses" className={navLink}>
+                <LocalizedClientLink href="/account/" className={navLink}>
                   Adressen
                 </LocalizedClientLink>
               </li>
