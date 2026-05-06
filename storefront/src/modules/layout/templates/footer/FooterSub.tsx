@@ -15,7 +15,7 @@ export default function FooterSub(){
     return(
         <>
         {/* Accordion Section: Customer Service */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-green-200/50">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("customer")}
@@ -35,23 +35,19 @@ export default function FooterSub(){
             {openAccordion === "customer" && (
               <ul className="space-y-2 text-sm pb-4">
                 <li>
-                  <LocalizedClientLink href="#about" className={navLink}>
+                  <LocalizedClientLink href="/nl/klantenservice/bedrijfsgegevens" className={navLink}>
                     About EV Service
                   </LocalizedClientLink>
                 </li>
                 <li>
-                  <LocalizedClientLink href="#faq" className={navLink}>
+                  <LocalizedClientLink href="/nl/klantenservice" className={navLink}>
                     Frequently Asked Questions
                   </LocalizedClientLink>
                 </li>
+                
                 <li>
-                  <LocalizedClientLink href="#buyback" className={navLink}>
-                    Buyback guarantee
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink href="#returns" className={navLink}>
-                    Returns
+                  <LocalizedClientLink href="/nl/klantenservice/retourneren-en-annuleren" className={navLink}>
+                    Retourneren
                   </LocalizedClientLink>
                 </li>
                 <li>
@@ -60,7 +56,7 @@ export default function FooterSub(){
                   </LocalizedClientLink>
                 </li>
                 <li>
-                  <LocalizedClientLink href="#contact" className={navLink}>
+                  <LocalizedClientLink href="/nl/klantenservice/bedrijfsgegevens" className={navLink}>
                     Contact
                   </LocalizedClientLink>
                 </li>
@@ -69,7 +65,7 @@ export default function FooterSub(){
           </div>
 
           {/* Accordion Section: Electric Driving */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-green-200/50">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("electric")}
@@ -104,7 +100,7 @@ export default function FooterSub(){
           </div>
 
           {/* Accordion Section: My Account */}
-          <div className="border-b border-green-100">
+          <div className="border-b border-green-200/50">
             <button
               className="w-full flex justify-between items-center py-4 font-bold text-lg focus:outline-none"
               onClick={() => handleAccordion("account")}

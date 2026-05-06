@@ -1,4 +1,4 @@
-import { faCircleMinus, faCirclePlus, faSquareCheck, faSquareMinus, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCircleMinus, faCirclePlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function hasNotValue(obj, key) {
@@ -12,28 +12,42 @@ export function ProCon({ data }) {
   }
 
   return (
-    <section className="bg-white dark:bg-gray-900">
-      <div className="py-2 px-4 mx-auto max-w-screen-xl lg:px-6">
-        <h2 className="mb-2 text-xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-          Plus en minpunten
-        </h2>
-        <div className="grid pt-2 text-left  md:gap-1 md:grid-cols-2">
-          <div>
-            <ul>
-              {data?.pros?.map(item => (
-                <li key={item}><FontAwesomeIcon style={{width: '20px', display: 'inline-block', marginRight: '8px'}} icon={faCirclePlus} color="#338414" />{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <ul>
-              {data?.cons?.map(item => (
-                <li key={item}><FontAwesomeIcon style={{width: '20px', display: 'inline-block', marginRight: '8px'}} icon={faCircleMinus} color="gray" />{item}</li>
-              ))}
-            </ul>
-          </div>
+    <div className="h-full">
+      <h2 className="mb-4 text-lg font-semibold tracking-tight text-gray-900 dark:text-white sm:text-xl">
+        Plus en minpunten
+      </h2>
+      <div className="grid gap-6 text-left md:grid-cols-2 md:gap-8">
+        <div>
+          <ul className="space-y-2.5 text-sm text-gray-700 dark:text-gray-300 sm:text-base">
+            {data?.pros?.map((item) => (
+              <li key={item} className="flex gap-2.5 leading-snug">
+                <FontAwesomeIcon
+                  className="mt-0.5 shrink-0"
+                  style={{ width: "18px" }}
+                  icon={faCirclePlus}
+                  color="#338414"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <ul className="space-y-2.5 text-sm text-gray-700 dark:text-gray-300 sm:text-base">
+            {data?.cons?.map((item) => (
+              <li key={item} className="flex gap-2.5 leading-snug">
+                <FontAwesomeIcon
+                  className="mt-0.5 shrink-0"
+                  style={{ width: "18px" }}
+                  icon={faCircleMinus}
+                  color="gray"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

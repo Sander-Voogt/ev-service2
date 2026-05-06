@@ -52,8 +52,8 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
   const iso2 = currentRegion?.countries?.[0]?.iso_2
   const displayName = currentRegion?.countries?.[0]?.display_name
   const regionFlag = (
-    <span className="flex items-center gap-2 px-2 py-1 rounded-lg text-green-900 text-xs font-medium">
-      <span className="w-5 h-5 flex items-center justify-center rounded overflow-hidden bg-white">
+    <span className="flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-medium text-green-900">
+      <span className="flex h-5 w-5 items-center justify-center overflow-hidden rounded bg-white/90 ring-1 ring-green-900/5">
         <img
           src={`https://flagcdn.com/24x18/${iso2}.png`}
           alt={`${displayName} flag`}
@@ -65,12 +65,12 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
 
   return (
     <>
-      <div className="w-full bg-gradient-to-r from-green-light via-white to-green-light text-xs lg:text-sm text-green-900 border-b border-green-100 shadow-sm">
-        <div className="max-w-screen-xl mx-auto flex justify-between items-center py-1.5 px-4 gap-2">
-          <div className="flex items-center gap-2 lg:gap-4 hidden sm:flex">
+      <div className="w-full border-b border-green-200/70 bg-gradient-to-b from-green-50 via-emerald-50/40 to-green-50 text-xs text-green-900 shadow-sm lg:text-sm">
+        <div className="mx-auto flex max-w-screen-xl items-center justify-between gap-2 px-4 py-1.5">
+          <div className="hidden items-center gap-2 sm:flex lg:gap-4">
             <a
               href="mailto:klantenservice@evservice.eu"
-              className="flex items-center gap-1 font-medium hover:text-green-default transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 whitespace-nowrap font-medium transition-colors hover:text-green-950"
             >
               <IconMail className="shrink-0" />
               <span className="hidden md:inline">klantenservice@evservice.eu</span>
@@ -83,7 +83,7 @@ const InfoBar = (  { currentRegion }: { currentRegion?: StoreRegion }) => {
             </LocalizedClientLink>
             <a
               href="/account"
-              className="flex items-center gap-1 font-semibold hover:text-green-default transition-colors whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 rounded px-1"
+              className="flex items-center gap-1 whitespace-nowrap rounded px-1 font-semibold transition-colors hover:text-green-950 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
             >
               <IconUser className="shrink-0" />
               <span className="hidden sm:inline">Login</span>

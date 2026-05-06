@@ -44,10 +44,10 @@ export default async function Footer() {
     });
 
   return (
-    <footer className="w-full bg-white text-green-900 border-t border-green-100">
-      <div className="max-w-screen-xl mx-auto px-4 py-12 md:py-16">
+    <footer className="w-full border-t border-green-200/70 bg-gradient-to-b from-green-50 via-emerald-50/40 to-green-50 text-green-900">
+      <div className="mx-auto max-w-screen-xl px-4 py-12 md:py-16">
         {/* Desktop grid */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-green-100">
+        <div className="hidden grid-cols-2 gap-10 border-b border-green-200/50 pb-12 md:grid lg:grid-cols-4">
           {/* Company Info / Logo */}
           <div className="flex flex-col items-start gap-4 pr-8">
             <div className="transform hover:scale-105 transition-transform duration-200">
@@ -141,7 +141,7 @@ export default async function Footer() {
         </div>
 
         {/* Mobile accordion */}
-        <div className="md:hidden pb-12 border-b border-green-100">
+        <div className="border-b border-green-200/50 pb-12 md:hidden">
           {/* Company Info / Logo (always visible) */}
           <div className="flex flex-col items-start gap-4 pr-8 mb-6">
             <Logo />
@@ -169,7 +169,7 @@ export default async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
+              className="flex h-9 w-9 transform items-center justify-center rounded-full bg-white/70 shadow-sm ring-1 ring-green-900/5 transition-all duration-200 hover:scale-110 hover:bg-white focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
               title="Follow us on Facebook"
             >
               <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
@@ -181,7 +181,7 @@ export default async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
+              className="flex h-9 w-9 transform items-center justify-center rounded-full bg-white/70 shadow-sm ring-1 ring-green-900/5 transition-all duration-200 hover:scale-110 hover:bg-white focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
               title="Follow us on LinkedIn"
             >
               <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
