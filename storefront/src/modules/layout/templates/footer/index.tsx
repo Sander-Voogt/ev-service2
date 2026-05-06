@@ -68,18 +68,18 @@ export default async function Footer() {
             <span className="font-bold text-lg mb-4 block">Klantenservice</span>
             <ul className="space-y-2 text-sm">
               <li>
-                <LocalizedClientLink href="/nl/klantenservice/bedrijfsgegevens" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/klantenservice/bedrijfsgegevens" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Over EV Service
                 </LocalizedClientLink>
               </li>
               <li>
-                <LocalizedClientLink href="/nl/klantenservice" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/klantenservice" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Veel gestelde vragen
                 </LocalizedClientLink>
               </li>
 
               <li>
-                <LocalizedClientLink href="/nl/klantenservice/retourneren-en-annuleren" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
+                <LocalizedClientLink href="/klantenservice/retourneren-en-annuleren" className={`${navLink} inline-block transition-all duration-200 hover:translate-x-1`}>
                   Retourneren
                 </LocalizedClientLink>
               </li>
