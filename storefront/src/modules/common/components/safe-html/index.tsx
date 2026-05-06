@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import DOMPurify from "isomorphic-dompurify"
 
 type SafeHtmlProps = {
@@ -8,20 +9,19 @@ type SafeHtmlProps = {
   as?: keyof JSX.IntrinsicElements
 }
 
-/**
- * Client component that renders HTML content safely by sanitizing it
- * with DOMPurify before rendering. This ensures all HTML from external
- * sources (Ghost CMS, Medusa API, TipTap) is sanitized against XSS.
- */
 export default function SafeHtml({
   html,
   className,
   as: Tag = "div",
 }: SafeHtmlProps) {
-  if (!html) return null
+  const [sanitizedHtml, setSanitizedHtml] = useState<string | null>(null)
 
-  // Sanitize HTML using DOMPurify to prevent XSS attacks
-  const sanitizedHtml = DOMPurify.sanitize(html)
+  useEffect(() => {
+    if (!html) return
+    setSanitizedHtml(DOMPurify.sanitize(html))
+  }, [html])
+
+  if (!sanitizedHtml) return null
 
   return (
     <Tag
